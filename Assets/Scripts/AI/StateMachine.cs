@@ -1,6 +1,7 @@
 using System;
 using System;using System.Collections.Generic;
 using AI;
+using UnityEngine;
 
 namespace AI
 {
@@ -18,7 +19,7 @@ namespace AI
         
             if (transition != null)
                 SetState(transition.To);
-        
+            Debug.Log("current state "+_currentState);
             _currentState?.Tick();
         }
         

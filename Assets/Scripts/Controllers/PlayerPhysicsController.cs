@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Enums;
 using Managers;
@@ -18,11 +19,39 @@ namespace Controllers
 
         #endregion
 
+        #region Private Variables
+
+        private int _frontyardLayer;
+        private int _baseLayer;
+
         #endregion
+
+        #endregion
+
+        private void Awake()
+        {
+            GetLayerReferences();
+        }
+
+        private void GetLayerReferences()
+        {
+            _frontyardLayer = LayerMask.NameToLayer("Frontyard");
+            _baseLayer = LayerMask.NameToLayer("Base");
+        }
 
         private void OnTriggerEnter(Collider other)
         {
-           
+            if (other.CompareTag("GateEnter"))
+            {
+                Debug.Log("_baseLayer");
+                gameObject.layer = _baseLayer;
+            }
+            if (other.CompareTag("GateExit"))
+            {
+                Debug.Log("_frontyardLayer");
+
+                gameObject.layer = _frontyardLayer;
+            }
         }
 
         public void SetPhysicsData()

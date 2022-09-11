@@ -11,8 +11,13 @@ namespace Controllers
         {
             if (other.CompareTag("Player"))
             {
-                gateManager.PlayAnimation();
+                gateManager.PlayGateAnimation(true);
             }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            gateManager.PlayGateAnimation(false);
         }
     }
 }

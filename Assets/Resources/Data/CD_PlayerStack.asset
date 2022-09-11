@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerStackData:
   - PlayerStackType: 0
-    AmmoCapacity: {x: 10, y: 12}
-    AmmoOffset: {x: 0, y: 0, z: 0}
-  - PlayerStackType: 0
-    AmmoCapacity: {x: 10, y: 0}
-    AmmoOffset: {x: 0, y: 0, z: 0}
-  - PlayerStackType: 0
-    AmmoCapacity: {x: 0, y: 0}
-    AmmoOffset: {x: 0, y: 0, z: 0}
+    Capacity: {x: 0, y: 0}
+    Offset: {x: 0, y: 0, z: 0}
+  - PlayerStackType: 1
+    Capacity: {x: 0, y: 0}
+    Offset: {x: 0, y: 0, z: 0}
+  - PlayerStackType: 2
+    Capacity: {x: 0, y: 0}
+    Offset: {x: 0, y: 0, z: 0}

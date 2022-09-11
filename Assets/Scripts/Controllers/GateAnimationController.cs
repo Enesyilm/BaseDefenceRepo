@@ -13,7 +13,7 @@ namespace Controllers
             }
             else
             {
-                transform.DOLocalRotate(new Vector3(0, 0, 0),2);
+                transform.DOLocalRotate(new Vector3(0, 0, 0),1);
             }
         }
     }

@@ -8,8 +8,8 @@ namespace Data.ValueObjects
     public class PlayerStackData
     {
         public PlayerStackType PlayerStackType;
-        public Vector2 AmmoCapacity;
-        public Vector3 AmmoOffset;
+        public Vector2 Capacity;
+        public Vector3 Offset;
         
     }
 }

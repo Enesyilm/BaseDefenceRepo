@@ -103,12 +103,10 @@ namespace Managers
         {
             if (inputParams.XValue!=0 || inputParams.ZValue!=0)
             {
-                Debug.Log("Running");
                 ChangePlayerAnimation(PlayerAnimationTypes.Walk);       
             }
             else
             {
-                Debug.Log("idle");
                 ChangePlayerAnimation(PlayerAnimationTypes.Idle);     
             }
             movementController.UpdateInputValue(inputParams);
