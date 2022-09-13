@@ -1,8 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using FrameworkGoat;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using Random = UnityEngine.Random;
 
 namespace Data.UnityObjects
 {
@@ -16,12 +19,12 @@ namespace Data.UnityObjects
        
         #endregion
         #region Public Variables
-
         [Header("EnemyPools")] [SerializeField]
-        private List<CD_PoolObjectBase> PoolObjects;
-        [Header("BulletPools")] [SerializeField]
-        private List<CD_PoolObjectBase> BulletPoolObject;
+        private List<CD_PoolObjectBase> PoolScriptableObjects;
 
+        [Header("Enemy Pools Lists")] [SerializeField]
+        private List<List<GameObject>> PoolObjectsLists=new List<List<GameObject>>();
+        
         #endregion
         #region Serialized Variables
 
@@ -39,20 +42,54 @@ namespace Data.UnityObjects
 
         private void InitializePools()
         {
-            
-            foreach (var enemyPoolObject in PoolObjects)
+            for (int index = 0; index < PoolScriptableObjects.Count; index++)
             {
-                enemyPoolObject.InitPool(this);
+                PoolObjectsLists.Add(new List<GameObject>());
+                PoolScriptableObjects[index].InitPool(index,this,PoolObjectsLists[index]);
             }
+           
         }
 
+        #region Deneme
 
-        #region Event Subscription
-
-        private void OnEnable()
-        {
-             
-        }
+        // public void StartSpawnEnemies(int Spawnpossibility,int initalAmount,int SpawnDelay,GameObject ObjectType,List<GameObject> GoList)
+        // {
+        //     StartCoroutine(SpawnEnemies(Spawnpossibility, initalAmount, SpawnDelay, ObjectType, GoList));
+        // }
+        //
+        // #region Event Subscription
+        //
+        // private void OnEnable()
+        // {
+        //      
+        // }
+        //
+        // #endregion
+        // public IEnumerator SpawnEnemies(int Spawnpossibility,int initalAmount,int SpawnDelay,GameObject ObjectType,List<GameObject> GoList)
+        // {
+        //     
+        //     WaitForSeconds wait = new WaitForSeconds(SpawnDelay);
+        //     int spawnedEnemies = 0;
+        //     while (spawnedEnemies < initalAmount)
+        //     {
+        //         DoSpawnEnemy(Spawnpossibility,initalAmount,SpawnDelay,ObjectType,GoList);
+        //         spawnedEnemies++;
+        //         yield return wait;
+        //     }
+        // }
+        //
+        // private void DoSpawnEnemy(int Spawnpossibility,int initalAmount,int SpawnDelay,GameObject ObjectType,List<GameObject> GoList)
+        // {
+        //     int randomPercentage = Random.Range(1, 101);
+        //     if (randomPercentage < Spawnpossibility)
+        //     {
+        //         var go = ObjectPoolManager.Instance.GetObject<GameObject>(ObjectType.name);
+        //         GoList.Add(go);
+        //         //ObjectPoolManager.Instance.GetObject<GameObject>(ObjectType.name);
+        //         //GetObject(ObjectType.name);
+        //         
+        //     }
+        // }
 
         #endregion
     }

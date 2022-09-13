@@ -11,6 +11,7 @@ namespace Data.UnityObjects
         #region Public Variables
             public GameObject ObjectType;
             public int initalAmount;
+            private int Id;
         #endregion
 
         #region Serialized Variables
@@ -25,14 +26,14 @@ namespace Data.UnityObjects
 
         #endregion
 
-        public virtual void InitPool(MonoBehaviour m)
+        public virtual void InitPool(int index,PoolHandler m,List<GameObject> PoolObjects)
         {
+            Id=index;
             ObjectPoolManager.Instance.AddObjectPool<GameObject>(FactoryMethod,TurnOnObject,TurnOffObject,ObjectType.name,initalAmount,isDynamic);
         }
 
         public virtual void TurnOnObject(GameObject obj)
         {
-            Debug.LogWarning("TurnOnObject");
             if (obj!=null)
             { 
                 obj.SetActive(true);
