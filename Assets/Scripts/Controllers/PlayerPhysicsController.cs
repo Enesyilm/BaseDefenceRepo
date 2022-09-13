@@ -43,13 +43,10 @@ namespace Controllers
         {
             if (other.CompareTag("GateEnter"))
             {
-                Debug.Log("_baseLayer");
                 gameObject.layer = _baseLayer;
             }
             if (other.CompareTag("GateExit"))
             {
-                Debug.Log("_frontyardLayer");
-
                 gameObject.layer = _frontyardLayer;
             }
         }

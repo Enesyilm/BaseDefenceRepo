@@ -796,7 +796,6 @@ MonoBehaviour:
     SpawnPosition: {fileID: 0}
   PlayerTarget: {fileID: 0}
   EnemyType: 0
-  _navMeshAgent: {fileID: 0}
   _currentTarget: {fileID: 0}
   _spawnPosition: {fileID: 0}
 --- !u!195 &4650253335404882807
@@ -811,7 +810,7 @@ NavMeshAgent:
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 42
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1

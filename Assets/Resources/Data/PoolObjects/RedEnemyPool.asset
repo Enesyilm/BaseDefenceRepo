@@ -9,7 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71263f43afbf468b9e053a36bda3d1ac, type: 3}
-  m_Name: CD_Weapon
+  m_Script: {fileID: 11500000, guid: c3270910b60e4c1f83e09883f62b2986, type: 3}
+  m_Name: RedEnemyPool
   m_EditorClassIdentifier: 
-  Weapons: []
+  ObjectType: {fileID: 4650253335404882804, guid: 0e6cae7d4afb9fe4086009e015f65ca7, type: 3}
+  initalAmount: 30
+  IsDynamic: 0
+  CreatedObjects: []
+  SpawnDelay: 1
+  Spawnpossibility: 100

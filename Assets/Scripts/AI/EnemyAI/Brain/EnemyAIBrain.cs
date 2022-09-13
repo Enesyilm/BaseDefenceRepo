@@ -56,7 +56,7 @@ namespace AIBrains.EnemyBrain
         [SerializeField]
         public Transform PlayerTarget;
         public EnemyType EnemyType;
-        public NavMeshAgent _navMeshAgent;
+        //public NavMeshAgent _navMeshAgent;
         public Transform _currentTarget;
         public Transform _spawnPosition;
         //[SerializeField] public Transform PlayerTarget;
@@ -65,6 +65,7 @@ namespace AIBrains.EnemyBrain
         {
             EnemyTypeData= GetEnemyData();
             SetEnemyData();
+            GetStatesReferences();
            
         }
 
@@ -81,7 +82,7 @@ namespace AIBrains.EnemyBrain
 
         private void Start()
         {
-             GetStatesReferences();
+             
         }
 
         private EnemyTypeData GetEnemyData()=>Resources.Load<CD_AI>("Data/CD_AI").EnemyAIData.EnemyList[(int)EnemyType];
@@ -90,7 +91,7 @@ namespace AIBrains.EnemyBrain
         {
             var navmeshAgent = GetComponent<NavMeshAgent>();
             // var animator = GetComponent<Animator>();
-            var search = new SearchState(this,_navMeshAgent,_spawnPosition);
+            var search = new SearchState(this,navmeshAgent,_spawnPosition);
             var attack = new AttackState(navmeshAgent, animator,this,attackRange);
             var move = new Move(this,navmeshAgent, animator,moveSpeed);
             var death = new DeathState(navmeshAgent, animator);

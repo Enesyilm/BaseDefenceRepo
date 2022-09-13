@@ -19,7 +19,6 @@ namespace AI
         
             if (transition != null)
                 SetState(transition.To);
-            Debug.Log("current state "+_currentState);
             _currentState?.Tick();
         }
         

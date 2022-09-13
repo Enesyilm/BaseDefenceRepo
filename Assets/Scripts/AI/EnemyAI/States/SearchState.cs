@@ -22,8 +22,8 @@ namespace AI.States
 
         public void OnEnter()
         {
+            _navMeshAgent.enabled = true;
             GetRandomPointOnBakedSurface();
-            _enemyAIBrain.enabled = true;
         }
 
         public void OnExit()
@@ -53,7 +53,7 @@ namespace AI.States
             }
          Vector3 point;
          if(!RandomPoint(_spawnPosition.position,20,out point))return;
-        //_navMeshAgent.Warp(point);
+        _navMeshAgent.Warp(point);
         }
         
 
