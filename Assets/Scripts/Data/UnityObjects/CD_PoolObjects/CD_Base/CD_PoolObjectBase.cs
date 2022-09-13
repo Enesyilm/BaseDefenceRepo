@@ -58,10 +58,5 @@ namespace Data.UnityObjects
             var go=Instantiate(ObjectType);
             return go;
         }
-
-        private void OnEnable()
-        {
-            CreatedObjects.Clear();
-        }
     }
 }
