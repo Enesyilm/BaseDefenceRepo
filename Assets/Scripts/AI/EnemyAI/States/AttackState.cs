@@ -43,7 +43,7 @@ namespace AI.States
             if (_enemyAIBrain.PlayerTarget)
             {
                 _navMeshAgent.destination = _enemyAIBrain.PlayerTarget.transform.position;
-                
+               
             }
             else
             {
@@ -54,6 +54,7 @@ namespace AI.States
 
         public void OnEnter()
         {
+            _animator.SetTrigger("Attack");
             _inAttack = true;
             _navMeshAgent.SetDestination(_enemyAIBrain.PlayerTarget.transform.position);
         }

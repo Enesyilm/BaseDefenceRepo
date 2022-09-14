@@ -35,7 +35,7 @@ namespace StateMachines
 
         #region Private Variables
 
-        
+        private BombData Data;
 
         #endregion
 
@@ -47,7 +47,7 @@ namespace StateMachines
 
         private void Awake()
         {
-            EnemyTypeData= GetEnemyData();
+           Data= GetEnemyData();
             
             GetStatesReferences();
            
@@ -57,15 +57,18 @@ namespace StateMachines
 
         private void GetStatesReferences()
         {
-            var readyState = ReadyState();
-            var mineCountDownState = MineCountDownState();
+            var _readyState = new ReadyState();
+            var _lureState = new LureState();
+            var _explosionState =new ExplosionState();
+            var _mineCountDownState =new MineCountDownState();
+            // var ExplosionState = ();
             _stateMachine = new StateMachine();
-           At(readyState,mineCountDownState,mineManager.IsPayedTotalAmount);
-            At(chase, move, HasTargetNull());
-            _stateMachine.AddAnyTransition(move, () => death.isDead);
-            At(moveToBomb, attack, () => moveToBomb.BombIsAlive);
+            At(_readyState,_lureState,()=>mineManager.IsPayedTotalAmount);
+            // At(_lureState,_explosionState,mineManager.IsPayedTotalAmount);
+            // At(_explosionState,_mineCountDownState,mineManager.IsPayedTotalAmount);
+            // At(_mineCountDownState,_readyState,mineManager.IsPayedTotalAmount);
             
-            _stateMachine.SetState(search);
+            _stateMachine.SetState(_readyState);
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
 
             

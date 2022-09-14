@@ -30,13 +30,14 @@ public class ChaseState:IState
         if (_enemyAIBrain.PlayerTarget!=null)
         {
             _navMeshAgent.destination = _enemyAIBrain.PlayerTarget.transform.position;
-            
+           
         }
         CheckAttackDistance();
     }
 
     public void OnEnter()
     {
+        _animator.SetTrigger("Walk");
         _attackOnPlayer = false;
         _navMeshAgent.speed = _chaseSpeed;
         if (_enemyAIBrain.PlayerTarget != null)

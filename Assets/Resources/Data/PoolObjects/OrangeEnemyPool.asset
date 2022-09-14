@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ed1e7a73d145ea9e93669da35a503c, type: 3}
   m_Name: OrangeEnemyPool
   m_EditorClassIdentifier: 
-  ObjectType: {fileID: 4650253335404882804, guid: 9c0da68c3586d6a4b92066d0b71f3308, type: 3}
+  ObjectType: {fileID: 2782242405751033010, guid: 71a1ff63525a4f743a9a82eb9b1b6cad, type: 3}
   initalAmount: 30
-  IsDynamic: 0
+  isDynamic: 0
   CreatedObjects: []
   SpawnDelay: 1
   Spawnpossibility: 100

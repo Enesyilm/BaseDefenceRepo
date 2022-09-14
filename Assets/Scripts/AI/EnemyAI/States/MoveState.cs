@@ -27,7 +27,8 @@ namespace AIBrains.EnemyBrain
         {
             _navMeshAgent.enabled = true;
             _navMeshAgent.speed = _moveSpeed;
-            _animator.SetBool("Walk", _navMeshAgent.velocity.magnitude > 0.01f);
+            _animator.SetTrigger("Walk");
+            //_animator.SetBool("Walk", _navMeshAgent.velocity.magnitude > 0.01f);
             _navMeshAgent.SetDestination(_enemyAIBrain.TurretTarget.position);
             //_animator.SetFloat(Speed, 1f);
         }

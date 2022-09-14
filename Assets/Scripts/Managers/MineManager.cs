@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Managers
@@ -26,7 +27,7 @@ namespace Managers
 
         #endregion
 
-        private void ShowGemAmountText()
+        public void ShowGemAmountText()
         {
             
         }

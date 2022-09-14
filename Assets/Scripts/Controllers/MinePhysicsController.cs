@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Managers;
 using UnityEngine;
 
@@ -12,13 +13,28 @@ namespace Controllers
             [SerializeField]
             private MineManager mineManager;
         #endregion
+
+        #region Private Variables
+
+        private int timer;
+        
+
         #endregion
-        private void OnTriggerEnter(Collider other)
+        #endregion
+        private void OnTriggerStay(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                //mineManager.
+               
+                    WaitForSeconds(4);
+                    mineManager.PayGemToMine();
+                    
+                
             }
+        }
+        public async void WaitForSeconds(int _time)
+        {
+            Task.Delay(_time*1000).Wait();
         }
     }
 }
