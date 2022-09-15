@@ -99,7 +99,6 @@ namespace FrameworkGoat
         
         public void ReturnObject<T>(T o, string poolName)
         {
-            Debug.Log("poolName"+poolName+"T : "+o);
             ((ObjectPool<T>)_pools[poolName]).ReturnObject(o);
         }
         

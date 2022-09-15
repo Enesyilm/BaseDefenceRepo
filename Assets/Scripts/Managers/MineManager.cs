@@ -1,40 +1,75 @@
 using System;
+using Controllers;
+using Data.ValueObjects.FrontyardData;
+using Interfaces;
 using UnityEngine;
 
 namespace Managers
 {
-    public class MineManager : MonoBehaviour
+    public class MineManager : MonoBehaviour, IDamageable
+
     {
-        #region Self Variables
 
-        #region Public Variables
-        public bool IsPayedTotalAmount=>_payedGemAmount>=_requiredGemAmount;
-        public int GemAmount;//Sinyalle Cekilecek Score Manager Uzerinden
+    #region Self Variables
 
-        #endregion
+    #region Public Variables
 
-        #region Serialized Variables
+    public bool IsPayedTotalAmount => (_payedGemAmount >= requiredGemAmount);
+    public int GemAmount; //Sinyalle Cekilecek Score Manager Uzerinden
+    public int LureTime = 5;
+    public int MineCountDownTime = 60;
+    [SerializeField] private int explosionDamage = 999;
 
-        #endregion
+    #endregion
 
-        #region Private Variables
+    #region Serialized Variables
 
-        private int _payedGemAmount;
-        private int _requiredGemAmount;
+    [SerializeField] private MinePhysicsController minePhysicsController;
+    [SerializeField] private int requiredGemAmount;
+
+    #endregion
+
+    #region Private Variables
+
+    private int _payedGemAmount = 0;
+    private BombData Data;
 
 
-        #endregion
 
-        #endregion
+    #endregion
 
-        public void ShowGemAmountText()
-        {
-            
-        }
-        public void PayGemToMine()
-        {
-            GemAmount--;
-            _payedGemAmount++;
-        }
+    #endregion
+    private void Awake()
+    {
+        //Data= GetEnemyData();
+    }
+        
+    //private BombData GetEnemyData()=>Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0].FrontyardData.Bomb[0];
+    public void ShowGemAmountText()
+    {
+
+    }
+
+    public void LureColliderState(bool _state)
+    {
+        minePhysicsController.LureColliderState(_state);
+    }
+
+    public void ExplosionColliderState(bool _state)
+    {
+        minePhysicsController.ExplosionColliderState(_state);
+    }
+
+    public void PayGemToMine()
+    {
+        GemAmount--;
+        _payedGemAmount++;
+
+    }
+
+    public int GetDamage()
+    {
+        return explosionDamage;
+    }
     }
 }

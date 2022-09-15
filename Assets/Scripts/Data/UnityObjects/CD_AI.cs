@@ -1,3 +1,4 @@
+using Data.ValueObjects;
 using Data.ValueObjects.AiData;
 using UnityEngine;
 

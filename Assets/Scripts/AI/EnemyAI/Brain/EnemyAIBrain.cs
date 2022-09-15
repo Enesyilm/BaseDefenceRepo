@@ -4,7 +4,9 @@ using AI;
 using AI.EnemyAI;
 using AI.States;
 using Data.UnityObjects;
+using Data.ValueObjects;
 using Data.ValueObjects.AiData;
+using Data.ValueObjects.AiData.EnemyData;
 using Enum;
 using Managers;
 using UnityEngine;
@@ -26,7 +28,8 @@ namespace AIBrains.EnemyBrain
 
         #region Serialized Variables
 
-        
+        [SerializeField]
+        private Animator animator;
 
         #endregion
 
@@ -38,9 +41,8 @@ namespace AIBrains.EnemyBrain
 
         #endregion
         private StateMachine _stateMachine;
-
-        [SerializeField]
-        private Animator animator;
+       
+        
         // Player target,mayin target,taret target
         public Transform TurretTarget;
         public float attackRange;
@@ -48,65 +50,65 @@ namespace AIBrains.EnemyBrain
         public int health;
         public float chaseSpeed;
         public float moveSpeed;
-        public float enemySpeed;
         public Transform MineTarget;
-        public EnemyDataHandler enemyDataHandler;
-        public Transform playerPosition;
+        public EnemyAIData EnemyAIData;
         public EnemyTypeData EnemyTypeData;
         [SerializeField]
         public Transform PlayerTarget;
         public EnemyType EnemyType;
-        //public NavMeshAgent _navMeshAgent;
-        public Transform _currentTarget;
+
+        public EnemyPhysicsController enemyPhysicsController;
         public Transform _spawnPosition;
-        //[SerializeField] public Transform PlayerTarget;
 
         private void Awake()
         {
-            EnemyTypeData= GetEnemyData();
+            //_levelID = LevelSignals.Instance.onGetLevel();//LevelIDsi turretler icin
+            EnemyAIData=GetEnemyAIData();
+            EnemyTypeData = GetEnemyType();
+            TurretTarget = GetCurrentTurret();
             SetEnemyData();
             GetStatesReferences();
-           
         }
 
+        private Transform GetCurrentTurret()
+        {
+            return EnemyAIData.TargetList[Random.Range(0, EnemyAIData.TargetList.Count)];
+        }
+
+        private EnemyTypeData GetEnemyType()
+        {
+            return EnemyAIData.EnemyList[(int)EnemyType];
+        }
         private void SetEnemyData()
         {
             damage=EnemyTypeData.Damage;
             health=EnemyTypeData.Health;
             attackRange=EnemyTypeData.AttackRange;
             chaseSpeed=EnemyTypeData.ChaseSpeed;
-            moveSpeed=EnemyTypeData.MoveSpeed;
-            playerPosition=FindObjectOfType<PlayerManager>().transform;
-            TurretTarget = EnemyTypeData.TargetList[Random.Range(0, EnemyTypeData.TargetList.Count)];
-            _spawnPosition = EnemyTypeData.SpawnPosition;        }
-
-        private void Start()
-        {
-             
+            moveSpeed=EnemyTypeData.Speed;
+            _spawnPosition = EnemyTypeData.SpawnPosition;
         }
 
-        private EnemyTypeData GetEnemyData()=>Resources.Load<CD_AI>("Data/CD_AI").EnemyAIData.EnemyList[(int)EnemyType];
+        private EnemyAIData GetEnemyAIData()=>Resources.Load<CD_AI>("Data/CD_AI").EnemyAIData;
 
         private void GetStatesReferences()
         {
             var navmeshAgent = GetComponent<NavMeshAgent>();
-            // var animator = GetComponent<Animator>();
             var search = new SearchState(this,navmeshAgent,_spawnPosition);
             var attack = new AttackState(navmeshAgent, animator,this,attackRange);
             var move = new Move(this,navmeshAgent, animator,moveSpeed);
-            var death = new DeathState(navmeshAgent, animator);
+            var death = new DeathState(this,navmeshAgent, animator);
             var chase = new ChaseState(navmeshAgent, animator,this,attackRange,chaseSpeed);
-            var moveToBomb = new MoveToBombState(navmeshAgent, animator);
+            var moveToBomb = new MoveToBombState(navmeshAgent, animator,this,attackRange,chaseSpeed);
 
             _stateMachine = new StateMachine();
-            At(search, move, HasTurretTarget()); // player chase range
-            At(move, chase, HasTarget()); // player chase range
-            At(chase, attack, AmIAttackPlayer()); // remaining distance < 1f
-            At(attack, chase, ()=>attack.InPlayerAttackRange()==false); // remaining distance > 1f
+            At(search, move, HasTurretTarget()); 
+            At(move, chase, HasTarget());
+            At(chase, attack, AmIAttackPlayer());
+            At(attack, chase, ()=>attack.InPlayerAttackRange()==false);
             At(chase, move, HasTargetNull());
-            _stateMachine.AddAnyTransition(death, () => death.isDead);
-            _stateMachine.AddAnyTransition(move, () => death.isDead);
-            At(moveToBomb, attack, () => moveToBomb.BombIsAlive);
+            _stateMachine.AddAnyTransition( death, () => enemyPhysicsController.AmIDead());
+            _stateMachine.AddAnyTransition(moveToBomb, () => enemyPhysicsController.IsBombInRange());
             
             _stateMachine.SetState(search);
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
@@ -115,15 +117,7 @@ namespace AIBrains.EnemyBrain
             Func<bool> HasTurretTarget() => () => TurretTarget != null;
             Func<bool> HasTargetNull() => () => PlayerTarget is null;
             Func<bool> AmIAttackPlayer() => () => PlayerTarget != null && chase.isPlayerInRange();
-            //Func<bool> AttackOffRange() => () => attack.InPlayerAttackRange()==false;
         }
-
-
         private void Update() => _stateMachine.Tick();
-
-        // private bool CheckDistanceWithPlayer(Vector3 enemyDistance)
-        // {
-        //     //Vector3.Distance(enemyDataHandler.PlayerPos.position,enemyDistance)<chaseRange;
-        // }
     }
 }

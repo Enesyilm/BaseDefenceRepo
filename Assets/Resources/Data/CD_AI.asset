@@ -24,38 +24,30 @@ MonoBehaviour:
   EnemyAIData:
     EnemyList:
     - Health: 100
-      EnemyColor: {r: 0, g: 0, b: 0, a: 0}
       Damage: 10
-      AttackRange: 2
+      AttackRange: 10
       AttackSpeed: 5
-      MoveSpeed: 5
-      ChaseSpeed: 4
-      TargetList:
-      - {fileID: 7345516627487928577, guid: f8d33263765be0c409bcbfd4f307495d, type: 3}
-      - {fileID: 7448601507341985173, guid: 1c6109465eb3b7741830d8e35f3b9544, type: 3}
-      - {fileID: 7279456142255817891, guid: 9271ec92e675d0d46b061a6dbdb25d82, type: 3}
+      Speed: 5
+      ChaseSpeed: 8
+      EnemyType: 0
       SpawnPosition: {fileID: 4762336438926297630, guid: 267708e3a495132468b5452f608514d9, type: 3}
     - Health: 100
-      EnemyColor: {r: 0, g: 0, b: 0, a: 0}
       Damage: 10
-      AttackRange: 2
+      AttackRange: 10
       AttackSpeed: 5
-      MoveSpeed: 5
-      ChaseSpeed: 4
-      TargetList:
-      - {fileID: 7448601507341985173, guid: 1c6109465eb3b7741830d8e35f3b9544, type: 3}
-      - {fileID: 7279456142255817891, guid: 9271ec92e675d0d46b061a6dbdb25d82, type: 3}
-      - {fileID: 7345516627487928577, guid: f8d33263765be0c409bcbfd4f307495d, type: 3}
+      Speed: 6
+      ChaseSpeed: 8
+      EnemyType: 1
       SpawnPosition: {fileID: 4762336438926297630, guid: 267708e3a495132468b5452f608514d9, type: 3}
     - Health: 100
-      EnemyColor: {r: 0, g: 0, b: 0, a: 0}
       Damage: 10
-      AttackRange: 2
+      AttackRange: 10
       AttackSpeed: 5
-      MoveSpeed: 5
-      ChaseSpeed: 4
-      TargetList:
-      - {fileID: 7345516627487928577, guid: f8d33263765be0c409bcbfd4f307495d, type: 3}
-      - {fileID: 7279456142255817891, guid: 9271ec92e675d0d46b061a6dbdb25d82, type: 3}
-      - {fileID: 7448601507341985173, guid: 1c6109465eb3b7741830d8e35f3b9544, type: 3}
+      Speed: 5
+      ChaseSpeed: 8
+      EnemyType: 2
       SpawnPosition: {fileID: 4762336438926297630, guid: 267708e3a495132468b5452f608514d9, type: 3}
+    TargetList:
+    - {fileID: 7345516627487928577, guid: f8d33263765be0c409bcbfd4f307495d, type: 3}
+    - {fileID: 7279456142255817891, guid: 9271ec92e675d0d46b061a6dbdb25d82, type: 3}
+    - {fileID: 7448601507341985173, guid: 1c6109465eb3b7741830d8e35f3b9544, type: 3}

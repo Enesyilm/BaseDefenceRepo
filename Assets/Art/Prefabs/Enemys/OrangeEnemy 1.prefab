@@ -72,6 +72,7 @@ MonoBehaviour:
   EnemyType: 0
   _currentTarget: {fileID: 0}
   _spawnPosition: {fileID: 0}
+  enemyPhysicsController: {fileID: 2782242406826683265}
 --- !u!195 &2782242405751033009
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -172,6 +173,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2782242405751033011}
     m_Modifications:
+    - target: {fileID: 4327921286616408488, guid: 516b65d8497550347949e017940c55e2, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ca53405df392d814594eb4260ff26c5e, type: 2}
     - target: {fileID: 7035784813677306216, guid: 516b65d8497550347949e017940c55e2, type: 3}
       propertyPath: m_Name
       value: Character_04

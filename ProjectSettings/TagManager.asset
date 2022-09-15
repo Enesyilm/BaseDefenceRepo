@@ -9,7 +9,9 @@ TagManager:
   - Gate
   - GateExit
   - GateEnter
-  - GateDeneme
+  - MineExplosion
+  - MineLure
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Base
   - Frontyard
   - EnemyAi
-  - 
+  - MineLure
   - 
   - 
   - 

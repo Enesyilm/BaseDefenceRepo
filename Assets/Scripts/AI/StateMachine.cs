@@ -16,7 +16,6 @@ namespace AI
         public void Tick()
         {
             var transition = GetTransition();
-        
             if (transition != null)
                 SetState(transition.To);
             _currentState?.Tick();
