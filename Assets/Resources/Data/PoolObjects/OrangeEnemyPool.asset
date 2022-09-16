@@ -16,5 +16,5 @@ MonoBehaviour:
   initalAmount: 30
   isDynamic: 0
   CreatedObjects: []
-  SpawnDelay: 1
+  SpawnDelay: 3
   Spawnpossibility: 100

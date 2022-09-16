@@ -14,7 +14,8 @@ namespace StateMachines.State
             _mineBrain = mineBrain;
         }
         public void Tick()
-        {
+        {            Debug.Log("lurestate");
+
             timer += Time.deltaTime;
         }
 

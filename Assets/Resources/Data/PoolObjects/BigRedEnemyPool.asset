@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectType: {fileID: 4650253335404882804, guid: 069293b66abd8c14fb131b900e1129d4, type: 3}
   initalAmount: 30
-  IsDynamic: 0
+  isDynamic: 0
   CreatedObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -29,5 +29,5 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  SpawnDelay: 1
+  SpawnDelay: 3
   Spawnpossibility: 100

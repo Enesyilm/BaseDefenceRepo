@@ -11,18 +11,14 @@ namespace StateMachines
     {
 
         #region Self Variables
-
         #region Public Variables
         public MineManager mineManager;
         #endregion
-
         #region Serialized Variables
         #endregion
-
         #region Private Variables
         private StateMachine _stateMachine;
         #endregion
-
         #endregion
         
         private void Awake()
@@ -43,7 +39,6 @@ namespace StateMachines
             At(_mineCountDownState,_readyState,()=>_mineCountDownState.IsTimerDone);
             _stateMachine.SetState(_readyState);
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
-
         }
         private void Update() => _stateMachine.Tick();
     }

@@ -12,6 +12,7 @@ TagManager:
   - MineExplosion
   - MineLure
   - Bullet
+  - Missile
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Base
   - Frontyard
   - EnemyAi
-  - MineLure
+  - LandMine
   - 
   - 
   - 

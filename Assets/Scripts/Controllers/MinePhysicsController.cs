@@ -41,6 +41,7 @@ namespace Controllers
             {
                 if (timer>payOffset)
                 {
+                    //Revize edecegim button modulunu yapinca
                     mineManager.PayGemToMine();
                     timer = 0;
                 }
@@ -58,7 +59,7 @@ namespace Controllers
             {
                 
                 //gameObject.tag = "MineLure";
-                lureCollider.radius = initalExplosionSphereSize;
+                lureCollider.radius = initalLureSphereSize;
                 lureCollider.enabled = true;
             }
             else
@@ -72,7 +73,7 @@ namespace Controllers
             if (_state)
             {
                //gameObject.tag = "MineExplosion";
-               lureCollider.radius = initalLureSphereSize;
+               lureCollider.radius = initalExplosionSphereSize;
                 explosionCollider.enabled = true;
             }
             else

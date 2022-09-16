@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Managers
 {
-    public class MineManager : MonoBehaviour, IDamageable
+    public class MineManager : MonoBehaviour, IDamager
 
     {
 
@@ -41,17 +41,25 @@ namespace Managers
     #endregion
     private void Awake()
     {
-        //Data= GetEnemyData();
+        //Data= GetMineData();
     }
         
-    //private BombData GetEnemyData()=>Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0].FrontyardData.Bomb[0];
+    //private BombData GetMineData()=>Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0].FrontyardData.Bomb[0];
     public void ShowGemAmountText()
     {
 
     }
 
+    public void ResetPayedAmount()
+    {
+        _payedGemAmount = 0;
+    }
+
     public void LureColliderState(bool _state)
     {
+        if (_state)
+            ResetPayedAmount();
+        
         minePhysicsController.LureColliderState(_state);
     }
 

@@ -42,7 +42,7 @@ namespace AI.States
         {
             if (_enemyAIBrain.PlayerTarget)
             {
-                _navMeshAgent.destination = _enemyAIBrain.PlayerTarget.transform.position;
+                _navMeshAgent.destination = _enemyAIBrain.PlayerTarget.position;
                
             }
             else

@@ -27,45 +27,34 @@ public class EnemyPhysicsController : MonoBehaviour
         if (other.CompareTag("MineLure"))
         {
             _detectedMine = other.transform;
-            _enemyAIBrain.MineTarget = _detectedMine;//ActiveInHierarchy de var mi bunu check etsin
+            _enemyAIBrain.MineTarget = _detectedMine;
         }
         if (other.CompareTag("Player"))
         {
             _detectedPlayer = other.GetComponentInParent<PlayerManager>().transform;
-            //sinyalle çakmayı dene
             _enemyAIBrain.PlayerTarget = other.transform.parent.transform;
         }
 
         if (other.CompareTag("Bullet"))
         {
-            int damageAmount = other.GetComponent<IDamageable>().GetDamage();
-            _enemyAIBrain.health =_enemyAIBrain.health-damageAmount;
-            if(_enemyAIBrain.health<=0){
+            int damageAmount = other.GetComponent<IDamager>().GetDamage();
+            _enemyAIBrain.Health -=damageAmount;
+            if(_enemyAIBrain.Health<=0){
                 _amIDead = true;
             }
         }
         if (other.CompareTag("MineExplosion"))
         {
-            int damageAmount = other.transform.parent.GetComponentInParent<IDamageable>().GetDamage();
-            _enemyAIBrain.health =_enemyAIBrain.health-damageAmount;
-            if(_enemyAIBrain.health<=0){
+            int damageAmount = other.transform.parent.GetComponentInParent<IDamager>().GetDamage();
+            _enemyAIBrain.Health -=damageAmount;
+            if(_enemyAIBrain.Health<=0){
                 _amIDead = true;
-                //AmIDead();
             }
-
         }
-
-       
-
-        /*if (other.GetComponent<Mine>())
-        {
-            _detectedMine = other.GetComponent<Mine>();
-        }*/
     }
 
     private void OnTriggerExit(Collider other)
     {
-       //On TriggerExite gerek yok bunun yerine state degistirirsem
         if (other.CompareTag("Player"))
         {
             _detectedPlayer = null;
@@ -75,14 +64,8 @@ public class EnemyPhysicsController : MonoBehaviour
         if (other.CompareTag("MineLure"))
         {
             _detectedMine = null;
-            _enemyAIBrain.MineTarget = _detectedMine;//ActiveInHierarchy de var mi bunu check etsin
+            _enemyAIBrain.MineTarget = _detectedMine;
             _enemyAIBrain.MineTarget = null;
         }
-        
-
-        /*if (other.GetComponent<Mine>())
-        {
-
-        }*/
     }
 }

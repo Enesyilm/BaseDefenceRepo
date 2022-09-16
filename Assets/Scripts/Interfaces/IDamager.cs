@@ -1,6 +1,6 @@
 namespace Interfaces
 {
-    public interface IDamageable
+    public interface IDamager
     {
         public int GetDamage();
     }

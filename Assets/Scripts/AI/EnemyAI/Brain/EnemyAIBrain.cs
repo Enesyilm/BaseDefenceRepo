@@ -21,8 +21,9 @@ namespace AIBrains.EnemyBrain
         #region Self Variables
 
         #region Public Variables
-
-        
+        public Transform TurretTarget;
+        public int Health;
+        public Transform MineTarget;
 
         #endregion
 
@@ -41,23 +42,20 @@ namespace AIBrains.EnemyBrain
 
         #endregion
         private StateMachine _stateMachine;
-       
         
-        // Player target,mayin target,taret target
-        public Transform TurretTarget;
-        public float attackRange;
-        public int damage;
-        public int health;
-        public float chaseSpeed;
-        public float moveSpeed;
-        public Transform MineTarget;
-        public EnemyAIData EnemyAIData;
-        public EnemyTypeData EnemyTypeData;
+        private float attackRange;
+        private int damage;
+        
+        private float chaseSpeed;
+        private float moveSpeed;
+        
+        private EnemyAIData EnemyAIData;
+        private EnemyTypeData EnemyTypeData;
         [SerializeField]
         public Transform PlayerTarget;
         public EnemyType EnemyType;
-
-        public EnemyPhysicsController enemyPhysicsController;
+        [SerializeField]
+        private EnemyPhysicsController enemyPhysicsController;
         public Transform _spawnPosition;
 
         private void Awake()
@@ -82,7 +80,7 @@ namespace AIBrains.EnemyBrain
         private void SetEnemyData()
         {
             damage=EnemyTypeData.Damage;
-            health=EnemyTypeData.Health;
+            Health=EnemyTypeData.Health;
             attackRange=EnemyTypeData.AttackRange;
             chaseSpeed=EnemyTypeData.ChaseSpeed;
             moveSpeed=EnemyTypeData.Speed;

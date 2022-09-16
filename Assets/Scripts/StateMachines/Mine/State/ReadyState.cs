@@ -1,4 +1,5 @@
 using AI;
+using UnityEngine;
 
 namespace StateMachines.State
 {
@@ -11,12 +12,13 @@ namespace StateMachines.State
 
         public void Tick()
         {
-            
+            Debug.Log("reasdystate");
+
         }
 
         public void OnEnter()
         {
-            
+
         }
 
         public void OnExit()

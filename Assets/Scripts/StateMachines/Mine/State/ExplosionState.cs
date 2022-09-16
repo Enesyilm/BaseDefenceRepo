@@ -11,27 +11,35 @@ namespace StateMachines.State
         private float _timer;
 
         private bool isExplosionHappened=false;
-        public bool IsExplosionHappened => isExplosionHappened;
+        public bool IsExplosionHappened => _timer>=0.3f;
         public ExplosionState(MineBrain mineBrain)
         {
             _mineBrain = mineBrain;
         }
         public void Tick()
-        {
+        {Debug.Log("explosionstate");
+            _timer += Time.deltaTime;
         }
 
         public void OnEnter()
         {
+            
+
             _mineBrain.mineManager.ExplosionColliderState(true);
-            isExplosionHappened=true;
+            //isExplosionHappened=true;
+            ResetTimer();
         }
 
         public void OnExit()
         {
-            Debug.Log("Onexit explosion");
             _mineBrain.mineManager.ExplosionColliderState(false);
             isExplosionHappened=false;
+            ResetTimer();
             
+        }
+        private void ResetTimer()
+        {
+            _timer = 0;
         }
     }
 }
