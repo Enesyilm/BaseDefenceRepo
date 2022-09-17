@@ -22,13 +22,13 @@ namespace StateMachines.State
         public void OnEnter()
         {
             ResetTimer();
-            _mineBrain.mineManager.ChangeColliderState(LandMineState.Lure);
+            _mineBrain.mineManager.OpenLureRange(true);
         }
 
         public void OnExit()
         {
             ResetTimer();
-            _mineBrain.mineManager.ChangeColliderState(LandMineState.Idle);
+            _mineBrain.mineManager.OpenLureRange(false);
         }
 
         private void ResetTimer()

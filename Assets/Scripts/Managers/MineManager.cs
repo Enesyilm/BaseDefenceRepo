@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using AIBrains.EnemyBrain;
 using Controllers;
 using Data.ValueObjects.FrontyardData;
 using Enum;
@@ -27,12 +29,14 @@ namespace Managers
 
     [SerializeField] private MinePhysicsController minePhysicsController;
     [SerializeField] private int requiredGemAmount;
+    [SerializeField]
+    private int explosionRange = 10;
 
     #endregion
 
     #region Private Variables
-
-    private int _payedGemAmount = 0;
+    public List<EnemyAIBrain>  _enemyAIBrains;
+    private int _payedGemAmount = 1000;
     private BombData Data;
 
 
@@ -56,10 +60,27 @@ namespace Managers
         _payedGemAmount = 0;
     }
 
-    public void ChangeColliderState(LandMineState landMineState)
+    public void OpenLureRange(bool _state)
     {
-        minePhysicsController.ChangeColliderState(landMineState);
+        minePhysicsController.gameObject.SetActive(_state);
     }
+    public void ClearExplosionList()
+    {
+        foreach (var enemyAIBrain in _enemyAIBrains)
+        {
+            enemyAIBrain.AmIDead = InExplosionRange(enemyAIBrain);
+            enemyAIBrain.MineTarget = null;
+        }
+        _enemyAIBrains.Clear();
+    }
+
+    private bool InExplosionRange(EnemyAIBrain enemyAIBrain)
+    {
+        return (Vector3.Distance(transform.position, enemyAIBrain.transform.position)<explosionRange)
+            ?true
+            :false;
+    }
+
     public void PayGemToMine()
     {
         GemAmount--;

@@ -531,7 +531,7 @@ GameObject:
   - component: {fileID: 1573250952756732400}
   m_Layer: 10
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -782,8 +782,6 @@ GameObject:
   - component: {fileID: 4650253335404882805}
   - component: {fileID: 4650253335404882792}
   - component: {fileID: 4650253335404882807}
-  - component: {fileID: 4650253335404882806}
-  - component: {fileID: 5962604364470743338}
   m_Layer: 10
   m_Name: RedEnemy
   m_TagString: Untagged
@@ -822,11 +820,11 @@ MonoBehaviour:
   TurretTarget: {fileID: 0}
   Health: 0
   MineTarget: {fileID: 0}
-  animator: {fileID: 4650253334852045376}
+  AmIDead: 0
   PlayerTarget: {fileID: 0}
   EnemyType: 0
-  enemyPhysicsController: {fileID: 4650253336478288967}
   _spawnPosition: {fileID: 0}
+  animator: {fileID: 4650253334852045376}
 --- !u!195 &4650253335404882807
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -849,34 +847,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4650253335404882806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4650253335404882804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3b648f4481f4168ad2ff6fbb2ba94ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turretPosition: []
-  PlayerPos: {fileID: 0}
---- !u!136 &5962604364470743338
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4650253335404882804}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 3.8778841
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.9736766, z: 0}
 --- !u!1 &4650253336478288964
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,7 +893,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 467c506da16e40b2aa60aabe8ee2cf97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  c: {fileID: 1573250952756732400}
 --- !u!135 &4650253336478288966
 SphereCollider:
   m_ObjectHideFlags: 0

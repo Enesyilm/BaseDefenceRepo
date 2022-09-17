@@ -24,16 +24,16 @@ namespace StateMachines.State
 
         public void OnEnter()
         {
-            
 
-            _mineBrain.mineManager.ChangeColliderState(LandMineState.Explosion);
+            _mineBrain.mineManager.ClearExplosionList();
+            
             //isExplosionHappened=true;
             ResetTimer();
         }
 
         public void OnExit()
         {
-            _mineBrain.mineManager.ChangeColliderState(LandMineState.Idle);
+           
             isExplosionHappened=false;
             ResetTimer();
             

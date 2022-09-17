@@ -8,21 +8,17 @@ using Managers;
 
 public class EnemyPhysicsController : MonoBehaviour
 {
-    private Transform _detectedPlayer;
     private Transform _detectedMine;
     private EnemyAIBrain _enemyAIBrain;
-    [SerializeField] private Collider c;
     private bool _amIDead=false;
-    public bool IsPlayerInRange() => _detectedPlayer != null;
+
     public bool AmIDead() => _amIDead;
-    public bool IsBombInRange() => _detectedMine != null;
+
     private void Awake()
     {
         _enemyAIBrain = this.gameObject.GetComponentInParent<EnemyAIBrain>();
     }
-
-   
-
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("MineLure"))
@@ -33,18 +29,9 @@ public class EnemyPhysicsController : MonoBehaviour
         }
         if (other.CompareTag("Player"))
         {
-            _detectedPlayer = other.GetComponentInParent<PlayerManager>().transform;
+            
             _enemyAIBrain.PlayerTarget = other.transform.parent.transform;
         }
-        if (other.CompareTag("MineExplosion"))
-                {
-                    int damageAmount = other.transform.parent.GetComponentInParent<IDamager>().GetDamage();
-                    _enemyAIBrain.Health -=damageAmount;
-                    if(_enemyAIBrain.Health<=0){
-                        _amIDead = true;
-                    }
-                }
-
         if (other.CompareTag("Bullet"))
         {
             int damageAmount = other.GetComponent<IDamager>().GetDamage();
@@ -63,16 +50,7 @@ public class EnemyPhysicsController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            _detectedPlayer = null;
             this.gameObject.GetComponentInParent<EnemyAIBrain>().PlayerTarget = null;
-        }
-
-        if (other.CompareTag("MineLure")||other.CompareTag("MineExplosion"))
-        {
-            Debug.Log("EnemyLurea cikti");
-            _detectedMine = null;
-            _enemyAIBrain.MineTarget = _detectedMine;
-            _enemyAIBrain.MineTarget = null;
         }
     }
 }

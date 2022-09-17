@@ -21,6 +21,7 @@ namespace AI.States
 
         public void OnEnter()
         {
+            Debug.Log("death");
         }
 
         public void OnExit()

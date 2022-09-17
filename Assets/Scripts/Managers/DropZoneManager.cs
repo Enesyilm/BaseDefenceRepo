@@ -31,7 +31,7 @@ namespace Managers
             if (timer > PayOffset)
             {
                 PayAmountToDropzone();
-                timer = 0;
+                timer= 0;
             }
             else
             {
