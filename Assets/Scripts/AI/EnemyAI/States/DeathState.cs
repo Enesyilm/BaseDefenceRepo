@@ -21,7 +21,6 @@ namespace AI.States
 
         public void OnEnter()
         {
-            Debug.LogWarning("IsEnemyDead "+IsEnemyDead);
         }
 
         public void OnExit()

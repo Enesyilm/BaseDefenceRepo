@@ -11,6 +11,7 @@ public class EnemyPhysicsController : MonoBehaviour
     private Transform _detectedPlayer;
     private Transform _detectedMine;
     private EnemyAIBrain _enemyAIBrain;
+    [SerializeField] private Collider c;
     private bool _amIDead=false;
     public bool IsPlayerInRange() => _detectedPlayer != null;
     public bool AmIDead() => _amIDead;
@@ -26,6 +27,7 @@ public class EnemyPhysicsController : MonoBehaviour
     {
         if (other.CompareTag("MineLure"))
         {
+            Debug.Log("EnemyLurea girdi");
             _detectedMine = other.transform;
             _enemyAIBrain.MineTarget = _detectedMine;
         }
@@ -34,6 +36,14 @@ public class EnemyPhysicsController : MonoBehaviour
             _detectedPlayer = other.GetComponentInParent<PlayerManager>().transform;
             _enemyAIBrain.PlayerTarget = other.transform.parent.transform;
         }
+        if (other.CompareTag("MineExplosion"))
+                {
+                    int damageAmount = other.transform.parent.GetComponentInParent<IDamager>().GetDamage();
+                    _enemyAIBrain.Health -=damageAmount;
+                    if(_enemyAIBrain.Health<=0){
+                        _amIDead = true;
+                    }
+                }
 
         if (other.CompareTag("Bullet"))
         {
@@ -43,16 +53,12 @@ public class EnemyPhysicsController : MonoBehaviour
                 _amIDead = true;
             }
         }
-        if (other.CompareTag("MineExplosion"))
-        {
-            int damageAmount = other.transform.parent.GetComponentInParent<IDamager>().GetDamage();
-            _enemyAIBrain.Health -=damageAmount;
-            if(_enemyAIBrain.Health<=0){
-                _amIDead = true;
-            }
-        }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        
+    }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -61,8 +67,9 @@ public class EnemyPhysicsController : MonoBehaviour
             this.gameObject.GetComponentInParent<EnemyAIBrain>().PlayerTarget = null;
         }
 
-        if (other.CompareTag("MineLure"))
+        if (other.CompareTag("MineLure")||other.CompareTag("MineExplosion"))
         {
+            Debug.Log("EnemyLurea cikti");
             _detectedMine = null;
             _enemyAIBrain.MineTarget = _detectedMine;
             _enemyAIBrain.MineTarget = null;

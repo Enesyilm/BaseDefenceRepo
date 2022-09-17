@@ -1,5 +1,6 @@
 using System.Threading;
 using AI;
+using Enum;
 using Managers;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace StateMachines.State
         private float _timer;
 
         private bool isExplosionHappened=false;
-        public bool IsExplosionHappened => _timer>=0.3f;
+        public bool IsExplosionHappened => _timer>=0.5f;
         public ExplosionState(MineBrain mineBrain)
         {
             _mineBrain = mineBrain;
@@ -25,14 +26,14 @@ namespace StateMachines.State
         {
             
 
-            _mineBrain.mineManager.ExplosionColliderState(true);
+            _mineBrain.mineManager.ChangeColliderState(LandMineState.Explosion);
             //isExplosionHappened=true;
             ResetTimer();
         }
 
         public void OnExit()
         {
-            _mineBrain.mineManager.ExplosionColliderState(false);
+            _mineBrain.mineManager.ChangeColliderState(LandMineState.Idle);
             isExplosionHappened=false;
             ResetTimer();
             

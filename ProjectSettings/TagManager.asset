@@ -22,10 +22,10 @@ TagManager:
   - UI
   - Base
   - Frontyard
-  - EnemyAi
+  - 
   - LandMine
-  - 
-  - 
+  - EnemyAi
+  - EnemyAiChase
   - 
   - 
   - 

@@ -1,6 +1,7 @@
 using System;
 using Controllers;
 using Data.ValueObjects.FrontyardData;
+using Enum;
 using Interfaces;
 using UnityEngine;
 
@@ -55,19 +56,10 @@ namespace Managers
         _payedGemAmount = 0;
     }
 
-    public void LureColliderState(bool _state)
+    public void ChangeColliderState(LandMineState landMineState)
     {
-        if (_state)
-            ResetPayedAmount();
-        
-        minePhysicsController.LureColliderState(_state);
+        minePhysicsController.ChangeColliderState(landMineState);
     }
-
-    public void ExplosionColliderState(bool _state)
-    {
-        minePhysicsController.ExplosionColliderState(_state);
-    }
-
     public void PayGemToMine()
     {
         GemAmount--;

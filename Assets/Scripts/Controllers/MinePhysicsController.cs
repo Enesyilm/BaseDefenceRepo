@@ -1,5 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using DG.Tweening;
+using Enum;
 using Managers;
 using UnityEngine;
 
@@ -15,13 +17,11 @@ namespace Controllers
             [SerializeField]
             private SphereCollider lureCollider;
             [SerializeField]
-            private Collider marketCollider;
-            [SerializeField]
             private SphereCollider explosionCollider;
         #endregion
 
         #region Private Variables
-        private int initalLureSphereSize = 30;
+        private int initalLureSphereSize = 40;
         private int initalExplosionSphereSize = 10;
 
         private float timer;
@@ -53,34 +53,35 @@ namespace Controllers
             }
         }
 
-        public void LureColliderState(bool _state)
+        public async void ChangeColliderState(LandMineState _state)
         {
-            if (_state)
+            switch (_state)
             {
+                case LandMineState.Explosion:
+                    // DOTween.To(x => lureCollider.radius = x
+                    //     , lureCollider.radius
+                    //     , initalExplosionSphereSize
+                    //     , 0.3f);
+                    lureCollider.radius = initalExplosionSphereSize;
+                    lureCollider.tag = "MineExplosion";
+                    //lureCollider.enabled = true;
+                    
+                    break;
+                case LandMineState.Idle: 
+                    await Task.Delay(1000);
+                    lureCollider.radius = .1f;
+                    lureCollider.enabled = false;
+                    break;
+                case LandMineState.Lure:
+                    // DOTween.To(x => lureCollider.radius = x
+                    //     , lureCollider.radius
+                    //     , initalLureSphereSize
+                    //     , 0.3f);
+                    lureCollider.radius = initalLureSphereSize;
+                    lureCollider.tag = "MineLure";
+                    lureCollider.enabled = true;
+                    break;
                 
-                //gameObject.tag = "MineLure";
-                lureCollider.radius = initalLureSphereSize;
-                lureCollider.enabled = true;
-            }
-            else
-            {
-                lureCollider.radius = .1f;
-                lureCollider.enabled = false;
-            }
-        }
-        public void ExplosionColliderState(bool _state)
-        {
-            if (_state)
-            {
-               //gameObject.tag = "MineExplosion";
-               lureCollider.radius = initalExplosionSphereSize;
-                explosionCollider.enabled = true;
-            }
-            else
-            {
-                lureCollider.radius = .1f;
-                explosionCollider.enabled = false;
-                //Satin alma veonun etkilesimi revize edilecek
             }
         }
     }

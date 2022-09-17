@@ -1,4 +1,5 @@
 using AI;
+using Enum;
 using Managers;
 using UnityEngine;
 
@@ -15,20 +16,19 @@ namespace StateMachines.State
         }
         public void Tick()
         {            Debug.Log("lurestate");
-
             timer += Time.deltaTime;
         }
 
         public void OnEnter()
         {
             ResetTimer();
-            _mineBrain.mineManager.LureColliderState(true);
+            _mineBrain.mineManager.ChangeColliderState(LandMineState.Lure);
         }
 
         public void OnExit()
         {
             ResetTimer();
-            _mineBrain.mineManager.LureColliderState(false);
+            _mineBrain.mineManager.ChangeColliderState(LandMineState.Idle);
         }
 
         private void ResetTimer()
