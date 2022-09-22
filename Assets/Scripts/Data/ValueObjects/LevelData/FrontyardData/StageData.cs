@@ -1,5 +1,8 @@
-namespace Data.ValueObjects.FrontyardData
+using System;
+
+namespace Data.ValueObjects
 {
+    [Serializable]
     public class StageData
     {
         private bool Unlocked;

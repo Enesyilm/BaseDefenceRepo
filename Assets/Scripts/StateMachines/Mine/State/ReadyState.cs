@@ -12,8 +12,6 @@ namespace StateMachines.State
 
         public void Tick()
         {
-            Debug.Log("reasdystate");
-
         }
 
         public void OnEnter()

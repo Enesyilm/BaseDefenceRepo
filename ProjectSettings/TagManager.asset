@@ -13,6 +13,7 @@ TagManager:
   - MineLure
   - Bullet
   - Missile
+  - Gem
   layers:
   - Default
   - TransparentFX

@@ -1,7 +1,7 @@
 using System;
 using AI;
 using Data.UnityObjects;
-using Data.ValueObjects.FrontyardData;
+using Data.ValueObjects;
 using Managers;
 using StateMachines.State;
 using UnityEngine;
@@ -35,8 +35,8 @@ namespace StateMachines
             _stateMachine = new StateMachine();
             At(_readyState,_lureState,()=>mineManager.IsPayedTotalAmount);
             At(_lureState,_explosionState,()=>_lureState.IsTimerDone);
-            At(_explosionState,_mineCountDownState,()=>_explosionState.IsExplosionHappened);
-            At(_mineCountDownState,_readyState,()=>_mineCountDownState.IsTimerDone);
+            At(_explosionState,_readyState,()=>_explosionState.IsExplosionHappened);
+            // At(_mineCountDownState,_readyState,()=>_mineCountDownState.IsTimerDone);
             _stateMachine.SetState(_readyState);
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
         }

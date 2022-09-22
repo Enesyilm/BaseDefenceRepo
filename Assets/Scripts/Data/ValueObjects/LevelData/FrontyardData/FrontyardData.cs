@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 
-namespace Data.ValueObjects.FrontyardData
+namespace Data.ValueObjects
 {
+    [Serializable]
     public class FrontyardData
     {
         public List<StageData> Stages;

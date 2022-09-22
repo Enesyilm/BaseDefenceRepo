@@ -15,13 +15,14 @@ namespace StateMachines.State
             _mineBrain = mineBrain;
         }
         public void Tick()
-        {            Debug.Log("lurestate");
+        {   
             timer += Time.deltaTime;
         }
 
         public void OnEnter()
         {
             ResetTimer();
+            _mineBrain.mineManager.IsPayedTotalAmount = false;
             _mineBrain.mineManager.OpenLureRange(true);
         }
 

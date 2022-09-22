@@ -25,25 +25,25 @@ MonoBehaviour:
     EnemyList:
     - Health: 100
       Damage: 10
-      AttackRange: 10
+      AttackRange: 2
       AttackSpeed: 5
-      Speed: 5
-      ChaseSpeed: 8
+      Speed: 3
+      ChaseSpeed: 6
       EnemyType: 0
       SpawnPosition: {fileID: 4762336438926297630, guid: 267708e3a495132468b5452f608514d9, type: 3}
     - Health: 100
       Damage: 10
-      AttackRange: 10
+      AttackRange: 2
       AttackSpeed: 5
-      Speed: 6
-      ChaseSpeed: 8
+      Speed: 2
+      ChaseSpeed: 5
       EnemyType: 1
       SpawnPosition: {fileID: 4762336438926297630, guid: 267708e3a495132468b5452f608514d9, type: 3}
     - Health: 100
       Damage: 10
-      AttackRange: 10
+      AttackRange: 2
       AttackSpeed: 5
-      Speed: 5
+      Speed: 4
       ChaseSpeed: 8
       EnemyType: 2
       SpawnPosition: {fileID: 4762336438926297630, guid: 267708e3a495132468b5452f608514d9, type: 3}

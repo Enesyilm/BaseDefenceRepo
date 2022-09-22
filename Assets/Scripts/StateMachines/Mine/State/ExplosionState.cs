@@ -18,7 +18,7 @@ namespace StateMachines.State
             _mineBrain = mineBrain;
         }
         public void Tick()
-        {Debug.Log("explosionstate");
+        {
             _timer += Time.deltaTime;
         }
 

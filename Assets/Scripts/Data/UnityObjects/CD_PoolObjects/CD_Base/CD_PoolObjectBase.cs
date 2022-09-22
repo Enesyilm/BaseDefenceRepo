@@ -3,7 +3,7 @@ using FrameworkGoat;
 using UnityEngine;
 
 namespace Data.UnityObjects
-{
+{ 
     public abstract class CD_PoolObjectBase :ScriptableObject
     {
         #region Self Variables

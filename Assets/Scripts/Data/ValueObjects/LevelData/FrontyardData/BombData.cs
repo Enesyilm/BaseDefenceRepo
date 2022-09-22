@@ -1,8 +1,13 @@
-namespace Data.ValueObjects.FrontyardData
+using System;
+using Buyablezone.PurchaseParams;
+
+namespace Data.ValueObjects
 {
+    [Serializable]
     public class BombData
     {
-        private int BombCost;
-        private int BombWaitTime;
+        public int BombCost;
+        public int BombWaitTime;
+        public BuyableZoneDataList BuyableZoneDataList;
     }
 }

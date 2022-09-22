@@ -1,3 +1,7 @@
+using System;
+using Buyablezone.Interfaces;
+using Controllers;
+using Interfaces;
 using UnityEngine;
 
 namespace Managers
@@ -7,64 +11,33 @@ namespace Managers
         #region Self Variables
 
         #region Public Variables
-
-        internal float timer = 0;
-        internal float PayOffset = 0.1f;
-
-
-
+        public string CurrentExpectedTag;
+        
         #endregion
 
         #region Serialized Variables
 
-        [SerializeField] private int requiredAmount = 100;
-        [SerializeField] private int payedAmount = 100;
+        [SerializeField]
+        private GameObject ObjectToStacked;
+        [SerializeField]
+        private Transform stackHolder;
 
 
         #endregion
+        #region Private Variables
 
 
         #endregion
-
-        public void CalculateTimer()
+        #endregion
+        private void Awake()
         {
-            if (timer > PayOffset)
-            {
-                PayAmountToDropzone();
-                timer= 0;
-            }
-            else
-            {
-                timer += Time.deltaTime;
-            }
+            CurrentExpectedTag=ObjectToStacked.tag;
         }
 
-        private void PayAmountToDropzone()
+        public void AddNewItemToStack(GameObject otherGameObject)
         {
-            if (CheckCanBuy())
-            {
-                UpdateRatio();
-                payedAmount++;
-
-            }
-            //ScoreManagerden kontrol ed gem /money degerini --
-
-        }
-
-        private bool CheckCanBuy()
-        {
-            if (payedAmount >= requiredAmount /*&& ScoreAmount>0*/)
-            {
-                return true;
-            }
-
-            return false;
-
-        }
-
-        private void UpdateRatio()
-        {
-            //payedAmount % requiredAmount;
+            otherGameObject.transform.parent = stackHolder;
+            
         }
     }
 }

@@ -31,24 +31,6 @@ namespace Controllers
             if (other.CompareTag("Enemy"))
             {
                 mineManager._enemyAIBrains.Add(other.GetComponentInParent<EnemyAIBrain>());
-                Debug.Log("eklendi");
-
-            }
-        }
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                if (timer > payOffset)
-                {
-                    //Revize edecegim button modulunu yapinca
-                    mineManager.PayGemToMine();
-                    timer = 0;
-                }
-                else
-                {
-                    timer += Time.deltaTime;
-                }
 
             }
         }

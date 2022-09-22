@@ -12,4 +12,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77058dada3b54facaa1a012cbebc8f8a, type: 3}
   m_Name: CD_Level
   m_EditorClassIdentifier: 
-  LevelDatas: []
+  LevelDatas:
+  - BaseData:
+      BaseRoomData:
+        Rooms: []
+      MineBaseData:
+        MaxWorkerAmount: 0
+        CurrentWorkerAmount: 5
+        DiamondCapacity: 0
+        CurrentDiamondAmount: 0
+        MineCartCapacity: 0
+        GemCollectionOffset: 5
+        MinePlaces:
+        - {fileID: 5311851384233797394, guid: 9981f17ceb02c04408d4abc44683afde, type: 3}
+        - {fileID: 7757326785597977577, guid: 72f1093456829c647970d3510ab9153f, type: 3}
+        - {fileID: 2650037911466129647, guid: 068e154acf39b9d4da431f089e4ccc70, type: 3}
+        - {fileID: 8713352428949853070, guid: e41cee7a5c519444db934f6abc724b29, type: 3}
+        - {fileID: 3505616903734440927, guid: d10859ddc617eb14c87530dee957e284, type: 3}
+        CartPlaces:
+        - {fileID: 3505616903734440927, guid: a8e3b4d57e013a2438591eea94c4192f, type: 3}
+      MilitaryBaseData:
+        MaxSoldierAmount: 0
+        CandidateAmount: 0
+        CurrentSoldierAmount: 0
+        SoldierUpgradeTime: 0
+        SoldierSlotCost: 0
+        SlotAmount: 0
+        SlotTransform: {fileID: 0}
+        AttackTime: 0
+      BuyablesData:
+        MoneyWorkerCost: 0
+        MoneyWorkerPayed: 0
+        AmmoWorkerCost: 0
+        AmmoWorkerPayedAmount: 0
+        BoughtMoneyWorkerAmount: 0
+        BoughtAmmoWorkerAmount: 0
+        UpgradeButtonLocked: 0
+        MoneyWorkerLevel: 0
+        AmmoWorkerLevel: 0
+    FrontyardData:
+      Stages: []
+      Bomb:
+      - BombCost: 0
+        BombWaitTime: 0
+        BuyableZoneDataList:
+          BuyableZoneList:
+          - PayedAmount: 0
+            RequiredAmount: 5
+          - PayedAmount: 0
+            RequiredAmount: 6
+          BuyableLevel: 0

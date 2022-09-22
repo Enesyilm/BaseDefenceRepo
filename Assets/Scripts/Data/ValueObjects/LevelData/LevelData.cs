@@ -6,6 +6,6 @@ namespace Data.ValueObjects.LevelData
     public class LevelData
     {
         public BaseData BaseData;
-        public FrontyardData.FrontyardData FrontyardData;
+        public FrontyardData FrontyardData;
     }
 }

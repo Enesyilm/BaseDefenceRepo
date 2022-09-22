@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OrangeEnemyPool
   m_EditorClassIdentifier: 
   ObjectType: {fileID: 2782242405751033010, guid: 71a1ff63525a4f743a9a82eb9b1b6cad, type: 3}
-  initalAmount: 30
+  initalAmount: 2
   isDynamic: 0
   CreatedObjects: []
   SpawnDelay: 3

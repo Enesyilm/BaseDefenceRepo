@@ -23,13 +23,12 @@ public class EnemyPhysicsController : MonoBehaviour
     {
         if (other.CompareTag("MineLure"))
         {
-            Debug.Log("EnemyLurea girdi");
             _detectedMine = other.transform;
             _enemyAIBrain.MineTarget = _detectedMine;
         }
         if (other.CompareTag("Player"))
         {
-            
+           
             _enemyAIBrain.PlayerTarget = other.transform.parent.transform;
         }
         if (other.CompareTag("Bullet"))
