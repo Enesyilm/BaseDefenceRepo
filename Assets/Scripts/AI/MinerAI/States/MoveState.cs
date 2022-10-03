@@ -1,5 +1,7 @@
 using AI.MinerAI;
 using Enum;
+using FrameworkGoat;
+using Managers;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,15 +13,15 @@ namespace AI.States
         private bool isReachedToTarget=false;
         private MinerAnimationStates _minerAnimationStates;
         private MinerItems _minerItems;
-        private Animator _animator;
+        private MinerManager _minerManager;
         private MinerAIBrain _minerAIBrain;
-        public MoveState(MinerAIBrain minerAIBrain, Animator animator, MinerAnimationStates minerAnimationStates,
+        public MoveState(MinerAIBrain minerAIBrain, MinerManager minerManager, MinerAnimationStates minerAnimationStates,
             MinerItems minerItems)
         {
             _minerAIBrain = minerAIBrain;
             _minerItems = minerItems;
-            _animator = animator;
             _minerAnimationStates = minerAnimationStates;
+            _minerManager = minerManager;
 
         }
 
@@ -57,12 +59,13 @@ namespace AI.States
         public void OnEnter()
         {
             _minerAIBrain.MinerAIItemController.OpenItem(_minerItems);
-            _animator.SetTrigger(_minerAnimationStates.ToString());
+            _minerManager.ChangeAnimation(_minerAnimationStates);
+           
         }
       
         public void OnExit()
         {
-            _minerAIBrain.MinerAIItemController.CloseItem(_minerItems);
+           
             isReachedToTarget = false;
         }
     }

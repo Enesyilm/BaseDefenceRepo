@@ -89,7 +89,15 @@ namespace Managers
     public bool MakePayment()
     {
         Debug.Log("Payment"+ GemAmount);
+        if (GemAmount > 0)
+        {
         GemAmount--;
+        return true;
+        }
+        else
+        {
+            return false;
+        }
         return (GemAmount < 0) ? false : true;
         //Payed Amount have to increase in here
     }

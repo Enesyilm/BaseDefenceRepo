@@ -5,6 +5,8 @@ namespace Enum
         CarryGem,
         Walk,
         MineGemSource,
-        CartGemSource
+        CartGemSource,
+        Idle,
+        Crouch,
     }
 }

@@ -1,4 +1,3 @@
-using Buyablezone.PurchaseParams;
 using Buyablezone.Scripts;
 using DG.Tweening;
 using TMPro;
@@ -76,7 +75,7 @@ namespace Buyablezone
             }
       public void BuyableScoreTextActive(bool isActive)
       {
-          gameObject.SetActive(isActive);
+          transform.parent.gameObject.SetActive(isActive);
       }
 
       public void StartPaymentFailedAnimation()

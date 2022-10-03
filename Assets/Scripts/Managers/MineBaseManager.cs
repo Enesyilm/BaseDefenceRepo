@@ -24,8 +24,8 @@ namespace Managers
 
         #region Serialized Variables
 
-        [SerializeField] private Transform instantiationPosition;
-        [SerializeField] private Transform GemHolderPosition;
+        private Transform _instantiationPosition;
+        private Transform _gemHolderPosition;
         
 
         #endregion
@@ -60,6 +60,7 @@ namespace Managers
             InstantiateAllMiners();
             AssignMinerValuesToDictionary();
         }
+       
 
         private void InstantiateAllMiners()
         {
@@ -76,7 +77,7 @@ namespace Managers
             for (int index = 0; index < _mineWorkers.Count; index++)
             {
                 _mineWorkers.ElementAt(index).Key.GemCollectionOffset=GemCollectionOffset;
-                _mineWorkers.ElementAt(index).Key.GemHolder= GemHolderPosition;
+                _mineWorkers.ElementAt(index).Key.GemHolder= _gemHolderPosition;
             }
             
         }
@@ -90,7 +91,9 @@ namespace Managers
                 _maxWorkerAmount=_mineBaseData.MaxWorkerAmount;
                 _mineBaseCapacity=_mineBaseData.DiamondCapacity;
                 _mineCartCapacity=_mineBaseData.MineCartCapacity;
-                
+                _gemHolderPosition = _mineBaseData.GemHolderPosition;
+                _instantiationPosition = _mineBaseData.InstantiationPosition;
+
 
         }
 
@@ -104,6 +107,7 @@ namespace Managers
         private void SubscribeEvents()
         {
             MineBaseSignals.Instance.onGetRandomMineTarget += GetRandomMineTarget;
+            MineBaseSignals.Instance.onGetGemHolderPos += OnGetGemHolderPos;
         }
        
 
@@ -115,6 +119,12 @@ namespace Managers
         private void UnSubscribeEvents()
         {
             MineBaseSignals.Instance.onGetRandomMineTarget -= GetRandomMineTarget;
+            MineBaseSignals.Instance.onGetGemHolderPos -= OnGetGemHolderPos;
+        }
+
+        private Transform OnGetGemHolderPos()
+        {
+            return _gemHolderPosition;
         }
 
         #endregion
@@ -126,7 +136,6 @@ namespace Managers
                 ? Tuple.Create(_mineBaseData.CartPlaces[randomMineTargetIndex % _mineBaseData.CartPlaces.Count],GemMineType.Cart)
                 :Tuple.Create(_mineBaseData.MinePlaces[randomMineTargetIndex],GemMineType.Mine);//Tuple ile enum donecek maden tipine gore animasyon degisecek stateler uzerinden
         }
-        
 
 
         public MineBaseData GetMineBaseData() => Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[_currentLevel].BaseData.MineBaseData;

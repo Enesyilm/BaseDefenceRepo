@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using Buyablezone;
@@ -5,11 +6,7 @@ using Buyablezone.ConditionHandlers;
 using Buyablezone.Interfaces;
 using Buyablezone.PurchaseParams;
 using Buyablezone.Scripts;
-using Commands;
-using Controllers;
-using Interfaces;
-using Signals;
-using TMPro;
+//using Signals;
 using UnityEngine;
 
 namespace Managers
@@ -39,6 +36,7 @@ namespace Managers
         private float InitialOffset;
 
         [Header("References")]
+        
         [SerializeField] private BuyableZoneMeshController buyableZoneMeshController;
         public IBuyable IBuyable { get; private set; }
 
@@ -62,10 +60,28 @@ namespace Managers
 
         private void Start()
         {
-            Purchase = new PurchaseParam(IBuyable.GetBuyableData(), PayOffset, InitialOffset, this);
-            DefineTransitions();
-            _buyableZoneData = Purchase.BuyableZoneList.BuyableZoneList[Purchase.CurrentBuyableLevel];
-            UpdateDropzoneText(_buyableZoneData.RequiredAmount - _buyableZoneData.PayedAmount);
+          try
+          {
+              Purchase = new PurchaseParam(IBuyable.GetBuyableData(), PayOffset, InitialOffset, this);
+             
+          }
+          catch (Exception e)
+          {
+              Debug.LogError("Interface not Implemented to Buyable Item");
+              throw;
+          }
+
+          try
+          {
+              DefineTransitions();
+              _buyableZoneData = Purchase.BuyableZoneList.BuyableZoneList[Purchase.CurrentBuyableLevel];
+              UpdateDropzoneText(_buyableZoneData.RequiredAmount - _buyableZoneData.PayedAmount);
+          }
+          catch
+          {
+              Debug.LogError("BuyableZoneDataList or BuyableZoneData not Created");
+              throw;
+          }
         }
 
         #region Event Subscription
@@ -77,7 +93,7 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            InputSignals.Instance.onInputTakenActive += OnInputActive;
+            //InputSignals.Instance.onInputTakenActive += OnInputActive;
         }
 
         private void OnDisable()
@@ -87,7 +103,7 @@ namespace Managers
 
         private void UnSubscribeEvents()
         {
-            InputSignals.Instance.onInputTakenActive-= OnInputActive;
+            //InputSignals.Instance.onInputTakenActive-= OnInputActive;
         }
 
         #endregion
@@ -101,8 +117,25 @@ namespace Managers
         } 
         private void OnInputActive(bool isActive)
         {
-            Purchase.isInputActive = (waitInputForInteraction) ? isActive : false;
+            /// Use This signal instead of InputController(); to Check input State
+            //Purchase.isInputActive = (waitInputForInteraction) ? isActive : false;
         }
+         private void Update()
+                {
+                    InputController();
+                }
+        
+         public void InputController()
+                {
+                    if (Input.touchCount > 0||Input.GetMouseButtonDown(0))
+                    {
+                        Purchase.isInputActive = true;
+                    }
+                    else if (Input.GetMouseButtonUp(0))
+                    {
+                        Purchase.isInputActive = false;
+                    }
+                }
 
         public void StartRadialProgress(float initialTimer,float initialTimeOffset)=>buyableZoneMeshController.RadialProgress(initialTimer,initialTimeOffset);
         public void StartButtonEvent()
@@ -203,6 +236,7 @@ namespace Managers
         {
             buyableZoneMeshController.StartPaymentFailedAnimation();
         }
+       
     }
 
  }

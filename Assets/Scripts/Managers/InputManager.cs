@@ -71,6 +71,7 @@ namespace Managers
         private void Update()
         {
             TwoSidedMovement();
+            CheckInputActive();
         }
 
         private void TwoSidedMovement()
@@ -81,7 +82,7 @@ namespace Managers
             if (verticalDeltaInput>Data.InputPrecision||horizonDeltaInput>Data.InputPrecision)
             {
                 _inputPosition = new Vector3(floatingJoystick.Horizontal,0,floatingJoystick.Vertical);
-                     InputSignals.Instance.onInputTakenActive?.Invoke(true);
+                     //InputSignals.Instance.onInputTakenActive?.Invoke(true);
                 InputSignals.Instance.onInputTaken?.Invoke(new XZInputParams(){
                     XValue = _inputPosition.x,
                     ZValue = _inputPosition.z
@@ -94,7 +95,18 @@ namespace Managers
             }
             else if(floatingJoystick.Vertical==0||floatingJoystick.Horizontal==0)
             {
-                InputSignals.Instance.onInputTakenActive?.Invoke(false);
+                //InputSignals.Instance.onInputTakenActive?.Invoke(false);
+            }
+        }
+        private void CheckInputActive()
+        {
+            if (_inputPosition.x!=0 || _inputPosition.z!=0)
+            {
+                InputSignals.Instance.onInputTakenActive?.Invoke(true);       
+            }
+            else
+            {
+                InputSignals.Instance.onInputTakenActive?.Invoke(false);     
             }
         }
         private void OnReset()

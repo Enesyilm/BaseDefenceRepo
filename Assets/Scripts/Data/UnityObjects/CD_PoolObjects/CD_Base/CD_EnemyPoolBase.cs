@@ -27,7 +27,7 @@ namespace Data.UnityObjects
 
         #endregion
         
-        public override void InitPool(int index,PoolHandler m,List<GameObject> PoolObjects)
+        public override void InitPool(int index,PoolManager m,List<GameObject> PoolObjects)
         {
             /* Ya monobehaviour constructor gonderir halledersin yada PoolHandler gonderip gereken fonksiyonu buradan cagirirsin
              Actionda gonderilebilir bunun uzerinden boylece sinyalleri buradaki fonksiyonlara baglamis oluruz*/

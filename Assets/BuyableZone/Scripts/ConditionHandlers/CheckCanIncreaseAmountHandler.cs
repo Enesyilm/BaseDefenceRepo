@@ -8,7 +8,7 @@ namespace Buyablezone.ConditionHandlers
     {
         public override void ProcessRequest(PurchaseParam purchase)
         {
-            if (purchase.BuyableZoneManager.IBuyable.MakePayment()) //Amount invoke sinyali ile biryerlerden gelecek
+            if (purchase.BuyableZoneManager.IBuyable.MakePayment())
             {
                 purchase.BuyableZoneData.PayedAmount++;
                 purchase.BuyableZoneManager.UpdateDropzoneText(purchase.BuyableZoneData.RequiredAmount - purchase.BuyableZoneData.PayedAmount);

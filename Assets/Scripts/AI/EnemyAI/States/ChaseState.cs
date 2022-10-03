@@ -13,6 +13,7 @@ public class ChaseState:IState
     private readonly float _attackRange;
     private readonly float _chaseSpeed;
     private bool _attackOnPlayer; 
+    private static readonly int Speed = Animator.StringToHash("Speed");
     public bool isPlayerInRange() => _attackOnPlayer;
     
     public ChaseState(NavMeshAgent navmeshAgent, Animator animator,EnemyAIBrain enemyAIBrain,float attackRange,float chaseSpeed)
@@ -32,12 +33,15 @@ public class ChaseState:IState
             _navMeshAgent.destination = _enemyAIBrain.PlayerTarget.transform.position;
            
         }
+        _animator.SetFloat(Speed, _navMeshAgent.velocity.magnitude);
         CheckAttackDistance();
     }
 
     public void OnEnter()
     {
         _animator.SetTrigger("Chase");
+        _navMeshAgent.speed=6f;
+
         _attackOnPlayer = false;
         _navMeshAgent.speed = _chaseSpeed;
         if (_enemyAIBrain.PlayerTarget != null)

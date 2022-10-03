@@ -1,4 +1,5 @@
 using AI.MinerAI;
+using Managers;
 using UnityEngine;
 
 namespace AI.States
@@ -7,13 +8,11 @@ namespace AI.States
     {
         private readonly MinerAIBrain _minerAIBrain;
         public bool IsGemDropped=>isGemDropped;
-        private readonly Animator _animator;
         private bool isGemDropped;
 
-        public DropGemState(MinerAIBrain minerAIBrain, Animator animator)
+        public DropGemState(MinerAIBrain minerAIBrain)
         {
             _minerAIBrain = minerAIBrain;
-            _animator = animator;
         }
 
         public void Tick()

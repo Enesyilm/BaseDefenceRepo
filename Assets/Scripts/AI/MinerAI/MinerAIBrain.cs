@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AI.States;
 using Commands;
 using Controllers;
 using Enum;
+using Managers;
 using Signals;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,8 +21,16 @@ namespace AI.MinerAI
         public Transform CurrentTarget;
         public GemMineType CurrentTargetType;
         public Transform GemHolder;
+        public MinerManager MinerManager;
         public float GemCollectionOffset=5;
-        
+        public bool IsDropZoneFullStatus
+        {
+            get => isDropZoneFull;
+            set => isDropZoneFull = value;
+        }
+
+        private bool isDropZoneFull;
+
 
         
 
@@ -38,6 +48,7 @@ namespace AI.MinerAI
         private StateMachine _stateMachine;
         private FindRandomPointOnCircleCommand _findRandomPointOnCircleCommand;
         public MinerAIItemController MinerAIItemController;
+        //public List<var>
 
         #endregion
 
@@ -55,6 +66,7 @@ namespace AI.MinerAI
 
         public void SetTargetForMine()
         {
+            GemHolder = MineBaseSignals.Instance.onGetGemHolderPos?.Invoke();
             (CurrentTarget, CurrentTargetType)= MineBaseSignals.Instance.onGetRandomMineTarget?.Invoke();
             ManipulatedTarget= _findRandomPointOnCircleCommand.FindRandomPointOnCircle(CurrentTarget.position,3f);
         }
@@ -70,21 +82,28 @@ namespace AI.MinerAI
 
         private void GetStatesReferences()
         {
-            var moveToMine = new MoveState(this,animator,MinerAnimationStates.Walk,MinerItems.None);
-            var moveToGemHolder = new MoveState(this,animator,MinerAnimationStates.CarryGem,MinerItems.Gem);
-            var mineGemSourceState=new GemSourceState(this,animator,MinerAnimationStates.MineGemSource,MinerItems.Pickaxe);
-            var cartGemSourceState=new GemSourceState(this,animator,MinerAnimationStates.CartGemSource,MinerItems.None); 
-            var dropGemState=new DropGemState(this,animator); 
+            var minerReadyState = new MinerReadyState();
+            var moveToMine = new MoveState(this,MinerManager,MinerAnimationStates.Walk,MinerItems.None);
+            var moveToGemHolder = new MoveState(this,MinerManager,MinerAnimationStates.CarryGem,MinerItems.Gem);
+            var mineGemSourceState=new GemSourceState(this,MinerManager,MinerAnimationStates.MineGemSource,MinerItems.Pickaxe);
+            var cartGemSourceState=new GemSourceState(this,MinerManager,MinerAnimationStates.CartGemSource,MinerItems.None); 
+            var idleState=new MinerIdleState(this,MinerManager); 
+            var dropGemState=new DropGemState(this); 
             _stateMachine = new StateMachine();
+            At(minerReadyState,moveToMine,IsGameStarted());
             At(moveToMine,mineGemSourceState,()=>moveToMine.IsReachedToTarget&&CurrentTargetType==GemMineType.Mine);//su iki state tek move stat oldugu icin tekrar tekrar calisiyor
             At(moveToMine,cartGemSourceState,()=>moveToMine.IsReachedToTarget&&CurrentTargetType==GemMineType.Cart);//su iki state tek move stat oldugu icin tekrar tekrar calisiyor
             At(mineGemSourceState,moveToGemHolder,()=>mineGemSourceState.IsMiningTimeUp);
             At(cartGemSourceState,moveToGemHolder,()=>cartGemSourceState.IsMiningTimeUp);
             At(moveToGemHolder,dropGemState,()=>moveToGemHolder.IsReachedToTarget);
             At(dropGemState,moveToMine,()=>dropGemState.IsGemDropped);
-            
-            _stateMachine.SetState(moveToMine);
+            _stateMachine.AddAnyTransition(idleState,IsDropZoneFull());
+            At(idleState,moveToMine,IsDropZoneNotFull());
+            _stateMachine.SetState(minerReadyState);
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
+            Func<bool> IsDropZoneFull() => () => isDropZoneFull;
+            Func<bool> IsGameStarted() => () => true;
+            Func<bool> IsDropZoneNotFull() => () => isDropZoneFull==false;
         }
 
         private void Update() => _stateMachine.Tick();

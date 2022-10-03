@@ -23,22 +23,22 @@ namespace AIBrains.EnemyBrain
 
         public void Tick()
         {
+            _animator.SetFloat(Speed, _navMeshAgent.velocity.magnitude);
         }
 
         public void OnEnter()
         {
             _navMeshAgent.enabled = true;
             _navMeshAgent.speed = _moveSpeed;
-            _animator.SetTrigger("Walk");
+            _animator.SetTrigger("Chase");
             //_animator.SetBool("Walk", _navMeshAgent.velocity.magnitude > 0.01f);
             _navMeshAgent.SetDestination(_enemyAIBrain.TurretTarget.position);
-            //_animator.SetFloat(Speed, 1f);
+            _navMeshAgent.speed=3f;
         }
 
         public void OnExit()
         {
            // _navMeshAgent.enabled = false;
-            //_animator.SetFloat(Speed, 0f);
         }
     }
 }

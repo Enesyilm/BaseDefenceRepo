@@ -14,7 +14,8 @@ namespace Data.ValueObjects
         public int CurrentDiamondAmount;
         public int MineCartCapacity;
         public float GemCollectionOffset=5f;
-        
+        public Transform InstantiationPosition;
+        public Transform GemHolderPosition;
         public List<Transform> MinePlaces;
         public List<Transform> CartPlaces;
     }

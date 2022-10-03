@@ -1,4 +1,5 @@
 using Data.ValueObjects.PlayerData;
+using Datas.ValueObject;
 using UnityEngine;
 
 namespace Data.UnityObjects
@@ -7,5 +8,6 @@ namespace Data.UnityObjects
     public class CD_Player : ScriptableObject
     {
         public PlayerData PlayerData;
+        public PlayerMovementData PlayerMovementData;
     }
 }

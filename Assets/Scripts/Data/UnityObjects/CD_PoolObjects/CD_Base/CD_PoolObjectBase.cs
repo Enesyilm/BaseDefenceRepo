@@ -10,6 +10,7 @@ namespace Data.UnityObjects
 
         #region Public Variables
             public GameObject ObjectType;
+            public Transform PoolHolder;
             public int initalAmount;
             private int Id;
         #endregion
@@ -26,7 +27,7 @@ namespace Data.UnityObjects
 
         #endregion
 
-        public virtual void InitPool(int index,PoolHandler m,List<GameObject> PoolObjects)
+        public virtual void InitPool(int index,PoolManager m,List<GameObject> PoolObjects)
         {
             Id=index;
             ObjectPoolManager.Instance.AddObjectPool<GameObject>(FactoryMethod,TurnOnObject,TurnOffObject,ObjectType.name,initalAmount,isDynamic);

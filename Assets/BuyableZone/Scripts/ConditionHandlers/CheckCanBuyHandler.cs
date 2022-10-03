@@ -16,10 +16,6 @@ namespace Buyablezone.ConditionHandlers
                 purchase.BuyableZoneManager.StartPurchaseConfiguration(purchase);
 
             }
-            else
-            {
-            }
-
         }
 
        

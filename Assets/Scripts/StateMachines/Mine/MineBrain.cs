@@ -31,7 +31,6 @@ namespace StateMachines
             var _readyState = new ReadyState();
             var _lureState = new LureState(this);
             var _explosionState =new ExplosionState(this);
-            var _mineCountDownState =new MineCountDownState(this);
             _stateMachine = new StateMachine();
             At(_readyState,_lureState,()=>mineManager.IsPayedTotalAmount);
             At(_lureState,_explosionState,()=>_lureState.IsTimerDone);

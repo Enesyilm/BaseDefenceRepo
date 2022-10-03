@@ -7,13 +7,13 @@ namespace Data.ValueObjects.AiData
     {
         public int Health;
         public int Damage;
-        public int AttackRange;
+        public float AttackRange;
         public int AttackSpeed;
         public float Speed;
         public float ChaseSpeed;
         public EnemyType EnemyType;
 
-        public BaseEnemy(int health, int damage, int attackRange,
+        public BaseEnemy(int health, int damage, float attackRange,
             int attackSpeed, float speed, float chaseSpeed,EnemyType enemyType)
         {
             Health = health;

@@ -3,6 +3,7 @@ using Data.UnityObjects;
 using Data.UnityObjects;
 using Data.ValueObjects;
 using Data.ValueObjects.PlayerData;
+using Datas.ValueObject;
 using Enums;
 using Keys;
 using Signals;
@@ -16,7 +17,8 @@ namespace Managers
 
         #region Public Variables
 
-        [Header("Data")] public PlayerData Data;
+        [Header("Data")] public PlayerData Data; 
+        public PlayerMovementData MovementData;
 
         #endregion
 
@@ -30,20 +32,27 @@ namespace Managers
 
         #endregion
 
+        #region Private Variables
+
+        private TurretManager currentTurretManager;
+
+        #endregion
         #endregion
 
 
         private void Awake()
         {
             Data = GetPlayerData();
+            MovementData = GetPlayerMovementData();
             SendPlayerDataToControllers();
         }
 
         private PlayerData GetPlayerData() => Resources.Load<CD_Player>("Data/CD_Player").PlayerData;
+        private PlayerMovementData GetPlayerMovementData() => Resources.Load<CD_Player>("Data/CD_Player").PlayerMovementData;
 
         private void SendPlayerDataToControllers()
         {
-            movementController.SetMovementData(Data);
+            movementController.SetMovementData(MovementData);
             physicsController.SetPhysicsData();
             //poolForcer.SetForceData(Data.ForceData);
         }
@@ -101,6 +110,7 @@ namespace Managers
 
         private void OnGetInputValues(XZInputParams inputParams)
         {
+            CheckIfPlayerExitFromTurret();
             if (inputParams.XValue!=0 || inputParams.ZValue!=0)
             {
                 ChangePlayerAnimation(PlayerAnimationTypes.Walk);       
@@ -118,7 +128,7 @@ namespace Managers
         {
             animationController.PlayAnimation(_playerAnimationTypes);
         }
-
+        
         private void OnPlay()
         {
             movementController.IsReadyToPlay(true);
@@ -147,6 +157,27 @@ namespace Managers
         private void OnReset()
         {
             movementController.OnReset();
+        }
+
+        public void ClearHostageStack(Vector3 centerOfGatePo)
+        {
+            HostageSignals.Instance.onClearHostageStack.Invoke(centerOfGatePo);
+        }
+
+        public void IsEnterTurret(TurretManager turretObj)
+        {
+            currentTurretManager = turretObj;
+            movementController.EnterToTurret(turretObj.gameObject);
+            
+        }
+        public void CheckIfPlayerExitFromTurret() => movementController.CheckIfPlayerExitFromTurret();
+
+        public void ExitFromTurret()
+        {
+            if (currentTurretManager != null)
+            {
+                currentTurretManager.IsExitUser();
+            }
         }
     }
 }

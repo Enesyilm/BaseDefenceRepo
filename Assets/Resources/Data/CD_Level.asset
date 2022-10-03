@@ -17,12 +17,14 @@ MonoBehaviour:
       BaseRoomData:
         Rooms: []
       MineBaseData:
-        MaxWorkerAmount: 0
-        CurrentWorkerAmount: 5
+        MaxWorkerAmount: 6
+        CurrentWorkerAmount: 1
         DiamondCapacity: 0
         CurrentDiamondAmount: 0
         MineCartCapacity: 0
         GemCollectionOffset: 5
+        InstantiationPosition: {fileID: 7517074386760968417, guid: d0bfa4b2d0110534aa2354d718b48457, type: 3}
+        GemHolderPosition: {fileID: 6513966693028638736, guid: 51f1283c08a478a4c805f2b4ded5c10e, type: 3}
         MinePlaces:
         - {fileID: 5311851384233797394, guid: 9981f17ceb02c04408d4abc44683afde, type: 3}
         - {fileID: 7757326785597977577, guid: 72f1093456829c647970d3510ab9153f, type: 3}
@@ -51,6 +53,14 @@ MonoBehaviour:
         MoneyWorkerLevel: 0
         AmmoWorkerLevel: 0
     FrontyardData:
+      HostageData:
+        HostagePlaces:
+        - {fileID: 8036064516382597581, guid: 59993c3d1e6d57144ae20f482661dfdd, type: 3}
+        - {fileID: 5099056568496795110, guid: 87af0b9d2b8462542a23c662f6fc6beb, type: 3}
+        - {fileID: 1922298230491801969, guid: b0c077ff7054f5e49993bdc4cee9db88, type: 3}
+        - {fileID: 6073291910262922852, guid: de620dccf5e0b504eae2e7c76df064c6, type: 3}
+        - {fileID: 2787082323032974237, guid: 047fe9c66b66fd74b8b03f0bf91e0664, type: 3}
+        - {fileID: 8407312421617872190, guid: f7f6d9ccf43ad6a489e8d634d495c176, type: 3}
       Stages: []
       Bomb:
       - BombCost: 0
@@ -60,5 +70,5 @@ MonoBehaviour:
           - PayedAmount: 0
             RequiredAmount: 5
           - PayedAmount: 0
-            RequiredAmount: 6
+            RequiredAmount: 2
           BuyableLevel: 0

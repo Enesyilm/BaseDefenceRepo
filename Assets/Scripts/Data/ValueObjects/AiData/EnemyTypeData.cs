@@ -10,7 +10,7 @@ namespace Data.ValueObjects.AiData.EnemyData
     {
         
         public Transform SpawnPosition;
-        public EnemyTypeData(int health, int damage, int attackRange, int attackSpeed, float speed, float chaseSpeed, EnemyType enemyType) : base(health, damage, attackRange, attackSpeed, speed, chaseSpeed, enemyType)
+        public EnemyTypeData(int health, int damage, float attackRange, int attackSpeed, float speed, float chaseSpeed, EnemyType enemyType) : base(health, damage, attackRange, attackSpeed, speed, chaseSpeed, enemyType)
         {
         }
     }

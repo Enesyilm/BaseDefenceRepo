@@ -14,6 +14,9 @@ TagManager:
   - Bullet
   - Missile
   - Gem
+  - Collected
+  - MineEntrance
+  - Turret
   layers:
   - Default
   - TransparentFX
@@ -27,8 +30,8 @@ TagManager:
   - LandMine
   - EnemyAi
   - EnemyAiChase
-  - 
-  - 
+  - OnlyWithPlayer
+  - OnlyWithEnemy
   - 
   - 
   - 

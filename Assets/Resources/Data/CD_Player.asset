@@ -16,3 +16,8 @@ MonoBehaviour:
     PlayerHealth: 0
     PlayerSpeed: 7
     AttackRange: 0
+  PlayerMovementData:
+    Speed: 7
+    ExitClampLeftSide: -0.3
+    ExitClampRightSide: 0.3
+    ExitClampBackSide: -0.6

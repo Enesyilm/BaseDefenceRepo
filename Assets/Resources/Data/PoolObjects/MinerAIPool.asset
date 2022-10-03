@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MinerAIPool
   m_EditorClassIdentifier: 
   ObjectType: {fileID: 5825511027792451468, guid: 3bd9b5b145062f24098a8550fa33bfaf, type: 3}
+  PoolHolder: {fileID: 0}
   initalAmount: 20
   isDynamic: 0
   CreatedObjects: []
