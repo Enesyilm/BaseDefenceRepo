@@ -1,6 +1,6 @@
 using System;
 
-namespace Data.ValueObjects
+namespace Data
 {
     [Serializable]
     public class StageData

@@ -1,7 +1,9 @@
+using UnityEngine;
+
 namespace Abstracts
 {
-    public interface Interactable
+    public abstract class Interactable : MonoBehaviour
     {
-        
+
     }
 }

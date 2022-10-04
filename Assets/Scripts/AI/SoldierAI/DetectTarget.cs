@@ -1,8 +1,9 @@
-﻿using Abstract;
+﻿
+using AI;
 
 namespace AIBrains.SoldierBrain
 {
-    public class DetectTarget : IState
+    public class DetectTarget :IState
     {
         public void Tick()
         {

@@ -34,14 +34,17 @@ MonoBehaviour:
         CartPlaces:
         - {fileID: 3505616903734440927, guid: a8e3b4d57e013a2438591eea94c4192f, type: 3}
       MilitaryBaseData:
-        MaxSoldierAmount: 0
+        BaseCapacity: 0
+        TentCapacity: 5
         CandidateAmount: 0
         CurrentSoldierAmount: 0
         SoldierUpgradeTime: 0
         SoldierSlotCost: 0
         SlotAmount: 0
-        SlotTransform: {fileID: 0}
+        SlotTransform: {fileID: 4073118444940864349, guid: 7fd155d0926ce0949ab1fb3f536b322c, type: 3}
         AttackTime: 0
+        SlotPrefab: {fileID: 4069231896693816470, guid: 7fd155d0926ce0949ab1fb3f536b322c, type: 3}
+        frontYardSoldierPosition: {fileID: 5949198913854789709, guid: 60cf9196f8f6737439a80ca7c0be4ad8, type: 3}
       BuyablesData:
         MoneyWorkerCost: 0
         MoneyWorkerPayed: 0

@@ -7,5 +7,7 @@ namespace Enum
          OrangeEnemy,
          MinerAI,
          Gem,
+         PistolBullet,
+         SoldierAI
     }
 }

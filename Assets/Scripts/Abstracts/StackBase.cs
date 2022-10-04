@@ -1,7 +1,19 @@
-namespace Abstracts
+using UnityEngine;
+
+public abstract class StackBase : MonoBehaviour
 {
-    public class StackBase
+    public virtual void SetStackHolder(GameObject gameObject)
     {
-        
+            
+    }
+
+    public virtual void SetGrid()
+    {
+            
+    }
+
+    public virtual void SendGridDataToStacker()
+    {
+            
     }
 }

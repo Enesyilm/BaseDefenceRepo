@@ -32,8 +32,8 @@ TagManager:
   - EnemyAiChase
   - OnlyWithPlayer
   - OnlyWithEnemy
-  - 
-  - 
+  - SoldierBody
+  - SoldierDetection
   - 
   - 
   - 

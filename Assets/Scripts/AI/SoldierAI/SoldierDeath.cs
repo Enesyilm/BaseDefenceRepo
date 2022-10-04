@@ -1,4 +1,4 @@
-﻿using Abstract;
+﻿using AI;
 
 namespace AIBrains.SoldierBrain
 {

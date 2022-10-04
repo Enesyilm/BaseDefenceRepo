@@ -23,7 +23,6 @@ namespace Controllers
             if (other.CompareTag("Enemy"))
             {
 
-                Debug.Log("vurdu");
                 _turretManager.IsEnemyEnterTurretRange(other.gameObject);
 
             }

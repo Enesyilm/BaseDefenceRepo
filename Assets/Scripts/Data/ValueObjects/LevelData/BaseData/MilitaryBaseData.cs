@@ -6,7 +6,8 @@ namespace Data.ValueObjects
     [Serializable]
     public class MilitaryBaseData
     {
-        public int MaxSoldierAmount;
+        public int BaseCapacity;
+        public int TentCapacity;
         public int CandidateAmount;
         public int CurrentSoldierAmount;
         public int SoldierUpgradeTime;
@@ -14,5 +15,7 @@ namespace Data.ValueObjects
         public int SlotAmount;
         public Transform SlotTransform;
         public int AttackTime;
+        public GameObject SlotPrefab;
+        public Transform frontYardSoldierPosition;
     }
 }

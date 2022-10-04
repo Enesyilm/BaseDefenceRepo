@@ -1,7 +1,20 @@
-namespace Data.ValueObjects.StackData
+using System;
+using System.Collections.Generic;
+using Data.ValueObjects.GridData;
+using Enum;
+using Sirenix.OdinInspector;
+
+namespace Data
 {
-    public class StackData
-    {
+    [Serializable]
+            public class StackData
+            {
+                public StackingSystem StackingSystem;
         
-    }
+                [ShowIf("StackingSystem",StackingSystem.Static)]
+                public List<GridData> StaticGridDatas;
+        
+                [ShowIf("StackingSystem",StackingSystem.Dynamic)]
+                public List<GridData> DynamicGridDatas;
+            }
 }

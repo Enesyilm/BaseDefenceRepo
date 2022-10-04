@@ -6,7 +6,7 @@ using Interfaces;
 using UnityEngine;
 using Managers;
 
-public class EnemyPhysicsController : MonoBehaviour
+public class EnemyPhysicsController : MonoBehaviour,IDamagable
 {
     private Transform _detectedMine;
     private EnemyAIBrain _enemyAIBrain;
@@ -31,18 +31,6 @@ public class EnemyPhysicsController : MonoBehaviour
            
             _enemyAIBrain.PlayerTarget = other.transform.parent.transform;
         }
-        if (other.CompareTag("Bullet"))
-        {
-            int damageAmount = other.GetComponent<IDamager>().GetDamage();
-            _enemyAIBrain.Health -=damageAmount;
-            if(_enemyAIBrain.Health<=0){
-                _amIDead = true;
-            }
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
         
     }
     private void OnTriggerExit(Collider other)
@@ -51,5 +39,28 @@ public class EnemyPhysicsController : MonoBehaviour
         {
             this.gameObject.GetComponentInParent<EnemyAIBrain>().PlayerTarget = null;
         }
+    }
+
+    public bool IsTaken { get; set; }
+    public bool IsDead { get; set; }
+    public int TakeDamage(int damage)
+    {
+        
+        if (_enemyAIBrain.Health > 0)
+        {
+            _enemyAIBrain.Health =  _enemyAIBrain.Health - damage;
+            if (_enemyAIBrain.Health == 0)
+            {
+                IsDead = true;
+                return _enemyAIBrain.Health;
+            }
+            return _enemyAIBrain.Health;
+        }
+        return 0;
+    }
+
+    public Transform GetTransform()
+    {
+        return transform;
     }
 }

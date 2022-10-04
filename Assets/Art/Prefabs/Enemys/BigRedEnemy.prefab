@@ -814,7 +814,7 @@ GameObject:
   - component: {fileID: 4650253336478288967}
   - component: {fileID: 4650253336478288966}
   - component: {fileID: 1715720259754052089}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Physics
   m_TagString: Enemy
   m_Icon: {fileID: 0}
