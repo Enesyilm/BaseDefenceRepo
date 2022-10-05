@@ -45,6 +45,7 @@ namespace Managers
         private float columnOffset=0.1f;
         private bool _isStackFull;
         private List<GameObject> Itemlist=new List<GameObject>();
+        [SerializeField] private List<Vector3> positionList;
         public bool IsStackFull   // property
         {
             get { return _isStackFull; }   // get method
@@ -103,6 +104,11 @@ namespace Managers
             //Score arttirilacak
             Itemlist.Clear();
             
+        }
+
+        public void GetStackPositions(List<Vector3> gridPositionsData)
+        {
+            positionList=gridPositionsData;
         }
     }
 }

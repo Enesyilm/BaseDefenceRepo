@@ -40,7 +40,7 @@ namespace Managers
         private int _currentWorkerAmount;
         private int _mineCartCapacity;
         private int _maxWorkerAmount;
-        public float GemCollectionOffset;
+        private float GemCollectionOffset;
         private Dictionary<MinerAIBrain, GameObject> _mineWorkers=new Dictionary<MinerAIBrain, GameObject>();
         private MineBaseData _mineBaseData;
         
@@ -68,6 +68,7 @@ namespace Managers
             {
                 GameObject _currentObject=ObjectPoolManager.Instance.GetObject<GameObject>("MinerAI");
                 MinerAIBrain _currentMinerAIBrain=_currentObject.GetComponent<MinerAIBrain>();
+                _currentObject.transform.position = _instantiationPosition.position;
                 _mineWorkers.Add(_currentMinerAIBrain,_currentObject);
             }
         }
@@ -84,13 +85,9 @@ namespace Managers
 
         private void AssignDataValues()
         {
-               _gemCapacity =_mineBaseData.DiamondCapacity;
-                _currentGemAmount =_mineBaseData.CurrentDiamondAmount;
-                _currentWorkerAmount =_mineBaseData.CurrentWorkerAmount;
+            _currentWorkerAmount =_mineBaseData.CurrentWorkerAmount;
                 GemCollectionOffset=_mineBaseData.GemCollectionOffset;
                 _maxWorkerAmount=_mineBaseData.MaxWorkerAmount;
-                _mineBaseCapacity=_mineBaseData.DiamondCapacity;
-                _mineCartCapacity=_mineBaseData.MineCartCapacity;
                 _gemHolderPosition = _mineBaseData.GemHolderPosition;
                 _instantiationPosition = _mineBaseData.InstantiationPosition;
 

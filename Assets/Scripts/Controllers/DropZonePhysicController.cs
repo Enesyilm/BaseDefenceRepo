@@ -1,5 +1,8 @@
 using System;
+using Abstracts;
+using Interfaces;
 using Managers;
+using Signals;
 using UnityEngine;
 
 namespace Controllers
@@ -7,20 +10,22 @@ namespace Controllers
     public class DropZonePhysicController : MonoBehaviour
     {
         [SerializeField]
-        private DropZoneManager dropZoneManager;
-        [SerializeField]
-        private BoxCollider collider;
+        private GemStackerController gemStackerController;
+        [SerializeField] private Collider collider;
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag(dropZoneManager.CurrentExpectedTag))
+            if (other.TryGetComponent<IStackable>(out IStackable stackable))
             {
-                dropZoneManager.AddNewItemToStack(other.transform);
+            
+                if (gemStackerController.PositionList.Count <= gemStackerController.StackList.Count)
+                {
+                    return;
+                }
+                gemStackerController.GetStack(stackable.SendToStack(),stackable.SendToStack().transform);
             }
-
-            if (other.CompareTag("Player"))
+            else if (other.TryGetComponent<Interactable>(out Interactable interactable))
             {
-                //collider.enabled = false;
-                dropZoneManager.DrainDropZone(other.transform);
+                gemStackerController.OnRemoveAllStack(other.transform);
             }
         }
     }

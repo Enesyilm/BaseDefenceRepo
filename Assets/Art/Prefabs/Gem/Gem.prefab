@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1476181494398777899}
   - component: {fileID: 8546653950891388807}
+  - component: {fileID: 2803294809690885795}
   m_Layer: 0
   m_Name: Gem
   m_TagString: Gem
@@ -45,6 +46,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2803294809690885795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8302665550823062759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c057eeac9f04138b0c6d9c0cb735552, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1290003796614984353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -82,23 +95,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 181632249035223783, guid: 6fc88ddfb7858af47af6d62288171b8a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 181632249035223783, guid: 6fc88ddfb7858af47af6d62288171b8a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 181632249035223783, guid: 6fc88ddfb7858af47af6d62288171b8a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 181632249035223783, guid: 6fc88ddfb7858af47af6d62288171b8a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 181632249035223783, guid: 6fc88ddfb7858af47af6d62288171b8a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 181632249035223783, guid: 6fc88ddfb7858af47af6d62288171b8a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

@@ -122,5 +122,6 @@ namespace Controllers.MilitaryBase
         {
            militaryBaseManager.GetStackPositions(gridPositionsData);
         }
+        
     }
 }

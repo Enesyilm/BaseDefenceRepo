@@ -32,6 +32,9 @@ namespace Managers
     [SerializeField] private MinePhysicsController minePhysicsController;
     [SerializeField] private int explosionRange = 10;
 
+    [SerializeField]
+    private ParticleSystem ExplosionParticle;
+
     #endregion
 
     #region Private Variables
@@ -66,6 +69,7 @@ namespace Managers
 
     private bool InExplosionRange(EnemyAIBrain enemyAIBrain)
     {
+        //ParticleSystem.Emit(explosionDamage);
         return (Vector3.Distance(transform.position, enemyAIBrain.transform.position)<explosionRange)
             ?true
             :false;
