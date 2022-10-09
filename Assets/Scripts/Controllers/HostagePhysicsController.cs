@@ -8,15 +8,16 @@ namespace Controllers
     public class HostagePhysicsController : MonoBehaviour
     {
         [SerializeField]
-        private MinerManager minerManager;
+        private HostageManager hostageManager;
         private void OnTriggerEnter(Collider other)
         {
 
-            if (other.CompareTag("Player") && minerManager.CurrentType == HostageType.HostageWaiting)
+            if (other.CompareTag("Player") && hostageManager.CurrentType == HostageType.HostageWaiting)
             {
                 
-                minerManager.AddToHostageStack();
+                hostageManager.AddToHostageStack();
             }
+            
         }
     }
 }

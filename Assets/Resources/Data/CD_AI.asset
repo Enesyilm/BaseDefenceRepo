@@ -13,14 +13,24 @@ MonoBehaviour:
   m_Name: CD_AI
   m_EditorClassIdentifier: 
   AmmoWorkerAIData:
-    AmmoCapacity: 0
-    AmmoWorkerSpeed: 0
+    MovementSpeed: 0
+    AmmoWareHouse: {fileID: 0}
+    AmmoWorker: {fileID: 0}
+    Ammo: {fileID: 0}
+    MaxStackCount: 0
   MoneyWorkerAIData:
     MoneyCapacity: 0
     AmmoWorkerSpeed: 0
+  MineWorkerData:
+    MineWorkerSpeed: 1
   SoldierAIData:
+    SoldierPrefab: {fileID: 0}
     Damage: 0
-    SoldierWorkerSpeed: 0
+    SoldierSpeed: 0
+    AttackRadius: 0
+    AttackDelay: 0
+    Health: 0
+    SpawnPoint: {fileID: 0}
   EnemyAIData:
     EnemyList:
     - Health: 100

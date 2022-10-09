@@ -6,6 +6,7 @@ using Enum;
 using Enums;
 using Signals;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Managers
 {
@@ -23,7 +24,7 @@ namespace Managers
         }
 
 
-        public void AddHostageStack(MinerManager hostage)
+        public void AddHostageStack(HostageManager hostage)
         {
             hostageBaseManager.AddHostageToList(hostage);
         }
@@ -65,6 +66,7 @@ namespace Managers
             int index = 0;
             foreach (var hostage in hostageBaseManager.StackedHostageList)
             {
+                MineBaseSignals.Instance.onNewMineWorkerAdd.Invoke(hostage.minerAIBrain);
                 hostage.ChangeAnimation(MinerAnimationStates.Walk);
                 hostage.transform.DOMove(gate, 1f + 2 * index / 10f);
                 index++;
@@ -73,13 +75,28 @@ namespace Managers
         }
         public void ClearStack()
         {
-            foreach (var hostage in hostageBaseManager.StackedHostageList)
-            {
-                hostage.minerAIBrain.enabled=true;
-
-            }
+          
             hostageBaseManager.StackedHostageList.Clear();
         }
-        
+
+        public void SendToMilitaryGate(Transform waitingPosition)
+        {
+            int index = 0;
+            foreach (var hostage in hostageBaseManager.StackedHostageList)
+            {
+                hostage.ChangeAnimation(MinerAnimationStates.Walk);
+                Debug.Log("waiting pos");
+                hostage.transform.DOMove(waitingPosition.position, 1f + 2 * index / 10f);
+                index++;
+
+            }
+        }
+        // public Vector3 SelectRandomWaitingTarget(Transform)
+        // {
+        //     Transform waitingArea=MilitaryBaseSignals.Instance.onGetWaitingPosition?.Invoke();
+        //     Vector2 randomPosition = Random.insideUnitCircle * 5;
+        //     Vector3 ResultPosition=new Vector3(waitingArea.position.x+randomPosition.x,0,waitingArea.position.z+randomPosition.y);
+        //     Vector3.MoveTowards(transform.position,ResultPosition,0.1f);
+        // }
     }
 }

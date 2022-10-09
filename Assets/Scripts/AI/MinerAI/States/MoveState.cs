@@ -1,6 +1,5 @@
 using AI.MinerAI;
 using Enum;
-using FrameworkGoat;
 using Managers;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,15 +12,15 @@ namespace AI.States
         private bool isReachedToTarget=false;
         private MinerAnimationStates _minerAnimationStates;
         private MinerItems _minerItems;
-        private MinerManager _minerManager;
+        private HostageManager _hostageManager;
         private MinerAIBrain _minerAIBrain;
-        public MoveState(MinerAIBrain minerAIBrain, MinerManager minerManager, MinerAnimationStates minerAnimationStates,
+        public MoveState(MinerAIBrain minerAIBrain, HostageManager hostageManager, MinerAnimationStates minerAnimationStates,
             MinerItems minerItems)
         {
             _minerAIBrain = minerAIBrain;
             _minerItems = minerItems;
             _minerAnimationStates = minerAnimationStates;
-            _minerManager = minerManager;
+            _hostageManager = hostageManager;
 
         }
 
@@ -45,7 +44,7 @@ namespace AI.States
         private void MoveToTarget()
         {
             
-            _minerAIBrain.transform.position = Vector3.MoveTowards(_minerAIBrain.transform.position,_minerAIBrain.ManipulatedTarget,0.05f);
+            _minerAIBrain.transform.position = Vector3.MoveTowards(_minerAIBrain.transform.position,_minerAIBrain.ManipulatedTarget,_minerAIBrain.CurrentAISpeed/10);
         }
 
         private void RotateToTarget()
@@ -59,7 +58,7 @@ namespace AI.States
         public void OnEnter()
         {
             _minerAIBrain.MinerAIItemController.OpenItem(_minerItems);
-            _minerManager.ChangeAnimation(_minerAnimationStates);
+            _hostageManager.ChangeAnimation(_minerAnimationStates);
            
         }
       

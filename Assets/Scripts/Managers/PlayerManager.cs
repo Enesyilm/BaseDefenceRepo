@@ -159,9 +159,9 @@ namespace Managers
             movementController.OnReset();
         }
 
-        public void ClearHostageStack(Vector3 centerOfGatePo)
+        public void SendHostageToMineBase(Vector3 centerOfGatePo)
         {
-            HostageSignals.Instance.onClearHostageStack.Invoke(centerOfGatePo);
+            HostageSignals.Instance.onSendHostageToMineBase.Invoke(centerOfGatePo);
         }
 
         public void IsEnterTurret(TurretManager turretObj)
@@ -178,6 +178,11 @@ namespace Managers
             {
                 currentTurretManager.IsExitUser();
             }
+        }
+
+        public void SendHostageToMilitaryBase()
+        {
+            HostageSignals.Instance.onSendHostageStackToMilitaryBase?.Invoke();
         }
     }
 }

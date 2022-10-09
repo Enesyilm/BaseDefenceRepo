@@ -35,7 +35,7 @@ namespace Controllers
         [ShowIf("stackingSystem",StackingSystem.Dynamic)]
         [SerializeField] private GridData stackerGridData;
 
-        [SerializeField] private DropZoneManager dropZoneManager;
+        //[SerializeField] private DropZoneManager dropZoneManager;
 
         #endregion
 
@@ -127,7 +127,7 @@ namespace Controllers
         } 
         public override void SendGridDataToStacker()
         {
-            dropZoneManager.GetStackPositions(gridPositionsData);
+            //dropZoneManager.GetStackPositions(gridPositionsData);
         }
     }
 }

@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Enum;
-using FrameworkGoat;
+using Interfaces;
+using Managers;
 using UnityEngine;
 
 namespace Controllers
 {
-    public class MinerAIItemController : MonoBehaviour
+    public class MinerAIItemController : MonoBehaviour,IGetPoolObject
     {
         #region Self Variables
 
@@ -62,7 +63,7 @@ namespace Controllers
             }
             if (MinerItems.Gem == currentItem)
             {
-                gem=ObjectPoolManager.Instance.GetObject<GameObject>(PoolObjectType.Gem.ToString());
+                gem = GetObjectType(PoolObjectType.Gem);
                 gem.transform.parent=gemHolder;
                 //gem.Cop
                 gem.transform.localPosition=Vector3.zero;
@@ -78,6 +79,11 @@ namespace Controllers
             }
 
             
+        }
+
+        public GameObject GetObjectType(PoolObjectType poolType)
+        {
+            return  ObjectPoolManager.Instance.GetObject<GameObject>(poolType.ToString());
         }
     }
 }

@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb75923315cb4779986c01ae94892b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minerManager: {fileID: 2712731842046343132}
+  hostageManager: {fileID: 2712731842046343132}
 --- !u!1 &287982262378935597
 GameObject:
   m_ObjectHideFlags: 0
@@ -884,7 +884,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2712731842046343134}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.5, y: 0, z: -38.6}
+  m_LocalPosition: {x: -26.5, y: 0, z: -39.3}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 2712731841848574621}
@@ -906,12 +906,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ManipulatedTarget: {x: 0, y: 0, z: 0}
+  CurrentAISpeed: 3
   CurrentTarget: {fileID: 0}
   CurrentTargetType: 0
   GemHolder: {fileID: 0}
-  MinerManager: {fileID: 2712731842046343132}
+  hostageManager: {fileID: 2712731842046343132}
   GemCollectionOffset: 5
   animator: {fileID: 6407762615608720725}
+  mineWorkerData:
+    MineWorkerSpeed: 0
   MinerAIItemController: {fileID: 2554626790869472927}
 --- !u!114 &2712731842046343132
 MonoBehaviour:

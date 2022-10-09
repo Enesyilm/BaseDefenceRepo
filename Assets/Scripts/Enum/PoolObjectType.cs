@@ -7,7 +7,16 @@ namespace Enum
          OrangeEnemy,
          MinerAI,
          Gem,
+         SoldierAI,
+         Money,
+         Ammo,
+         TurretBullet,
          PistolBullet,
-         SoldierAI
+         RifleBullet,
+         PumpBullet,
+         MoneyWorkerAI,
+         AmmoWorkerAI,
+         Hostage,
+         Boss,
     }
 }

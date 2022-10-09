@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
-using Enum;
 
-namespace FrameworkGoat
+namespace Managers
 {
     public class ObjectPoolManager
     {
@@ -27,7 +26,7 @@ namespace FrameworkGoat
         }
 
        
-        public void AddObjectPool<T>(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback,int initialStock = 0, bool isDynamic = true)
+        public void AddObjectPool<T>(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, int initialStock = 0, bool isDynamic = true)
         {
             if(!_pools.ContainsKey(typeof(T)+"ByType"))
                 _pools.Add(typeof(T) + "ByType", new ObjectPool<T>(factoryMethod, turnOnCallback, turnOffCallback, initialStock, isDynamic));
@@ -99,11 +98,13 @@ namespace FrameworkGoat
         
         public void ReturnObject<T>(T o, string poolName)
         {
+            Debug.Log("poolName"+poolName+"T : "+o);
             ((ObjectPool<T>)_pools[poolName]).ReturnObject(o);
         }
         
         public void RemovePool<T>()
         {
+
             _pools[typeof(T) + "ByType"] = null;
         }
 

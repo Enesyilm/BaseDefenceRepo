@@ -8,12 +8,12 @@ namespace AI.States
     public class MinerIdleState:IState
 
     {
-        private MinerManager _minerManager;
+        private HostageManager _hostageManager;
         private MinerAIBrain _minerAIBrain;
-        public MinerIdleState(MinerAIBrain minerAIBrain, MinerManager minerManager)
+        public MinerIdleState(MinerAIBrain minerAIBrain, HostageManager hostageManager)
         {
             _minerAIBrain = minerAIBrain;
-            _minerManager = minerManager;
+            _hostageManager = hostageManager;
         }
 
         public void Tick()
@@ -24,7 +24,7 @@ namespace AI.States
         public void OnEnter()
         {
             _minerAIBrain.SetTargetForMine();
-            _minerManager.ChangeAnimation(MinerAnimationStates.Idle);
+            _hostageManager.ChangeAnimation(MinerAnimationStates.Idle);
         }
 
         public void OnExit()

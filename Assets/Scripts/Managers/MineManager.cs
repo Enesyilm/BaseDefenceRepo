@@ -59,6 +59,9 @@ namespace Managers
     }
     public void ClearExplosionList()
     {
+        ExplosionParticle.Play();
+        Debug.Log("patladı");
+
         foreach (var enemyAIBrain in _enemyAIBrains)
         {
             enemyAIBrain.AmIDead = InExplosionRange(enemyAIBrain);
@@ -69,8 +72,7 @@ namespace Managers
 
     private bool InExplosionRange(EnemyAIBrain enemyAIBrain)
     {
-        //ParticleSystem.Emit(explosionDamage);
-        return (Vector3.Distance(transform.position, enemyAIBrain.transform.position)<explosionRange)
+            return (Vector3.Distance(transform.position, enemyAIBrain.transform.position)<explosionRange)
             ?true
             :false;
     }

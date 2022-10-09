@@ -1634,7 +1634,7 @@ MonoBehaviour:
   CurrentTarget: {fileID: 0}
   CurrentTargetType: 0
   GemHolder: {fileID: 0}
-  MinerManager: {fileID: 5825511027792451470}
+  hostageManager: {fileID: 5825511027792451470}
   GemCollectionOffset: 5
   animator: {fileID: 3283443471028985095}
   MinerAIItemController: {fileID: 6200906789036766925}

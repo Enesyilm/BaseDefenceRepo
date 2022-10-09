@@ -44,10 +44,15 @@ namespace Controllers
             if (other.CompareTag("GateEnter"))
             {
                 gameObject.layer = _baseLayer;
-            }if (other.CompareTag("MineEntrance"))
+            }
+            if (other.CompareTag("MineEntrance"))
             {
                 
-                playerManager.ClearHostageStack(other.transform.position);
+                playerManager.SendHostageToMineBase(other.transform.position);
+            }
+            if (other.CompareTag("MilitaryEntrance"))
+            {
+                playerManager.SendHostageToMilitaryBase();
             }
             if (other.CompareTag("GateExit"))
             {

@@ -7,18 +7,18 @@ namespace AI.States
 {
     public class GemSourceState:IState
     {
-        private MinerManager _minerManager;
+        private HostageManager _hostageManager;
         public bool IsMiningTimeUp=>_timer>=_minerAIBrain.GemCollectionOffset;
         private MinerAIBrain _minerAIBrain;
         private MinerItems _minerItems;
         private MinerAnimationStates _minerAnimationState;
         private float _timer;
-        public GemSourceState(MinerAIBrain minerAIBrain, MinerManager minerManager,
+        public GemSourceState(MinerAIBrain minerAIBrain, HostageManager hostageManager,
             MinerAnimationStates minerAnimationState, MinerItems minerItems)
         {
             _minerAIBrain = minerAIBrain;
             _minerItems = minerItems;
-            _minerManager = minerManager;
+            _hostageManager = hostageManager;
             _minerAnimationState = minerAnimationState;
         }
 
@@ -30,7 +30,7 @@ namespace AI.States
         public void OnEnter()
         {
         _minerAIBrain.MinerAIItemController.OpenItem(_minerItems);
-        _minerManager.ChangeAnimation(_minerAnimationState);
+        _hostageManager.ChangeAnimation(_minerAnimationState);
         
         }
 

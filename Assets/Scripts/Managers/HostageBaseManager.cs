@@ -7,7 +7,6 @@ using Data.ValueObjects.LevelData;
 using DG.Tweening;
 using Enum;
 using Enums;
-using FrameworkGoat;
 using Signals;
 using UnityEngine;
 
@@ -15,9 +14,12 @@ namespace Managers
 {
     public class HostageBaseManager : MonoBehaviour
     {
-        public List<MinerManager> StackedHostageList=new List<MinerManager>();
+        public List<HostageManager> StackedHostageList=new List<HostageManager>();
         private MinerAnimationStates _currentAnimType=MinerAnimationStates.Idle;
         [SerializeField] private GameObject hostageInstance;
+
+        [SerializeField]
+        private Transform militaryWaitTarget;
         [SerializeField] private HostageStackController hostageStackController;
         private HostageData _data;
         private int _maxHostileCount;
@@ -44,7 +46,8 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            HostageSignals.Instance.onClearHostageStack += OnClearHostageStack;
+            HostageSignals.Instance.onSendHostageToMineBase += OnSendHostageToMineBase;
+            HostageSignals.Instance.onSendHostageStackToMilitaryBase += OnSendHostageStackToMilitaryBase;
             InputSignals.Instance.onInputTakenActive += OnInputTaken;
             HostageSignals.Instance.onAddHostageStack += OnAddHostageStack;
         }
@@ -55,9 +58,30 @@ namespace Managers
 
         private void UnSubscribeEvents()
         {
+            HostageSignals.Instance.onSendHostageStackToMilitaryBase -= OnSendHostageStackToMilitaryBase;
             InputSignals.Instance.onInputTakenActive -= OnInputTaken;
-            HostageSignals.Instance.onClearHostageStack -= OnClearHostageStack;
+            HostageSignals.Instance.onSendHostageToMineBase -= OnSendHostageToMineBase;
             HostageSignals.Instance.onAddHostageStack -= OnAddHostageStack;
+        }
+
+        private void OnSendHostageStackToMilitaryBase()
+        {
+            hostageStackController.SendToMilitaryGate(militaryWaitTarget);
+           ClearStack();
+        }
+
+        private void ClearStack()
+        {
+            
+            hostageStackController.ClearStack();
+        }
+        private void GetHostageManagerComponent()
+        {
+            foreach (var hostage in StackedHostageList)
+            {
+                hostage.minerAIBrain.enabled=true;
+
+            }
         }
 
         private void OnInputTaken(bool arg0)
@@ -72,7 +96,7 @@ namespace Managers
             }
         }
 
-        private void OnAddHostageStack(MinerManager mineManager)
+        private void OnAddHostageStack(HostageManager mineManager)
         {
             hostageStackController.AddHostageStack(mineManager);
         }
@@ -91,7 +115,8 @@ namespace Managers
             for (int index = 0; index <_remainingHostageAmount ; index++)
             {
                 //GameObject hostage=ObjectPoolManager.Instance.GetObject<GameObject>(PoolObjectType.MinerAI.ToString());
-                Instantiate(hostageInstance);
+                GameObject hostage=Instantiate(hostageInstance);
+                hostage.GetComponent<HostageManager>();
                 hostageInstance.transform.position = _hostagePositionList[index].position;
                
             }
@@ -101,10 +126,11 @@ namespace Managers
             _hostagePositionList=_data.HostagePlaces;
         }
 
-        private void OnClearHostageStack(Vector3 centerOfGatePos)
+        private void OnSendHostageToMineBase(Vector3 centerOfGatePos)
         {
             hostageStackController.SendToGate(centerOfGatePos);
-            hostageStackController.ClearStack();
+            GetHostageManagerComponent();
+            ClearStack();
         }
         
         public void ChangeHostageAnimation(MinerAnimationStates hostageAnimationType)
@@ -122,7 +148,7 @@ namespace Managers
           
         }
 
-        public void AddHostageToList(MinerManager hostage)
+        public void AddHostageToList(HostageManager hostage)
         {
             StackedHostageList.Add(hostage);
             _currentAnimType = MinerAnimationStates.Crouch;

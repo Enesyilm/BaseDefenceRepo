@@ -4,11 +4,15 @@ using System.Threading.Tasks;
 using AI.States;
 using Commands;
 using Controllers;
+using Data.UnityObjects;
+using Data.ValueObjects;
+using Data.ValueObjects.AiData;
 using Enum;
 using Managers;
 using Signals;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Assertions.Must;
 
 namespace AI.MinerAI
 {
@@ -18,10 +22,11 @@ namespace AI.MinerAI
         #region SelfVariables
         public Vector3 ManipulatedTarget;
         #region Public Variables
+        public float CurrentAISpeed=3;
         public Transform CurrentTarget;
         public GemMineType CurrentTargetType;
         public Transform GemHolder;
-        public MinerManager MinerManager;
+        public HostageManager hostageManager;
         public float GemCollectionOffset=5;
         public bool IsDropZoneFullStatus
         {
@@ -39,7 +44,9 @@ namespace AI.MinerAI
         #region Serialized Variables
 
         [SerializeField] private Animator animator;
-        
+
+        [SerializeField] MineWorkerData mineWorkerData;
+
 
         #endregion
 
@@ -48,6 +55,7 @@ namespace AI.MinerAI
         private StateMachine _stateMachine;
         private FindRandomPointOnCircleCommand _findRandomPointOnCircleCommand;
         public MinerAIItemController MinerAIItemController;
+
         //public List<var>
 
         #endregion
@@ -55,8 +63,15 @@ namespace AI.MinerAI
         #endregion
         private void Awake()
         {
+            mineWorkerData=GetMinerData();
+            InitDataValues();
             _findRandomPointOnCircleCommand=new FindRandomPointOnCircleCommand();
             GetStatesReferences();
+        }
+
+        private void InitDataValues()
+        {
+            CurrentAISpeed = mineWorkerData.MineWorkerSpeed;
         }
 
         private void Start()
@@ -64,6 +79,10 @@ namespace AI.MinerAI
             SetTargetForMine();
         }
 
+        public MineWorkerData GetMinerData()
+        {
+            return Resources.Load<CD_AI>("Data/CD_AI").MineWorkerData;
+        }
         public void SetTargetForMine()
         {
             GemHolder = MineBaseSignals.Instance.onGetGemHolderPos?.Invoke();
@@ -83,11 +102,11 @@ namespace AI.MinerAI
         private void GetStatesReferences()
         {
             var minerReadyState = new MinerReadyState();
-            var moveToMine = new MoveState(this,MinerManager,MinerAnimationStates.Walk,MinerItems.None);
-            var moveToGemHolder = new MoveState(this,MinerManager,MinerAnimationStates.CarryGem,MinerItems.Gem);
-            var mineGemSourceState=new GemSourceState(this,MinerManager,MinerAnimationStates.MineGemSource,MinerItems.Pickaxe);
-            var cartGemSourceState=new GemSourceState(this,MinerManager,MinerAnimationStates.CartGemSource,MinerItems.None); 
-            var idleState=new MinerIdleState(this,MinerManager); 
+            var moveToMine = new MoveState(this,hostageManager,MinerAnimationStates.Walk,MinerItems.None);
+            var moveToGemHolder = new MoveState(this,hostageManager,MinerAnimationStates.CarryGem,MinerItems.Gem);
+            var mineGemSourceState=new GemSourceState(this,hostageManager,MinerAnimationStates.MineGemSource,MinerItems.Pickaxe);
+            var cartGemSourceState=new GemSourceState(this,hostageManager,MinerAnimationStates.CartGemSource,MinerItems.None); 
+            var idleState=new MinerIdleState(this,hostageManager); 
             var dropGemState=new DropGemState(this); 
             _stateMachine = new StateMachine();
             At(minerReadyState,moveToMine,IsGameStarted());

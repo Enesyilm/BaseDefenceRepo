@@ -17,6 +17,7 @@ TagManager:
   - Collected
   - MineEntrance
   - Turret
+  - MilitaryEntrance
   layers:
   - Default
   - TransparentFX

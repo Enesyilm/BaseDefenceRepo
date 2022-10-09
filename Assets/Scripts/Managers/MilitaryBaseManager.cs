@@ -6,7 +6,6 @@ using Data.ValueObjects;
 using Data.ValueObjects.AiData;
 using Enum;
 using Enums;
-using FrameworkGoat;
 using Interfaces;
 using Signals;
 using Sirenix.OdinInspector;

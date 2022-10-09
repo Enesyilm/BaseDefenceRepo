@@ -26,7 +26,7 @@ namespace AIBrains.EnemyBrain
         public Transform MineTarget;
         public bool AmIDead=false;
         public Transform PlayerTarget;
-        public EnemyType EnemyType;
+        public PoolObjectType EnemyType;
         public Transform _spawnPosition;
 
         #endregion
