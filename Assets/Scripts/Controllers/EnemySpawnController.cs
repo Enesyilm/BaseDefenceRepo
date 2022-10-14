@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using Enum;
 using Interfaces;
 using Signals;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Controllers
 {
@@ -31,7 +33,12 @@ namespace Controllers
 
             private void Awake()
             {
-                StartCoroutine(SpawnEnemies());
+                //StartCoroutine(SpawnEnemies());
+            }
+
+            private void Start()
+            {
+               StartCoroutine(SpawnEnemies());
             }
 
             private IEnumerator SpawnEnemies()

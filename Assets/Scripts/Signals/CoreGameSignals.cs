@@ -21,6 +21,7 @@ namespace Signals
         public UnityAction onSetCameraTarget = delegate { };
         public UnityAction onStageAreaReached = delegate { };
         public UnityAction onStageSuccessful = delegate { };
+        public UnityAction onApplicationPause = delegate { };
 
         public Func<int> onGetLevelID = delegate { return 0; };
     }

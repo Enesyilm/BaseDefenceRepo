@@ -80,18 +80,26 @@ namespace Managers
         private void OnLoadMineBaseData(MineBaseData MineBaseData)
         {
             _mineBaseData=MineBaseData;
+            
             InstantiateAllMiners();
              UpdateMinerText();
              AssignMinerValuesToDictionary();
         }
         
-        private void OnNewMineWorkerAdd(MinerAIBrain minerBrainAi)
+        private bool OnNewMineWorkerAdd(MinerAIBrain minerBrainAi)
         {
-            _currentWorkerAmount++;
-            _mineBaseData.CurrentWorkerAmount = _currentWorkerAmount;
-            InitializeDataSignals.Instance.onSaveMineBaseData?.Invoke(_mineBaseData);
-            _mineWorkers.Add(minerBrainAi,minerBrainAi.gameObject);
-            UpdateMinerText();
+            if (_mineBaseData.MaxWorkerAmount > _mineBaseData.CurrentWorkerAmount)
+            {
+                _mineBaseData.CurrentWorkerAmount++;
+                InitializeDataSignals.Instance.onSaveMineBaseData?.Invoke(_mineBaseData);
+                _mineWorkers.Add(minerBrainAi,minerBrainAi.gameObject);
+                UpdateMinerText();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
@@ -105,6 +113,7 @@ namespace Managers
             MineBaseSignals.Instance.onGetRandomMineTarget -= GetRandomMineTarget;
             MineBaseSignals.Instance.onGetGemHolderPos -= OnGetGemHolderPos;
             MineBaseSignals.Instance.onNewMineWorkerAdd -= OnNewMineWorkerAdd;
+            InitializeDataSignals.Instance.onLoadMineBaseData -= OnLoadMineBaseData;
             
         }
 
@@ -126,7 +135,7 @@ namespace Managers
 
         private void InstantiateAllMiners()
         {
-            for (int index = 0; index < _currentWorkerAmount; index++)
+            for (int index = 0; index < _mineBaseData.CurrentWorkerAmount; index++)
             {
                
                GameObject _currentObject=GetObjectType(PoolObjectType.MinerAI);
@@ -138,7 +147,7 @@ namespace Managers
 
         private void UpdateMinerText()
         {
-            mineBaseTextController.UpdateMineWorkerAmountText(gemWorkerText,_currentWorkerAmount,_maxWorkerAmount);
+            mineBaseTextController.UpdateMineWorkerAmountText(gemWorkerText,_mineBaseData.CurrentWorkerAmount,_maxWorkerAmount);
         }
 
         private void AssignMinerValuesToDictionary()

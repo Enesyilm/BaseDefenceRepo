@@ -1,6 +1,6 @@
 using System;
 
-namespace Data.ValueObjects.ScoreData
+namespace Data
 {
     [Serializable]
     public class ScoreData

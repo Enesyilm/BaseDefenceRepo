@@ -14,17 +14,18 @@ namespace Controllers
         [SerializeField] private Collider collider;
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<IStackable>(out IStackable stackable))
+            if (other.CompareTag("Gem"))
             {
             
                 if (gemStackerController.PositionList.Count <= gemStackerController.StackList.Count)
                 {
                     return;
                 }
-                gemStackerController.GetStack(stackable.SendToStack(),stackable.SendToStack().transform);
+                gemStackerController.GetStack(other.gameObject,other.gameObject.transform);
             }
             else if (other.TryGetComponent<Interactable>(out Interactable interactable))
             {
+                Debug.Log("other.transfrom"+other.transform.name+" "+other.transform.parent.name);
                 gemStackerController.OnRemoveAllStack(other.transform);
             }
         }

@@ -15,7 +15,7 @@ namespace AIBrains.SoldierBrain
     [RequireComponent(typeof(NavMeshAgent))]
     public class SoldierAIBrain : MonoBehaviour
     {
-       #region Self Variables
+      #region Self Variables
 
         #region Public Variables
         
@@ -23,84 +23,49 @@ namespace AIBrains.SoldierBrain
         public bool HasReachedFrontYard;
         public bool HasEnemyTarget = false;
         
-        public Transform TentPosition; 
+        public Transform TentPosition;
         public Transform FrontYardStartPosition;
-        public List<IDamagable> enemyList = new List<IDamagable>();
+        public List<IDamageable> enemyList = new List<IDamageable>();
         public Transform EnemyTarget;
-        public IDamagable DamagableEnemy;
-        
+        public IDamageable DamageableEnemy;
+        public Transform WeaponHolder;
+        public bool HasSoldiersActivated;
         #endregion
 
         #region Serialized Variables
-
-        [SerializeField] private SoldierPhysicsController physicsController;
-        [SerializeField] private Animator animator;
-        [SerializeField] private Transform weaponHolder;
-        #endregion
-
-        #region Private Variables
+        [SerializeField]
+        private Animator animator;
         
+        #endregion
+        
+        #region Private Variables
         private NavMeshAgent _navMeshAgent;
-       
-        [ShowInInspector] private List<IDamagable> _damagablesList;
+        
         [Header("Data")]
         private SoldierAIData _data;
-        private int _damage;
-        private float _soldierSpeed;
-        private float _attackRadius;
-        private float _attackDelay;
-        private int _health;
-        private Transform _spawnPoint;
+
         private StateMachine _stateMachine;
         private Vector3 _slotTransform;
-        private bool HasSoldiersActivated;
-        // private bool dead { get; set; }
         
         #endregion
         #endregion
         private void Awake()
         {
             _data = GetSoldierAIData();
-            SetSoldierAIData();
-          
         } private void Start()
         {
             GetStateReferences();
         }
         private SoldierAIData GetSoldierAIData() => Resources.Load<CD_AI>("Data/CD_AI").SoldierAIData;
-        private void SetSoldierAIData()
-        {
-            _damage = _data.Damage;
-            _soldierSpeed = _data.SoldierSpeed;
-            _attackRadius = _data.AttackRadius;
-            _attackDelay = _data.AttackDelay;
-            _health = _data.Health;
-            _spawnPoint = _data.SpawnPoint;
-        } 
-        // public GameObject GetObject(PoolObjectType poolName)
-        // {
-        //     // var bulletPrefab = PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
-        //
-        //     // bulletPrefab.transform.position = weaponHolder.position;
-        //     // bulletPrefab.GetComponent<BulletPhysicsController>().soldierAIBrain = this;
-        //     // FireBullet(bulletPrefab);
-        //     // return bulletPrefab;
-        // }
-        private void FireBullet(GameObject bulletPrefab)
-        {
-            bulletPrefab.transform.rotation = _navMeshAgent.transform.rotation;
-            var rigidBodyBullet = bulletPrefab.GetComponent<Rigidbody>();
-            rigidBodyBullet.AddForce(_navMeshAgent.transform.forward*40,ForceMode.VelocityChange);
-        }
         private void GetStateReferences()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
-            var idle = new Idle(this,TentPosition,_navMeshAgent,animator);
+            var idle = new Idle(TentPosition,_navMeshAgent);
             var moveToSlotZone = new MoveToSlotZone(this,_navMeshAgent,HasReachedSlotTarget,_slotTransform,animator);
             var wait = new Wait(animator,_navMeshAgent);
             var moveToFrontYard = new MoveToFrontYard(this,_navMeshAgent,FrontYardStartPosition,animator);
             var patrol = new Patrol(this,_navMeshAgent,animator);
-            var attack = new SoldierAttack(this,_navMeshAgent,animator);
+            var attack = new Attack(this,_navMeshAgent,animator);
             _stateMachine = new StateMachine();
             
             At(idle,moveToSlotZone,hasSlotTransformList());
@@ -122,59 +87,6 @@ namespace AIBrains.SoldierBrain
             Func<bool> hasNoEnemyTarget() => () => !HasEnemyTarget;
         }
         private void Update() =>  _stateMachine.Tick();
-
-        #region Event Subscription
-        private void OnEnable()
-        {
-            SubscribeEvents();
-        }
-        private void SubscribeEvents()
-        {
-            SoldierAISignals.Instance.onSoldierActivation += OnSoldierActivation;
-        }
-        private void UnsubscribeEvents()
-        {
-            SoldierAISignals.Instance.onSoldierActivation -= OnSoldierActivation;
-        }
-        private void OnDisable()
-        {
-            UnsubscribeEvents();
-        }
-        #endregion
-        public void GetSlotTransform(Vector3 slotTransfrom)
-        {
-            _slotTransform = slotTransfrom;
-        }
-        private void OnSoldierActivation()
-        {
-            HasSoldiersActivated = true;
-        }
-        public void SetEnemyTargetTransform()
-        {
-            EnemyTarget = enemyList[0].GetTransform();
-            DamagableEnemy = enemyList[0];
-            HasEnemyTarget = true;
-        }
-
-        public void EnemyTargetStatus()
-        {
-            if (enemyList.Count != 0)
-            {
-                EnemyTarget = enemyList[0].GetTransform();
-                DamagableEnemy = enemyList[0];
-            }
-            else
-            {
-                HasEnemyTarget = false;
-            }
-        }
-        public void RemoveTarget()
-        {
-            if (enemyList.Count == 0) return;
-            enemyList.RemoveAt(0);
-            enemyList.TrimExcess();
-            EnemyTarget = null;
-            EnemyTargetStatus();
-        }
+        public void GetSlotTransform(Vector3 slotTransfrom)=>  _slotTransform = slotTransfrom;
     }
 }

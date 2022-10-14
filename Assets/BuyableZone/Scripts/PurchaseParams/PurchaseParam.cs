@@ -24,14 +24,14 @@ namespace Buyablezone.PurchaseParams
                 this.InitialTimeOffset = ınitialTimeOffset;
                 this.TimeOffset = timeOffset;//factory pattern Composite pattern
                 CurrentBuyableLevel = BuyableZoneList.BuyableLevel;//gereksiz olabilir
-                BuyableZoneData = buyableZoneList.BuyableZoneList[buyableZoneList.BuyableLevel];
+                BuyableZoneData = buyableZoneList.BuyableZoneStages[buyableZoneList.BuyableLevel];
             }
             public void IncreaseBuyableZoneLevel()
             {
                 BuyableZoneList.BuyableLevel++;
-                BuyableZoneList.BuyableLevel=BuyableZoneList.BuyableLevel % BuyableZoneList.BuyableZoneList.Count;
+                BuyableZoneList.BuyableLevel=BuyableZoneList.BuyableLevel % BuyableZoneList.BuyableZoneStages.Count;
                 CurrentBuyableLevel=BuyableZoneList.BuyableLevel;
-                BuyableZoneData = BuyableZoneList.BuyableZoneList[BuyableZoneList.BuyableLevel];
+                BuyableZoneData = BuyableZoneList.BuyableZoneStages[BuyableZoneList.BuyableLevel];
             }
             
     }

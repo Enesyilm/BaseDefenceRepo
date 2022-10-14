@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Buyablezone.PurchaseParams;
 
 namespace Data.ValueObjects
 {
@@ -9,5 +11,6 @@ namespace Data.ValueObjects
         public MineBaseData MineBaseData;
         public MilitaryBaseData MilitaryBaseData;
         public BuyablesData BuyablesData;
+        
     }
 }

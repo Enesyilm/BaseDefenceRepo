@@ -61,17 +61,24 @@ namespace Managers
             }
         }
 
-        public void SendToGate(Vector3 gate)
+        public bool SendToGate(Vector3 gate)
         {
             int index = 0;
             foreach (var hostage in hostageBaseManager.StackedHostageList)
             {
-                MineBaseSignals.Instance.onNewMineWorkerAdd.Invoke(hostage.minerAIBrain);
-                hostage.ChangeAnimation(MinerAnimationStates.Walk);
-                hostage.transform.DOMove(gate, 1f + 2 * index / 10f);
-                index++;
+                if (MineBaseSignals.Instance.onNewMineWorkerAdd.Invoke(hostage.minerAIBrain))
+                {
+                    hostage.ChangeAnimation(MinerAnimationStates.Walk);
+                    hostage.transform.DOMove(gate, 1f + 2 * index / 10f);
+                    index++;
+                    
+                    return true;
+                };
+                return false;
+
 
             }
+            return false;
         }
         public void ClearStack()
         {

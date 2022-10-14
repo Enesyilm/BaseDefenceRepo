@@ -27,7 +27,7 @@ namespace AIBrains.EnemyBrain
         public bool AmIDead=false;
         public Transform PlayerTarget;
         public PoolObjectType EnemyType;
-        public Transform _spawnPosition;
+        public Transform SpawnPosition;
 
         #endregion
 
@@ -64,6 +64,11 @@ namespace AIBrains.EnemyBrain
             EnemyAIData=GetEnemyAIData();
             EnemyTypeData = GetEnemyType();
             TurretTarget = GetCurrentTurret();
+            
+        }
+
+        private void Start()
+        {
             SetEnemyData();
             GetStatesReferences();
         }
@@ -84,7 +89,7 @@ namespace AIBrains.EnemyBrain
             attackRange=EnemyTypeData.AttackRange;
             chaseSpeed=EnemyTypeData.ChaseSpeed;
             moveSpeed=EnemyTypeData.Speed;
-            _spawnPosition = EnemyTypeData.SpawnPosition;
+            SpawnPosition = EnemyTypeData.SpawnPosition;
         }
 
         private EnemyAIData GetEnemyAIData()=>Resources.Load<CD_AI>("Data/CD_AI").EnemyAIData;
@@ -92,7 +97,7 @@ namespace AIBrains.EnemyBrain
         private void GetStatesReferences()
         {
             var navmeshAgent = GetComponent<NavMeshAgent>();
-            var search = new SearchState(this,navmeshAgent,_spawnPosition);
+            var search = new SearchState(this,navmeshAgent,SpawnPosition);
             var attack = new AttackState(navmeshAgent, animator,this,attackRange);
             var move = new EnemyMoveState(this,navmeshAgent, animator,moveSpeed);
             var death = new DeathState(this,navmeshAgent, animator);

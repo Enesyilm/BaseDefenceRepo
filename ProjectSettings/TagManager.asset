@@ -35,8 +35,8 @@ TagManager:
   - OnlyWithEnemy
   - SoldierBody
   - SoldierDetection
-  - 
-  - 
+  - Collectable
+  - Player/PlayerBody
   - 
   - 
   - 

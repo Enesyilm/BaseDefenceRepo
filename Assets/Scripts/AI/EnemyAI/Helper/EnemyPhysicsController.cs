@@ -6,7 +6,7 @@ using Interfaces;
 using UnityEngine;
 using Managers;
 
-public class EnemyPhysicsController : MonoBehaviour,IDamagable
+public class EnemyPhysicsController : MonoBehaviour,IDamageable
 {
     private Transform _detectedMine;
     private EnemyAIBrain _enemyAIBrain;

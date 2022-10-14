@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IDamagable
+public interface IDamageable
 {
     public bool IsTaken { get; set; }
     public bool IsDead { get; set; }

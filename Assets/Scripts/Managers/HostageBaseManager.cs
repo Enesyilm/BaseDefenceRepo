@@ -128,11 +128,45 @@ namespace Managers
 
         private void OnSendHostageToMineBase(Vector3 centerOfGatePos)
         {
-            hostageStackController.SendToGate(centerOfGatePos);
-            GetHostageManagerComponent();
-            ClearStack();
+            // if (hostageStackController.SendToGate(centerOfGatePos))
+            // {
+            //     GetHostageManagerComponent();
+            //     ClearStack();
+            // };
+            //int index = 0;
+            for (int index = 0; index < StackedHostageList.Count; index++)
+            {
+                if (MineBaseSignals.Instance.onNewMineWorkerAdd.Invoke(StackedHostageList[index].minerAIBrain))
+                {
+                    StackedHostageList[index].ChangeAnimation(MinerAnimationStates.Walk);
+                    StackedHostageList[index].transform.DOMove(centerOfGatePos, 1f + 2 * index / 10f);
+                    ActivateMinerAI(StackedHostageList[index]);
+                    StackedHostageList.RemoveAt(index);
+                    StackedHostageList.TrimExcess();
+                    index++;
+                    
+                };
+            }
+            // foreach (var hostage in StackedHostageList)
+            // {
+            //     if (MineBaseSignals.Instance.onNewMineWorkerAdd.Invoke(hostage.minerAIBrain))
+            //     {
+            //         hostage.ChangeAnimation(MinerAnimationStates.Walk);
+            //         hostage.transform.DOMove(centerOfGatePos, 1f + 2 * index / 10f);
+            //         ActivateMinerAI(hostage);
+            //         StackedHostageList.RemoveAt(index);
+            //         StackedHostageList.TrimExcess();
+            //         index++;
+            //         
+            //     };
+            // }
         }
-        
+
+        private void ActivateMinerAI(HostageManager hostage)
+        {
+            hostage.minerAIBrain.enabled = true;
+        }
+
         public void ChangeHostageAnimation(MinerAnimationStates hostageAnimationType)
         {
             if (_currentAnimType!=hostageAnimationType)

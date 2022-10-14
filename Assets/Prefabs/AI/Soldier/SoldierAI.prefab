@@ -365,6 +365,36 @@ Transform:
   m_Father: {fileID: 1548401553137540476}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2796277912467468160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7416999548241228908}
+  m_Layer: 0
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7416999548241228908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2796277912467468160}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.001, y: 0.34650144, z: 1.7174804}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3799888497601434752}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2818523528949039358
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +489,7 @@ Transform:
   - {fileID: 49313900739826130}
   - {fileID: 2464270362999187840}
   - {fileID: 379956486093687336}
+  - {fileID: 7416999548241228908}
   m_Father: {fileID: 7344149925634665593}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1712,7 +1743,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7950720491344877853
 Transform:
   m_ObjectHideFlags: 0
@@ -1770,9 +1801,9 @@ MonoBehaviour:
   TentPosition: {fileID: 0}
   FrontYardStartPosition: {fileID: 0}
   EnemyTarget: {fileID: 0}
-  physicsController: {fileID: 0}
+  WeaponHolder: {fileID: 7416999548241228908}
+  HasSoldiersActivated: 0
   animator: {fileID: 2174102257833817390}
-  weaponHolder: {fileID: 7344149925634665593}
 --- !u!1 &7950720491576666023
 GameObject:
   m_ObjectHideFlags: 0

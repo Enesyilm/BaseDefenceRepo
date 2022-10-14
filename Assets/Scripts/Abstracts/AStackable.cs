@@ -1,4 +1,6 @@
+using DG.Tweening;
 using Interfaces;
+using Signals;
 using UnityEngine;
 
 namespace Abstracts
@@ -31,5 +33,9 @@ namespace Abstracts
         }
 
         public abstract GameObject SendToStack();
+        public virtual void SendPosition(Transform transform)
+                {
+                    DOVirtual.DelayedCall(0.1f, () => MoneyWorkerSignals.Instance.onSetMoneyPosition?.Invoke(transform));
+                }
     }
 }

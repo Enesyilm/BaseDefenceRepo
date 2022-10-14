@@ -52,7 +52,7 @@ MonoBehaviour:
   AmIDead: 0
   PlayerTarget: {fileID: 0}
   EnemyType: 0
-  _spawnPosition: {fileID: 0}
+  SpawnPosition: {fileID: 0}
   animator: {fileID: 2658759601854624846}
 --- !u!195 &2782242405751033009
 NavMeshAgent:
@@ -161,7 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1581394907188419711}
   - component: {fileID: 6310368956136611904}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: GameObject
   m_TagString: Enemy
   m_Icon: {fileID: 0}

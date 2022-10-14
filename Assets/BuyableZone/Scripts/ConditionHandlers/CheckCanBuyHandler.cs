@@ -9,7 +9,7 @@ namespace Buyablezone.ConditionHandlers
         private BuyableZoneData BuyableZoneData; 
         public override void ProcessRequest(PurchaseParam purchase)
         {
-            BuyableZoneData = purchase.BuyableZoneList.BuyableZoneList[purchase.CurrentBuyableLevel];
+            BuyableZoneData = purchase.BuyableZoneList.BuyableZoneStages[purchase.CurrentBuyableLevel];
             if (BuyableZoneData.PayedAmount >= BuyableZoneData.RequiredAmount)
             {
 

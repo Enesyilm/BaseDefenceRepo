@@ -74,7 +74,7 @@ namespace Managers
           try
           {
               DefineTransitions();
-              _buyableZoneData = Purchase.BuyableZoneList.BuyableZoneList[Purchase.CurrentBuyableLevel];
+              _buyableZoneData = Purchase.BuyableZoneList.BuyableZoneStages[Purchase.CurrentBuyableLevel];
               UpdateDropzoneText(_buyableZoneData.RequiredAmount - _buyableZoneData.PayedAmount);
           }
           catch
@@ -175,7 +175,7 @@ namespace Managers
                 counter--;
                 buyableZoneMeshController.UpdateDropzoneText(counter);
             }
-            _buyableZoneData = Purchase.BuyableZoneList.BuyableZoneList[Purchase.CurrentBuyableLevel];
+            _buyableZoneData = Purchase.BuyableZoneList.BuyableZoneStages[Purchase.CurrentBuyableLevel];
             UpdateDropzoneText(_buyableZoneData.RequiredAmount - _buyableZoneData.PayedAmount);
             UpdateDropzoneIcon(BuyableZoneIconType.RequiredAmount);
             

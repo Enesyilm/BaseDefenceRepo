@@ -7,5 +7,6 @@ namespace Data.ValueObjects.LevelData
     {
         public BaseData BaseData;
         public FrontyardData FrontyardData;
+       
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class PlayerAnimationController : MonoBehaviour
+    public class PlayerAnimationController1 : MonoBehaviour
     {
         [SerializeField] private Animator animator;
         private PlayerAnimationTypes _currentAnimType=PlayerAnimationTypes.Idle;

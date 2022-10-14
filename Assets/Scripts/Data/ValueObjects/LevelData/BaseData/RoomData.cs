@@ -1,11 +1,12 @@
 using System;
+using Buyablezone.PurchaseParams;
 
 namespace Data.ValueObjects
 {[Serializable]
     public class RoomData
     {
-        public int RoomCost;
-        public int RoomPayedAmount;
+        public bool IsOpened=false;
         public TurretData TurretData;
+        public BuyableZoneDataList buyableZoneDataStages;
     }
 }

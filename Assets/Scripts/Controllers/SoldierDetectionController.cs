@@ -7,53 +7,51 @@ namespace Controllers
     {
         #region Self Variables
 
-            #region Public Variables
-        
-            #endregion
+        #region Public Variables
 
-            #region Serialized Variables
-        
-            [SerializeField] private SoldierAIBrain soldierAIBrain;
+        #endregion
 
-            #endregion
+        #region Serialized Variables
 
-            #region Private Variables
-        
-            #endregion
-            #endregion
-            private void OnTriggerEnter(Collider other)
+        [SerializeField] 
+        private SoldierAIBrain soldierAIBrain;
+
+        #endregion
+
+        #region Private Variables
+
+        #endregion
+
+        #endregion
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out IDamageable damagable))
             {
-                if (other.TryGetComponent(out IDamagable damagable))
+                if(damagable.IsTaken) return;
+                damagable.IsTaken = true;
+                soldierAIBrain.enemyList.Add(damagable);
+                if (soldierAIBrain.EnemyTarget == null)
                 {
-                    Debug.Log("SoldierDetected");
-                    if(damagable.IsTaken) return;
-                    soldierAIBrain.enemyList.Add(damagable);
-                    if (soldierAIBrain.EnemyTarget == null)
-                    {
-                        damagable.IsTaken = true;
-                        soldierAIBrain.SetEnemyTargetTransform();
-                    }
+                    soldierAIBrain.EnemyTarget = soldierAIBrain.enemyList[0].GetTransform();
+                    soldierAIBrain.DamageableEnemy = soldierAIBrain.enemyList[0];
+                    soldierAIBrain.HasEnemyTarget = true;
                 }
             }
-            private void OnTriggerExit(Collider other)
+        }
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.TryGetComponent(out IDamageable damagable))
             {
-                if (other.TryGetComponent(out IDamagable damagable))
+                if(soldierAIBrain.enemyList.Count == 0) return;
+                soldierAIBrain.enemyList.Remove(damagable);
+                soldierAIBrain.enemyList.TrimExcess();
+                if (soldierAIBrain.enemyList.Count == 0)
                 {
-                    if (soldierAIBrain.enemyList.Count == 0)
-                    {
-                        soldierAIBrain.EnemyTarget = null;
-                    }
-                    damagable.IsTaken = false;
-                    soldierAIBrain.enemyList.Remove(damagable);
-                    soldierAIBrain.enemyList.TrimExcess();
+                    soldierAIBrain.EnemyTarget = null;
+                    soldierAIBrain.HasEnemyTarget = false;
                 }
-                // 1.Enemies ontrigger exit yapıp tekrar enter tetikleyebilirler. Tekrar tetiklediklerinde listede iki
-                // tane aynı objeden oluyor. Öldürdüğüm esnada da null bir obje oluyor. Bu sebeple listeden ontrigger exitte
-                // çıkartmak lazım ki tekrar trigger edildiklerinde listeye alalım...
-            
-                // Bu durumda bu arkadaşlar bizim attack radius`muzun ışına çıkmış oluyorlar eğer bunlarla aramızdaki fark attack
-                // radiustan büyük ise bu arkadaşların güncel pozisyonuna trigger olana kadar yürümemiz gerekiyor.
-                // Chase etmek gerekiyor.
+                damagable.IsTaken = false;
             }
+        }
         }
     }

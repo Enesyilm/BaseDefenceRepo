@@ -12,6 +12,8 @@ namespace Signals
         public UnityAction<ScoreTypes,ScoreVariableType> onChangeScore=delegate { };
         public Func<ScoreVariableType,int> onGetScore= delegate { return 0;};
         public UnityAction<List<int>> onUpdateScore= delegate { };
+        public UnityAction onUpdateGemScore= delegate { };
+        public UnityAction onUpdateMoneyScore= delegate { };
       
 
     }

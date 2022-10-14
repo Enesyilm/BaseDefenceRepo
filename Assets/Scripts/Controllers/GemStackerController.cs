@@ -63,6 +63,12 @@ namespace Controllers
             
             
         }
+
+        private void IncreaseScore()
+        {
+           ScoreSignals.Instance.onUpdateGemScore?.Invoke();
+        }
+
         public void OnRemoveAllStack(Transform targetTransform)
         {   
             if(!canRemove)
@@ -73,12 +79,11 @@ namespace Controllers
             
             stackListConstCount = StackList.Count;
             
-            RemoveAllStack(targetTransform);
+            RemoveAllStack(targetTransform,0);
         }
 
-        private async void RemoveAllStack(Transform targetTransform)
+        private async void RemoveAllStack(Transform targetTransform,int lastIndex)
         {
-            
             if (StackList.Count == 0)
             {
                 DropzoneSignals.Instance.onDropZoneFull?.Invoke(false);
@@ -88,14 +93,24 @@ namespace Controllers
             
             if(StackList.Count > 0)
             {
+                if (lastIndex != StackList.Count)
+                {
+                    IncreaseScore();
+                }
+                lastIndex = StackList.Count;
                 RemoveStackAnimation(StackList[StackList.Count - 1],targetTransform);
+               
                 StackList.TrimExcess();
                 if (StackList.Count % 9==0)
                 {
                     await Task.Delay(100);
                 }
+
+                
+                
+               
                 await Task.Delay(1);
-                RemoveAllStack(targetTransform);
+                RemoveAllStack(targetTransform,lastIndex);
                 
             }
         }
@@ -113,7 +128,6 @@ namespace Controllers
                 //removedStack.transform.parent=targetTransform;           
                 removedStack.transform.DOMove(targetTransform.localPosition+new Vector3(0,targetTransform.localScale.y*2,0), .1f).OnComplete(() =>
                 {
-                    
                     removedStack.transform.DOScale(Vector3.zero, 0.2f);
                     removedStack.transform.SetParent(null);
                     removedStack.SetActive(false);

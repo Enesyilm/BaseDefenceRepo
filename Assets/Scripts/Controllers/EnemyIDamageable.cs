@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Controllers
 {
-      public class EnemyIDamagable : MonoBehaviour, IDamagable
+      public class EnemyIDamagable : MonoBehaviour, IDamageable
         {
             [SerializeField]
             private EnemyAIBrain enemyAIBrain;
