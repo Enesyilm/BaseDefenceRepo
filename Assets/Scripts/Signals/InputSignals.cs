@@ -1,3 +1,4 @@
+using Enum;
 using Extentions;
 using Keys;
 using UnityEngine.Events;
@@ -11,6 +12,6 @@ namespace Signals
         public UnityAction onFirstTimeTouchTaken = delegate { };
         public UnityAction<XZInputParams>  onInputTaken = delegate { };
         public UnityAction<bool> onInputTakenActive = delegate { };
-        public UnityAction onInputReleased = delegate { };
+        public UnityAction<InputHandlers> onInputHandlerChange = delegate { };
     }
 }

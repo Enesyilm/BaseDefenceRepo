@@ -17,8 +17,7 @@ namespace Managers
 
         #region Public Variables
 
-        public IDamageable DamageableEnemy;
-        public AreaType currentAreaType = AreaType.BaseDefense;
+        public AreaType CurrentAreaType = AreaType.BaseDefense;
         
         public WeaponTypes WeaponType;
         
@@ -47,12 +46,10 @@ namespace Managers
         #region Private Variables
         
         private PlayerData _data;
+        private PlayerMovementData _movementData;
 
         private WeaponData _weaponData;
-
-        private AreaType _nextState = AreaType.BattleOn;
-         private PlayerMovementData _movementData;
-
+        
         #endregion
         
         #endregion
@@ -64,13 +61,9 @@ namespace Managers
             Init();
         }
         private PlayerData GetPlayerData() => Resources.Load<CD_Player>("Data/CD_Player").PlayerData;
-        private WeaponData GetWeaponData() => Resources.Load<CD_Weapon>("Data/CD_Weapon").WeaponData[(int)WeaponType];
         private PlayerMovementData GetPlayerMovementData() => Resources.Load<CD_Player>("Data/CD_Player").PlayerMovementData;
-        private void Init()
-        {
-            currentAreaType = AreaType.BaseDefense;
-            SetDataToControllers();
-        }
+        private WeaponData GetWeaponData() => Resources.Load<CD_Weapon>("Data/CD_Weapon").WeaponData[(int)WeaponType];
+        private void Init() => SetDataToControllers();
         private void SetDataToControllers()
         {
             movementController.SetMovementData(_movementData);
@@ -85,10 +78,12 @@ namespace Managers
         private void SubscribeEvents()
         {
             InputSignals.Instance.onInputTaken += OnGetInputValues;
+            InputSignals.Instance.onInputHandlerChange += OnDisableMovement;
         }
         private void UnsubscribeEvents()
         {
             InputSignals.Instance.onInputTaken -= OnGetInputValues;
+            InputSignals.Instance.onInputHandlerChange -= OnDisableMovement;
         }
         private void OnDisable()
         {
@@ -99,13 +94,7 @@ namespace Managers
         {
             movementController.UpdateInputValues(inputParams);
             animationController.PlayAnimation(inputParams);
-            if (!HasEnemyTarget) return;
             AimEnemy();
-        }
-        public void CheckAreaStatus(AreaType AreaStatus)
-        {
-            currentAreaType = AreaStatus;
-            meshController.ChangeAreaStatus(AreaStatus);
         }
         public void SetEnemyTarget()
         {
@@ -113,14 +102,10 @@ namespace Managers
             animationController.AimTarget(true);
             AimEnemy();
         }
-        private void AimEnemy()
-        { 
-            if (EnemyList.Count != 0)
-            {
-                var transformEnemy = EnemyList[0].GetTransform();
-                movementController.RotateThePlayer(transformEnemy);
-            }
-        }
+        private void AimEnemy() => movementController.LookAtTarget(!HasEnemyTarget ? null : EnemyList[0]?.GetTransform());
+        public void CheckAreaStatus(AreaType areaType) => meshController.ChangeAreaStatus(CurrentAreaType = areaType);
+        private void OnDisableMovement(InputHandlers inputHandler) => movementController.DisableMovement(inputHandler);
+        public void SetTurretAnim(bool onTurret) => animationController.PlayTurretAnimation(onTurret);
         public void SendHostageToMineBase(Vector3 centerOfGatePo)
         {
             HostageSignals.Instance.onSendHostageToMineBase.Invoke(centerOfGatePo);

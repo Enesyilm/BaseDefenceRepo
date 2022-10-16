@@ -25,7 +25,6 @@ namespace Controllers
             }
             else if (other.TryGetComponent<Interactable>(out Interactable interactable))
             {
-                Debug.Log("other.transfrom"+other.transform.name+" "+other.transform.parent.name);
                 gemStackerController.OnRemoveAllStack(other.transform);
             }
         }

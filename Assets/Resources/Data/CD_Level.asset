@@ -72,6 +72,12 @@ MonoBehaviour:
             - PayedAmount: 0
               RequiredAmount: 15
             BuyableLevel: 0
+      AmmoWorkerAIData:
+        MovementSpeed: 8
+        AmmoWareHouse: {fileID: 0}
+        AmmoWorker: {fileID: 0}
+        Ammo: {fileID: 0}
+        MaxStackCount: 0
       MineBaseData:
         MaxWorkerAmount: 6
         CurrentWorkerAmount: 2

@@ -1,4 +1,5 @@
-﻿using Abstracts;
+﻿using System.Collections.Generic;
+using Abstracts;
 using Controllers.Player;
 using Enum;
 using Interfaces;
@@ -33,10 +34,16 @@ namespace Controllers
             //     GateEnter(other);
             // }
             if (other.CompareTag("GateEnter"))
-             {
+            {
+                int enemy = playerManager.EnemyList.Count;
                  var playerIsGoingToFrontYard = other.transform.position.z > transform.position.z;
                  gameObject.layer = LayerMask.NameToLayer("Base");
                  gameObject.transform.parent.gameObject.layer = LayerMask.NameToLayer("Base");
+                 playerManager.EnemyTarget = null;
+                 // for (int index = 0; index < enemy; index++)
+                 // {
+                 //     playerManager.EnemyList[index].IsTaken=false;
+                 // }
                  playerManager.CheckAreaStatus( AreaType.BaseDefense);
              }
              if (other.CompareTag("MineEntrance"))
@@ -53,6 +60,8 @@ namespace Controllers
                  gameObject.layer = LayerMask.NameToLayer("Frontyard");
                  gameObject.transform.parent.gameObject.layer = LayerMask.NameToLayer("Frontyard");
                  playerManager.CheckAreaStatus(AreaType.BattleOn);
+                 playerManager.HasEnemyTarget = false;
+                 playerManager.EnemyList.Clear();
              }
         }
         // private void OnTriggerExit(Collider other)

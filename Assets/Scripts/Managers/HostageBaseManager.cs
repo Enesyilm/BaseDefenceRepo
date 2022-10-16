@@ -88,6 +88,7 @@ namespace Managers
         {
             if (arg0)
             {
+                
                 ChangeHostageAnimation(MinerAnimationStates.Walk);
             }
             else

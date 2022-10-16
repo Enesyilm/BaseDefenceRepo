@@ -37,8 +37,8 @@ TagManager:
   - SoldierDetection
   - Collectable
   - Player/PlayerBody
-  - 
-  - 
+  - Ammo/AmmoOnDynamicStack
+  - Ammo/AmmoOnStaticStack
   - 
   - 
   - 

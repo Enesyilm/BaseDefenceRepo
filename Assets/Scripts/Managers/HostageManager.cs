@@ -24,6 +24,7 @@ namespace Managers
         
         public HostageType CurrentType=HostageType.HostageWaiting; 
         [SerializeField] private Animator animator;
+        [SerializeField] private GameObject helpTexture;
 
 
         #endregion
@@ -73,12 +74,14 @@ namespace Managers
 
         public void ChangeAnimation(MinerAnimationStates minerAnimationStates)
         {
+            
             animator.SetTrigger(minerAnimationStates.ToString());
         }
 
         public void AddToHostageStack()
         {
             CurrentType = HostageType.Hostage;
+            helpTexture.SetActive(false);
             HostageSignals.Instance.onAddHostageStack?.Invoke(this);
         }
 

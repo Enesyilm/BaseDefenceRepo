@@ -71,7 +71,6 @@ namespace Managers
         private void Update()
         {
             TwoSidedMovement();
-            CheckInputActive();
         }
 
         private void TwoSidedMovement()
@@ -79,8 +78,9 @@ namespace Managers
             float horizonDeltaInput = Math.Abs(floatingJoystick.Horizontal - _inputPosition.x);
             float verticalDeltaInput = Math.Abs(floatingJoystick.Vertical - _inputPosition.z);
             
-            if (verticalDeltaInput>Data.InputPrecision||horizonDeltaInput>Data.InputPrecision)
+            if (Input.GetMouseButton(0))
             {
+                InputSignals.Instance.onInputTakenActive?.Invoke(true); 
                 _inputPosition = new Vector3(floatingJoystick.Horizontal,0,floatingJoystick.Vertical);
                      //InputSignals.Instance.onInputTakenActive?.Invoke(true);
                 InputSignals.Instance.onInputTaken?.Invoke(new XZInputParams(){
@@ -93,22 +93,23 @@ namespace Managers
                     InputSignals.Instance.onFirstTimeTouchTaken?.Invoke();
                 }
             }
+            
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                InputSignals.Instance.onInputTaken?.Invoke(new XZInputParams(){
+                    XValue = 0,
+                    ZValue = 0
+                    
+                });
+                InputSignals.Instance.onInputTakenActive?.Invoke(false);     
+            }
             else if(floatingJoystick.Vertical==0||floatingJoystick.Horizontal==0)
             {
                 //InputSignals.Instance.onInputTakenActive?.Invoke(false);
             }
         }
-        private void CheckInputActive()
-        {
-            if (_inputPosition.x!=0 || _inputPosition.z!=0)
-            {
-                InputSignals.Instance.onInputTakenActive?.Invoke(true);       
-            }
-            else
-            {
-                InputSignals.Instance.onInputTakenActive?.Invoke(false);     
-            }
-        }
+       
         private void OnReset()
         {
             isFirstTimeTouchTaken = false;

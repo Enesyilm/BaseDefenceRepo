@@ -10,6 +10,11 @@ namespace Controllers.StackableControllers
     {
         [SerializeField] private Rigidbody rigidbody;
         [SerializeField] private BoxCollider collider;
+        public override GameObject SendToStack(Transform transform1)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void SendPosition(Transform transform)
         {
             base.SendPosition(transform);
@@ -44,7 +49,7 @@ namespace Controllers.StackableControllers
             base.PlayAnimation();
         }
 
-        public override GameObject SendToStack()
+        public GameObject SendToStack()
         {
             //transform.localRotation = new Quaternion(0, 0, 0, 1);
             rigidbody.useGravity = false;

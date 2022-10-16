@@ -21,13 +21,13 @@ MonoBehaviour:
     SideMesh: {fileID: 0}
   - Damage: 0
     AttackRate: 0
-    WeaponMesh: {fileID: 0}
+    WeaponMesh: {fileID: 6908739434531237095, guid: 7a1d13925b6590f4f9b6fad7fa9cb71f, type: 3}
     WeaponLevel: 0
     HasSideMesh: 0
     SideMesh: {fileID: 0}
   - Damage: 0
     AttackRate: 0
-    WeaponMesh: {fileID: 0}
+    WeaponMesh: {fileID: 6908739434531237095, guid: 7a1d13925b6590f4f9b6fad7fa9cb71f, type: 3}
     WeaponLevel: 0
     HasSideMesh: 0
     SideMesh: {fileID: 0}

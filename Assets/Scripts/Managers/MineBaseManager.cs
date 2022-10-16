@@ -139,6 +139,7 @@ namespace Managers
             {
                
                GameObject _currentObject=GetObjectType(PoolObjectType.MinerAI);
+               
                 MinerAIBrain _currentMinerAIBrain=_currentObject.GetComponent<MinerAIBrain>();
                 _currentObject.transform.position = instantiatePosition.position;
                 _mineWorkers.Add(_currentMinerAIBrain,_currentObject);

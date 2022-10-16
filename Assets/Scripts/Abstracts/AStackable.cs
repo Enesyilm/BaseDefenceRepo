@@ -32,7 +32,12 @@ namespace Abstracts
 
         }
 
-        public abstract GameObject SendToStack();
+        public GameObject SendToStack()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public abstract GameObject SendToStack(Transform transform1);
         public virtual void SendPosition(Transform transform)
                 {
                     DOVirtual.DelayedCall(0.1f, () => MoneyWorkerSignals.Instance.onSetMoneyPosition?.Invoke(transform));

@@ -39,7 +39,7 @@ namespace Managers
                     Mathf.Lerp(hostageBaseManager.StackedHostageList[0].transform.position.z, Target.position.z,.2f));
                 hostageBaseManager.StackedHostageList[0].transform.position = Vector3.Lerp(
                     hostageBaseManager.StackedHostageList[0].transform.position
-                    , (hostageBaseManager.StackedHostageList[0].transform.position + Target.TransformDirection(0, 0, -1f)),
+                    , (hostageBaseManager.StackedHostageList[0].transform.position + Target.TransformDirection(0, 0, -2f)),
                     0.2f);
                 Quaternion _toPlayerRotation = Quaternion.LookRotation(Target.position - hostageBaseManager.StackedHostageList[0].transform.position);
                  _toPlayerRotation = Quaternion.Euler(0,_toPlayerRotation.eulerAngles.y,0);

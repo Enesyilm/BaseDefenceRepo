@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Threading.Tasks;
 using Enum;
 using Enums;
@@ -9,75 +10,65 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class PlayerShootingController : MonoBehaviour, IGetPoolObject
+    public class PlayerShootingController : MonoBehaviour
     {
-        [SerializeField] 
-        private PlayerManager manager;
+       [SerializeField] 
+               private PlayerManager manager;
+       
+               [SerializeField]
+               private Transform weaponHolder;
+       
+               private BulletFireController _fireController;
+               private const float _fireRate = 0.3f;
+       
+               private void Awake()
+               {
+                   _fireController = new BulletFireController(manager.WeaponType);
+               }
+               public void SetEnemyTargetTransform()
+               {
+                   manager.EnemyTarget = manager.EnemyList[0].GetTransform();
+                   manager.HasEnemyTarget = true;
+                   Shoot();
+               }
+               private void EnemyTargetStatus()
+               {
+                   if (manager.EnemyList.Count != 0)
+                   {
+                       SetEnemyTargetTransform();
+                   }
+                   else
+                   {
+                       manager.HasEnemyTarget = false;
+                   }
+               }
+               private void RemoveTarget()
+               {
+                   if (manager.EnemyList.Count == 0) return;
+                   manager.EnemyList.RemoveAt(0);
+                   manager.EnemyList.TrimExcess();
+                   manager.EnemyTarget = null;
+                   EnemyTargetStatus();
+               }
+               private void Shoot()
+               {
+                   if(manager.EnemyList.Count<=0) 
+                       return;
+                   if (manager.EnemyList[0].IsDead)
+                   {
+                       RemoveTarget();
+                   }
+                   else
+                   {
+                       StartCoroutine(FireBullets());
+                   }
+               }
+               private IEnumerator FireBullets()
+               {
+                   yield return new WaitForSeconds(_fireRate);
+                   _fireController.FireBullets(weaponHolder);
+                   Shoot();
+               }
 
-        [SerializeField]
-        private Transform weaponHolder;
-        public void SetEnemyTargetTransform()
-        {
-                //manager.EnemyTarget = manager.EnemyList[0].GetTransform();
-                //manager.DamageableEnemy = manager.EnemyList[0];
-                //manager.HasEnemyTarget = true;
-                //Shoot();
-        }
-        public void EnemyTargetStatus()
-        {
-            if (manager.EnemyList.Count != 0)
-            {
-                manager.EnemyTarget = manager.EnemyList[0].GetTransform();
-                manager.DamageableEnemy = manager.EnemyList[0];
-            }
-            else
-            {
-                manager.HasEnemyTarget = false;
-            }
-        }
-        public void RemoveTarget()
-        {
-            if (manager.EnemyList.Count == 0) return;
-            manager.EnemyList.RemoveAt(0);
-            manager.EnemyList.TrimExcess();
-            manager.EnemyTarget = null;
-            EnemyTargetStatus();
-        }
-        public async void Shoot()
-        {
-            if(!manager.EnemyTarget) 
-                return;
-            if (manager.DamageableEnemy.IsDead)
-            {
-                RemoveTarget();
-            }
-            else
-            {
-                GetObject(PoolType.RifleBullet);
-                await Task.Delay(400);
-                Shoot();
-            }
-        }
-
-        public GameObject GetObject(PoolType poolName)
-        {
-            // var bulletPrefab = PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
-            // bulletPrefab.transform.position = weaponHolder.position;
-            // bulletPrefab.GetComponent<PlayerBulletPhysicsController>().Controller = this;
-            // FireBullet(bulletPrefab);
-            // return bulletPrefab;
-            return null;
-        }
-        private void FireBullet(GameObject bulletPrefab)
-        {
-            bulletPrefab.transform.rotation = manager.transform.rotation;
-            var rigidBodyBullet = bulletPrefab.GetComponent<Rigidbody>();
-            rigidBodyBullet.AddForce(manager.transform.forward*40,ForceMode.VelocityChange);
-        }
-
-        public GameObject GetObjectType(PoolObjectType poolType)
-        {
-            return null;
-        }
     }
 }

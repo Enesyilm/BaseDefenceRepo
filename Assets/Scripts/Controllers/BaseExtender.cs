@@ -52,9 +52,7 @@ namespace Controllers
         private void OnLoadBaseRoom(BaseRoomData baseRoomData)
         {
             _baseRoomData = baseRoomData;
-            Debug.Log("OnloadBase");
             _buyableZoneDataList=baseRoomData.Rooms[(int)BaseRoomType].buyableZoneDataStages;
-            Debug.Log("_buyableZoneDataList"+_buyableZoneDataList.BuyableZoneStages[0].RequiredAmount);
             if (CheckRoomStatus())
             {
                 TriggerBuyingEvent();

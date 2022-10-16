@@ -82,7 +82,6 @@ public class DataInitializer : MonoBehaviour
         _militaryBaseData = cdLevel.LevelDatas[_levelID].BaseData.MilitaryBaseData;
         _buyablesData = cdLevel.LevelDatas[_levelID].BaseData.BuyablesData;
         _scoreData = cdLevel.ScoreData;
-        Debug.Log("_scoreData Load"+cdLevel.ScoreData.GemScore);
 
     }
 

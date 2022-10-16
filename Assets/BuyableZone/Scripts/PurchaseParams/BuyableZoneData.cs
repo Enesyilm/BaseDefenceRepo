@@ -7,11 +7,11 @@ namespace Buyablezone.PurchaseParams
     [Serializable]
     public class BuyableZoneDataList
     {
-        [Header("New Buyable Item")] public List<BuyableZoneData> BuyableZoneStages;
-        // new List<BuyableZoneData>()
-        // {
-        //     new BuyableZoneData()
-        // };
+        [Header("New Buyable Item")] public List<BuyableZoneData> BuyableZoneStages=
+        new List<BuyableZoneData>()
+        {
+            new BuyableZoneData()
+        };
         public int BuyableLevel=0;
     }
     [Serializable]

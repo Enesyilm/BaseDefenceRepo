@@ -9,7 +9,7 @@ namespace Controllers
 {
     public class PlayerAnimationController : MonoBehaviour
     {
-        #region Self Variables
+       #region Self Variables
 
         #region Public Variables
         
@@ -17,9 +17,11 @@ namespace Controllers
 
         #region Serialized Variables
 
-        [SerializeField] private PlayerManager playerManager;
+        [SerializeField] 
+        private PlayerManager playerManager;
         
-        [SerializeField] private Animator animator;
+        [SerializeField] 
+        private Animator animator;
         
         #endregion
 
@@ -55,9 +57,15 @@ namespace Controllers
         {
             animator = GetComponent<Animator>();
         }
+
+        public void PlayTurretAnimation(bool onTurretHold)
+        {
+            animator.SetLayerWeight(2,onTurretHold ? 1 : 0);
+        }
+        
         public void PlayAnimation(XZInputParams inputParams)
         { 
-            if (playerManager.currentAreaType == AreaType.BattleOn)
+            if (playerManager.CurrentAreaType == AreaType.BattleOn)
             {
                 animator.SetLayerWeight(1,1);
                 animator.SetBool("IsBattleOn",true);
@@ -65,19 +73,20 @@ namespace Controllers
                 animator.SetBool("Aimed",true);
                 _velocityX = inputParams.XValue;
                 _velocityZ = inputParams.ZValue;
-                if (_velocityZ < 0.1f)
+                
+                if (_velocityZ < 0.1f)                                        
                 {
                     _velocityZ += Time.deltaTime * _acceleration;
                 }
-                if (_velocityX > -0.1f && Mathf.Abs(_velocityZ) <= 0.2f)
+                if (_velocityX > -0.1f && Mathf.Abs(_velocityZ) <= 0.2f)      
                 {
                     _velocityX -= Time.deltaTime * _acceleration;
                 }
-                if (_velocityX < 0.1f && Mathf.Abs(_velocityZ) <= 0.2f)
+                if (_velocityX < 0.1f && Mathf.Abs(_velocityZ) <= 0.2f)        
                 {
                     _velocityX += Time.deltaTime * _acceleration;
                 }
-                if (_velocityZ > 0.0f)
+                if (_velocityZ > 0.0f)                                         
                 {
                     _velocityZ -= Time.deltaTime * _decelaration;
                 }
@@ -93,8 +102,10 @@ namespace Controllers
                 {
                     _velocityX = 0.0f;
                 }
-                animator.SetFloat("VelocityZ",_velocityZ);
+                
                 animator.SetFloat("VelocityX",_velocityX);
+                animator.SetFloat("VelocityZ",_velocityZ);
+
                 if (new Vector2(inputParams.XValue,inputParams.ZValue).sqrMagnitude == 0)
                 {
                     AimTarget(playerManager.EnemyTarget);
@@ -105,7 +116,7 @@ namespace Controllers
                 animator.SetBool("Aimed",false);
                 animator.SetLayerWeight(1,0);
                 animator.SetBool("IsBattleOn",false);
-                ChangeAnimations( new Vector2(inputParams.XValue,inputParams.ZValue).sqrMagnitude > 0
+                ChangeAnimations(new Vector2(inputParams.XValue,inputParams.ZValue).sqrMagnitude > 0
                     ? PlayerAnimationStates.Run
                     : PlayerAnimationStates.Idle);
             }
