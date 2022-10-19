@@ -15,14 +15,17 @@ namespace Signals
         public UnityAction<BuyablesData> onSaveBuyablesData = delegate(BuyablesData arg0) {  };
         public UnityAction<ScoreData> onSaveScoreData = delegate(ScoreData arg0) {  };
         public UnityAction<int> onSaveLevelID = delegate(int arg0) {  };
+        public UnityAction<FrontyardData> onSaveFrontyardData = delegate(FrontyardData arg0) {  };
 
 
         public UnityAction<BaseRoomData> onLoadBaseRoomData = delegate(BaseRoomData arg0) {  };
         public Func<BaseRoomData> onGetBaseRoomData = delegate() { return null;};
         public Func<MilitaryBaseData> onGetMilitaryBaseData = delegate() { return null;};
+        public Func<FrontyardData> onGetFrontyardData = delegate() { return null;};
         public UnityAction<MineBaseData> onLoadMineBaseData = delegate(MineBaseData arg0) {  };
         public UnityAction<MilitaryBaseData> onLoadMilitaryBaseData = delegate(MilitaryBaseData arg0) {  };
         public UnityAction<BuyablesData> onLoadBuyablesData = delegate(BuyablesData arg0) {  };
+        public UnityAction<FrontyardData> onLoadFrontyardData = delegate(FrontyardData arg0) {  };
         public UnityAction<ScoreData> onLoadScoreData = delegate(ScoreData arg0) {  };
          public UnityAction<int> onLoadLevelID = delegate(int arg0) {  };
         // public Func<MilitaryBaseData> onLoadMilitaryBaseData = delegate { return null; };

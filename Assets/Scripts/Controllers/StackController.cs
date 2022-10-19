@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Controllers.Player;
 using Data;
 using Data.UnityObjects;
 using Data.ValueObjects;
@@ -35,7 +36,7 @@ namespace Controllers
         [ShowIf("stackingSystem",StackingSystem.Dynamic)]
         [SerializeField] private GridData stackerGridData;
 
-        //[SerializeField] private DropZoneManager dropZoneManager;
+        [SerializeField] private MoneyStackerController moneyStackerController;
 
         #endregion
 
@@ -127,7 +128,7 @@ namespace Controllers
         } 
         public override void SendGridDataToStacker()
         {
-            //dropZoneManager.GetStackPositions(gridPositionsData);
+            moneyStackerController.GetStackPositions(gridPositionsData);
         }
     }
 }

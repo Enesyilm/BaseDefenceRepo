@@ -15,7 +15,9 @@ namespace Data.ValueObject.AIDatas
         [HideIf("WorkerType", WorkerType.SoldierAI)]
         public float Speed;
         [HideIf("WorkerType", WorkerType.SoldierAI)]
-        public Transform StartTarget;
+        public int MaxWorkerLimit=5;
+        [HideIf("WorkerType", WorkerType.SoldierAI)]
+        public float MaxSpeed;
 
         [ShowIf("WorkerType", WorkerType.SoldierAI)]
         public SoldierAIData SoldierAIData;

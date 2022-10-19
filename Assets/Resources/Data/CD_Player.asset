@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: CD_Player
   m_EditorClassIdentifier: 
   PlayerData:
-    PlayerHealth: 0
+    PlayerHealth: 100
+    PlayerHealingRate: 5
+    PlayerHealingOffset: 3
     PlayerSpeed: 7
-    AttackRange: 0
+    AttackRange: 8
   PlayerMovementData:
     Speed: 7
     ExitClampLeftSide: -0.3

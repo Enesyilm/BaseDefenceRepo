@@ -1,3 +1,4 @@
+using Controllers.StackableControllers;
 using DG.Tweening;
 using Interfaces;
 using Signals;
@@ -7,6 +8,9 @@ namespace Abstracts
 {
     public abstract class AStackable:MonoBehaviour,IStackable
     {
+        public virtual bool IsSelected { get; set; }
+        public virtual bool IsCollected { get; set; }
+
         public virtual void SetInit(Transform initTransform, Vector3 position)
         {
 
@@ -34,13 +38,13 @@ namespace Abstracts
 
         public GameObject SendToStack()
         {
-            throw new System.NotImplementedException();
+            return this.gameObject;
         }
 
         public abstract GameObject SendToStack(Transform transform1);
-        public virtual void SendPosition(Transform transform)
+        public virtual void SendPosition(StackableMoney stackableMoney)
                 {
-                    DOVirtual.DelayedCall(0.1f, () => MoneyWorkerSignals.Instance.onSetMoneyPosition?.Invoke(transform));
+                    DOVirtual.DelayedCall(0.1f, () => MoneyWorkerSignals.Instance.onSetStackable?.Invoke(stackableMoney));
                 }
     }
 }

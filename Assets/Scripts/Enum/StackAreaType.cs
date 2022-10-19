@@ -5,5 +5,6 @@ namespace Enum
         AmmoStackArea,
         GemStackArea,
         SoldierStackArea,
+        MoneyWorkerSlotZone
     }
 }

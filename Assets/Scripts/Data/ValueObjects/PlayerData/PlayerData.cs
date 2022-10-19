@@ -6,6 +6,8 @@ namespace Data.ValueObjects.PlayerData
     public class PlayerData
     {
         public int PlayerHealth;
+        public int PlayerHealingRate;
+        public float PlayerHealingOffset;
         public float PlayerSpeed;
         public int AttackRange;
     }

@@ -1,14 +1,13 @@
 using System;
-using System.Collections.Generic;
-using Data.UnityObjects;
+using Data.ValueObject;
 using Data.ValueObjects;
-using Data.ValueObjects;
+using Enum;
+using Enums;
 using Keys;
 using Signals;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-namespace Managers
+namespace Managers.CoreGameManagers
 {
     public class InputManager : MonoBehaviour
     {
@@ -18,31 +17,29 @@ namespace Managers
 
         [Header("Data")] public InputData Data;
 
-        #endregion
+        #endregion Public Variables
 
         #region Serialized Variables
 
-        [SerializeField] private bool isReadyForTouch, isFirstTimeTouchTaken;
-        [SerializeField] private FloatingJoystick floatingJoystick;
+        [SerializeField] private FloatingJoystick joystick;
 
-        #endregion
+        [SerializeField] private bool isReadyForTouch=true;//OnPlayde True olacak
+        private InputHandlers _inputHandlers = InputHandlers.Character;
+
+
+        #endregion Serialized Variables
 
         #region Private Variables
+
+        private bool _isTouching;
+
+        private bool _hasTouched;
         
-        private Vector3 _inputPosition=Vector3.zero;
 
-        #endregion
+        #endregion Private Variables
 
-        #endregion
-
-
-        private void Awake()
-        {
-            Data = GetInputData();
-        }
-
-        private InputData GetInputData() => Resources.Load<CD_Input>("Data/CD_Input").InputData;
-
+        #endregion Self Variables
+        
 
         #region Event Subscriptions
 
@@ -53,12 +50,18 @@ namespace Managers
 
         private void SubscribeEvents()
         {
+       
+            CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
+            InputSignals.Instance.onInputHandlerChange += OnInputHandlerChange;
+
         }
 
         private void UnsubscribeEvents()
         {
+            CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
+            InputSignals.Instance.onInputHandlerChange -= OnInputHandlerChange;
         }
 
         private void OnDisable()
@@ -66,53 +69,77 @@ namespace Managers
             UnsubscribeEvents();
         }
 
-        #endregion
+        #endregion Event Subscriptions
 
         private void Update()
-        {
-            TwoSidedMovement();
+        {   
+            if (!isReadyForTouch) return;
+            if (Input.GetMouseButton(0) && !_hasTouched)
+            {
+                _hasTouched = true;
+            }
+            if (!_hasTouched) return;
+            
+            HandleJoystickInput();
+
+            _hasTouched = joystick.Direction.sqrMagnitude > 0;                         
+            
         }
 
-        private void TwoSidedMovement()
+        private void HandleJoystickInput()
         {
-            float horizonDeltaInput = Math.Abs(floatingJoystick.Horizontal - _inputPosition.x);
-            float verticalDeltaInput = Math.Abs(floatingJoystick.Vertical - _inputPosition.z);
-            
-            if (Input.GetMouseButton(0))
+            switch (_inputHandlers)
             {
-                InputSignals.Instance.onInputTakenActive?.Invoke(true); 
-                _inputPosition = new Vector3(floatingJoystick.Horizontal,0,floatingJoystick.Vertical);
-                     //InputSignals.Instance.onInputTakenActive?.Invoke(true);
-                InputSignals.Instance.onInputTaken?.Invoke(new XZInputParams(){
-                    XValue = _inputPosition.x,
-                    ZValue = _inputPosition.z
-                    
-                });
-                if (!isFirstTimeTouchTaken)
-                {
-                    InputSignals.Instance.onFirstTimeTouchTaken?.Invoke();
-                }
-            }
-            
-
-            if (Input.GetMouseButtonUp(0))
-            {
-                InputSignals.Instance.onInputTaken?.Invoke(new XZInputParams(){
-                    XValue = 0,
-                    ZValue = 0
-                    
-                });
-                InputSignals.Instance.onInputTakenActive?.Invoke(false);     
-            }
-            else if(floatingJoystick.Vertical==0||floatingJoystick.Horizontal==0)
-            {
-                //InputSignals.Instance.onInputTakenActive?.Invoke(false);
+                case InputHandlers.Character:
+                    InputSignals.Instance.onInputTaken?.Invoke(new XZInputParams()
+                    {
+                        XValue = joystick.Horizontal,
+                        ZValue = joystick.Vertical
+                        //InputValues = new Vector2(joystick.Horizontal, joystick.Vertical)
+                    });
+                    break;
+                
+                case InputHandlers.Turret when joystick.Vertical <= -0.6f:                                      
+                    _inputHandlers = InputHandlers.Character;                                                 
+                    InputSignals.Instance.onCharacterInputRelease?.Invoke();
+                    return;
+                
+                case InputHandlers.Turret:
+                    InputSignals.Instance.onJoystickInputDraggedforTurret?.Invoke(new XZInputParams()
+                    {
+                        XValue = joystick.Horizontal,
+                        ZValue = joystick.Vertical
+                        //InputValues = new Vector2(joystick.Horizontal,joystick.Vertical)
+                    });
+                    if (joystick.Direction.sqrMagnitude != 0)
+                    {
+                        InputSignals.Instance.onInputTaken?.Invoke(new XZInputParams()
+                        {
+                            XValue = 0,
+                            ZValue = 0
+                        });
+                    }
+                    break;
+                
+                case InputHandlers.Drone:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
-       
+
+        private void OnInputHandlerChange(InputHandlers inputHandlers)
+        {
+            _inputHandlers = inputHandlers;
+        }
+        private void OnPlay() => isReadyForTouch = true;
+        
         private void OnReset()
         {
-            isFirstTimeTouchTaken = false;
+            _isTouching = false;
+            isReadyForTouch = false;
         }
+        
     }
 }
+

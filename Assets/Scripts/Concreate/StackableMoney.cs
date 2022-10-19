@@ -10,18 +10,21 @@ namespace Controllers.StackableControllers
     {
         [SerializeField] private Rigidbody rigidbody;
         [SerializeField] private BoxCollider collider;
+        public override bool IsCollected { get; set; }
+        public override bool IsSelected { get; set; }
+
         public override GameObject SendToStack(Transform transform1)
         {
             throw new NotImplementedException();
         }
 
-        public override void SendPosition(Transform transform)
+        public override void SendPosition(StackableMoney stackableMoney)
         {
-            base.SendPosition(transform);
+            base.SendPosition(stackableMoney);
         }
         private void OnEnable()
         {
-            SendPosition(this.transform);
+            SendPosition(this);
         }
 
         public override void SetInit(Transform initTransform, Vector3 position)

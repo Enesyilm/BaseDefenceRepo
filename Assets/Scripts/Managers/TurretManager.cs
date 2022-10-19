@@ -1,6 +1,7 @@
+using System.Collections.Generic;
 using Controllers;
-using Datas.UnityObject;
-using Datas.ValueObject;
+using Controllers.TurretControllers;
+using Enum;
 using Keys;
 using Signals;
 using UnityEngine;
@@ -10,121 +11,103 @@ namespace Managers
     public class TurretManager : MonoBehaviour
     {
         #region Self Variables
-
-        #region Public Variables
-
-        public bool IsUsingByPlayer=false; 
-        
-
-        #endregion
         #region SerializeField Variables
+
+        [SerializeField] private GameObject player;
+        
         [SerializeField]
-        private TurretMovementController _movementController;
-        [SerializeField]
-        private TurretAutoAttackController _otoAtackController;
-        [SerializeField]
-        private TurretShootController ShootController;
+        private List<TurretMovementController> turretMovementControllers = new List<TurretMovementController>(6);
+
+        [SerializeField] private WeaponTypes weaponTypes = WeaponTypes.TurretBullet;
+
+
+
+        // [SerializeField]
+        // private TurretOtoAtackController _otoAtackController;
+        // [SerializeField]
+        // private TurretShootController ShootController;
         #endregion
 
         #region Private Variables
-        private TurretData turretData;
+        
+        private TurretMovementController _currentMovementController;
+        
+        
         #endregion
 
         #endregion
-
-        #region Get&SetData
-        private void Awake() => Init();
-
-        private void Init()
-        {
-            turretData = GetTurretData();
-            SetMovementData();
-            OtoAtackData();
-            GattalingRotateData();
-        }
-
-        private TurretData GetTurretData() => Resources.Load<CD_Turret>("Data/CD_Turret").turretDatas;
-
-        private void SetMovementData() => _movementController.SetMovementDatas(turretData.MovementDatas);
-
-        private void OtoAtackData() => _otoAtackController.SetOtoAtackDatas(turretData.TurretOtoAtackDatas);
-
-        private void GattalingRotateData() => ShootController.SetGattalingRotateDatas(turretData.gattalingRotateDatas);
-
-        public GameObject GetGameObject() => gameObject;
-        #endregion
+        
 
         #region Event Subscription
-        private void OnEnable() => SubscribeEvents();
+        private void OnEnable() => SubscribeEvents(); 
 
         private void SubscribeEvents()
         {
-            InputSignals.Instance.onInputTaken += OnGetInputValues;
-            TurretSignals.Instance.onPressTurretButton += OnPressTurretButton;
-            TurretSignals.Instance.onDeadEnemy += OnDeadEnemy;//Ä°nterfacele gelcek
+            CoreGameSignals.Instance.onSetCurrentTurret += OnGetCurrentTurretMovementController;
+            InputSignals.Instance.onJoystickInputDraggedforTurret += OnGetInputValues;
+            InputSignals.Instance.onCharacterInputRelease += OnCharacterRelease;
+            // TurretSignals.Instance.onPressTurretButton += OnPressTurretButton;
+            // TurretSignals.Instance.onDeadEnemy += OnDeadEnemy;
         }
 
         private void UnsubscribeEvents()
-        {
-            InputSignals.Instance.onInputTaken -= OnGetInputValues;
-            TurretSignals.Instance.onPressTurretButton -= OnPressTurretButton;
-            TurretSignals.Instance.onDeadEnemy -= OnDeadEnemy;
-
+        {   
+            
+            CoreGameSignals.Instance.onSetCurrentTurret -= OnGetCurrentTurretMovementController;
+            InputSignals.Instance.onJoystickInputDraggedforTurret -= OnGetInputValues;
+            InputSignals.Instance.onCharacterInputRelease -= OnCharacterRelease;
+            // TurretSignals.Instance.onPressTurretButton -= OnPressTurretButton;
+            // TurretSignals.Instance.onDeadEnemy -= OnDeadEnemy;
         }
+
+        
 
         private void OnDisable() => UnsubscribeEvents();
 
         #endregion
-
-        #region SubsciribeMethods
-        public void OnPressTurretButton()
-        {
-            transform.GetChild(0).gameObject.SetActive(true);
-            GetComponent<Collider>().enabled = false;
-        }
-
-        private void OnDeadEnemy() => IsEnemyExitTurretRange();
-
-        #endregion
-
+        
         #region BotController
         public void IsFollowEnemyInTurretRange()
         {
-            ShootController.ActiveGattaling();
-            //transform.GetComponentInChildren<AmmoContaynerManager>().IsTurretAttack();
-            _otoAtackController.FollowToEnemy();
+            // ShootController.ActiveGattaling();
+            // //transform.GetComponentInChildren<AmmoContaynerManager>().IsTurretAttack();
+            // _otoAtackController.FollowToEnemy();
         }
 
-        public void IsEnemyEnterTurretRange(GameObject enemy) => _otoAtackController.AddDeathList(enemy);
-        public void IsEnemyExitTurretRange()
-        {
-            _otoAtackController.RemoveDeathList();
-            ShootController.DeactiveGattaling();
-        } 
+   
         #endregion
 
-        #region PlayerController
+        #region Character on the Turret
+
+        private void CharacterParentChange()  
+        {
+            player.transform.SetParent(_currentMovementController.transform);
+            var controllerTransform = _currentMovementController.transform;
+            CoreGameSignals.Instance.onEnterTurret?.Invoke();
+            Vector3 turretPos = controllerTransform.position;
+            player.transform.position = new Vector3(turretPos.x, transform.position.y, turretPos.z - 2f);
+            player.transform.parent = controllerTransform;
+        }
+        private void OnCharacterRelease()
+        {
+            player.transform.SetParent(null);
+            CoreGameSignals.Instance.onLevel?.Invoke();
+            _currentMovementController.transform.rotation = new Quaternion(0, 0, 0, 0);
+        }
+
+        private void OnGetCurrentTurretMovementController(TurretLocationType type,GameObject _player)
+        {
+            player = _player;
+            _currentMovementController = turretMovementControllers[(int)type];
+            CharacterParentChange();
+        }
 
         private void OnGetInputValues(XZInputParams value)
         {
-            if (!IsUsingByPlayer)
-            {
-                return;
-            }
-            else
-            {
-                Debug.Log("Çalıştı");
-                _movementController.ActiveTurretWithPlayer(value);
-            }
+            _currentMovementController?.SetInputParams(value);
             
-        }
-        public void IsEnterUser() => IsUsingByPlayer=true;
+        } 
 
-        public void IsExitUser()
-        {
-            IsUsingByPlayer=false;
-            _movementController.ResetTurret();
-        }
         #endregion
     }
 }

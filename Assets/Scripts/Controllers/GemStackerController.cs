@@ -5,6 +5,7 @@ using Interfaces;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using System.Threading.Tasks;
+using Enum;
 using Signals;
 using Task = System.Threading.Tasks.Task;
 
@@ -66,7 +67,7 @@ namespace Controllers
 
         private void IncreaseScore()
         {
-           ScoreSignals.Instance.onUpdateGemScore?.Invoke();
+           ScoreSignals.Instance.onUpdateGemScore?.Invoke(ScoreTypes.IncScore);
         }
 
         public void OnRemoveAllStack(Transform targetTransform)

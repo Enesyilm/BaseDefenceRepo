@@ -41,8 +41,23 @@ namespace Controllers
         {
             ScoreSignals.Instance.onUpdateMoneyScore += OnUpdateMoneyScore;
             ScoreSignals.Instance.onUpdateGemScore += OnUpdateGemScore;
+            ScoreSignals.Instance.onGetScore += OnGetScore;
             InitializeDataSignals.Instance.onLoadScoreData += OnInitScoreData;
         }
+
+        private int OnGetScore(ScoreVariableType scoreType)
+        {
+            if (scoreType == ScoreVariableType.TotalGem)
+            {
+                return _scoreData.GemScore;
+            }
+            if (scoreType == ScoreVariableType.TotalMoney)
+            {
+                return _scoreData.MoneyScore;
+            }
+            return 0;
+        }
+
         private void OnDisable()
         {
             UnSubscribeEvents();
@@ -56,9 +71,18 @@ namespace Controllers
         }
 
         #endregion
-        private void OnUpdateGemScore()
+        private void OnUpdateGemScore(ScoreTypes scoreType)
         {
-            _scoreData.GemScore ++;
+            if (ScoreTypes.DecScore == scoreType)
+            {
+                _scoreData.GemScore --;
+                
+            }
+            if (ScoreTypes.IncScore == scoreType)
+            {
+                _scoreData.GemScore ++;
+                
+            }
             InitializeDataSignals.Instance.onSaveScoreData?.Invoke(_scoreData);
             UpdateGemScoreText();
         }
@@ -73,9 +97,18 @@ namespace Controllers
             moneyText.text = _scoreData.MoneyScore.ToString();
         }
 
-        private void OnUpdateMoneyScore()
+        private void OnUpdateMoneyScore(ScoreTypes scoreType)
         {
-            _scoreData.MoneyScore++;
+            if (ScoreTypes.DecScore == scoreType)
+            {
+                _scoreData.MoneyScore --;
+                
+            }
+            if (ScoreTypes.IncScore == scoreType)
+            {
+                _scoreData.MoneyScore ++;
+                
+            }
             InitializeDataSignals.Instance.onSaveScoreData?.Invoke(_scoreData);
             UpdateMoneyScoreText();
         }

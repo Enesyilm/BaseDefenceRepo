@@ -7,6 +7,7 @@ namespace Enum
         ShotGun,
         MiniGun,
         Run,
-        Idle
+        Idle,
+        Death
     }
 }

@@ -1,7 +1,9 @@
 using System;
+using Enum;
 using Enums;
 using Extentions;
 using Keys;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Signals
@@ -17,6 +19,9 @@ namespace Signals
         public UnityAction onRestartLevel = delegate { };
         public UnityAction onPlay = delegate { };
         public UnityAction onReset = delegate { };
+        public UnityAction onEnterTurret = delegate { };
+        public UnityAction onLevel = delegate { };
+        public UnityAction<TurretLocationType,GameObject> onSetCurrentTurret = delegate(TurretLocationType arg0, GameObject o) {  };
 
         public UnityAction onSetCameraTarget = delegate { };
         public UnityAction onStageAreaReached = delegate { };

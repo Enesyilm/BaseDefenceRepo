@@ -31,6 +31,7 @@ namespace Controllers
                private Vector2 _inputVector;
        
                private bool _isReadyToMove;
+               private bool _isPlayerDeath;
                
                #endregion
        
@@ -61,7 +62,7 @@ namespace Controllers
                }
                private void PlayerMove()
                {
-                   if (_isReadyToMove)
+                   if (_isReadyToMove&&!_isPlayerDeath)
                    {
                        var velocity = rigidbody.velocity; 
                        velocity = new Vector3(-_inputVector.x,velocity.y, -_inputVector.y)*_data.Speed;
@@ -85,9 +86,15 @@ namespace Controllers
                }
                public void DisableMovement(InputHandlers inputHandlers)
                {
-                   if(inputHandlers != InputHandlers.Turret) return;
+                   //if(inputHandlers != InputHandlers.Turret) return;
+                  
                    rigidbody.velocity = Vector3.zero;
                    transform.rotation = new Quaternion(0, 0, 0, 0);
+               }
+
+               public void PlayerDeath()
+               {
+                    _isPlayerDeath = true;
                }
     }
 }

@@ -139,7 +139,9 @@ MonoBehaviour:
         - {fileID: 6073291910262922852, guid: de620dccf5e0b504eae2e7c76df064c6, type: 3}
         - {fileID: 2787082323032974237, guid: 047fe9c66b66fd74b8b03f0bf91e0664, type: 3}
         - {fileID: 8407312421617872190, guid: f7f6d9ccf43ad6a489e8d634d495c176, type: 3}
-      Stages: []
+      Stages:
+      - IsOpened: 0
+      - IsOpened: 0
       Bomb:
       - BombCost: 0
         BombWaitTime: 0

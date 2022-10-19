@@ -33,6 +33,7 @@ public class DataInitializer : MonoBehaviour
     private MilitaryBaseData _militaryBaseData;
     private BuyablesData _buyablesData;
     private ScoreData _scoreData;
+    private FrontyardData _frontyardData;
 
     #endregion
 
@@ -82,6 +83,7 @@ public class DataInitializer : MonoBehaviour
         _militaryBaseData = cdLevel.LevelDatas[_levelID].BaseData.MilitaryBaseData;
         _buyablesData = cdLevel.LevelDatas[_levelID].BaseData.BuyablesData;
         _scoreData = cdLevel.ScoreData;
+        _frontyardData = cdLevel.LevelDatas[_levelID].FrontyardData;
 
     }
 
@@ -101,11 +103,13 @@ public class DataInitializer : MonoBehaviour
         CoreGameSignals.Instance.onLevelInitialize += OnSyncLevel;
         InitializeDataSignals.Instance.onSaveBaseRoomData += SyncBaseRoomDatas;
         InitializeDataSignals.Instance.onGetBaseRoomData += OnGetBaseRoomData;
+        InitializeDataSignals.Instance.onGetFrontyardData += OnGetFrontyardData;
         InitializeDataSignals.Instance.onGetMilitaryBaseData += OnLoadMilitaryBaseData;
         InitializeDataSignals.Instance.onSaveMineBaseData += SyncMineBaseDatas;
         InitializeDataSignals.Instance.onSaveMilitaryBaseData += SyncMilitaryBaseData;
         InitializeDataSignals.Instance.onSaveBuyablesData += SyncBuyablesData;
         InitializeDataSignals.Instance.onSaveScoreData += SyncScoreData;
+        InitializeDataSignals.Instance.onSaveFrontyardData += OnSaveFrontyardData;
         CoreGameSignals.Instance.onApplicationPause += OnApplicationPauseSave;
         // InitializeDataSignals.Instance.onLoadMilitaryBaseData += OnLoadMilitaryBaseData;
         // InitializeDataSignals.Instance.onLoadBaseRoomData += OnLoadBaseRoomData;
@@ -114,22 +118,29 @@ public class DataInitializer : MonoBehaviour
         // InitializeDataSignals.Instance.onLoadScoreData += OnLoadScoreData;
     }
 
+   
+
     private BaseRoomData OnGetBaseRoomData()
     {
         return _baseRoomData;
     }
-
+    private FrontyardData OnGetFrontyardData()
+    {
+        return _frontyardData;
+    }
 
     private void UnsubscribeEvents()
     {
         InitializeDataSignals.Instance.onSaveLevelID -= OnSyncLevelID;
         CoreGameSignals.Instance.onLevelInitialize -= OnSyncLevel;
+        InitializeDataSignals.Instance.onGetFrontyardData -= OnGetFrontyardData;
         InitializeDataSignals.Instance.onSaveBaseRoomData -= SyncBaseRoomDatas;
         InitializeDataSignals.Instance.onSaveMineBaseData -= SyncMineBaseDatas;
         InitializeDataSignals.Instance.onSaveMilitaryBaseData -= SyncMilitaryBaseData;
         InitializeDataSignals.Instance.onSaveBuyablesData -= SyncBuyablesData;
         InitializeDataSignals.Instance.onSaveScoreData -= SyncScoreData;
         CoreGameSignals.Instance.onApplicationPause -= OnApplicationPauseSave;
+        InitializeDataSignals.Instance.onSaveFrontyardData -= OnSaveFrontyardData;
         // InitializeDataSignals.Instance.onLoadMilitaryBaseData -= OnLoadMilitaryBaseData;
         // InitializeDataSignals.Instance.onLoadBaseRoomData -= OnLoadBaseRoomData;
         // InitializeDataSignals.Instance.onLoadBuyablesData -= OnLoadBuyablesData;
@@ -155,6 +166,7 @@ public class DataInitializer : MonoBehaviour
         InitializeDataSignals.Instance.onLoadMilitaryBaseData?.Invoke(_militaryBaseData);
         InitializeDataSignals.Instance.onLoadBuyablesData?.Invoke(_buyablesData);
         InitializeDataSignals.Instance.onLoadMineBaseData?.Invoke(_mineBaseData);
+        InitializeDataSignals.Instance.onLoadFrontyardData?.Invoke(_frontyardData);
     }
     private MilitaryBaseData OnLoadMilitaryBaseData()
     {
@@ -226,6 +238,10 @@ public class DataInitializer : MonoBehaviour
     private void SyncBuyablesData(BuyablesData buyablesData)
     {
        _buyablesData = buyablesData;
+    }
+    private void OnSaveFrontyardData(FrontyardData frontyardData)
+    {
+        _frontyardData = frontyardData;
     }
 
     #endregion

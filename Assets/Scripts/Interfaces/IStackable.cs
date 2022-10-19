@@ -5,7 +5,8 @@ namespace Interfaces
 {
     public interface IStackable
     {
-       
+       bool IsSelected { get; set; }
+       bool IsCollected { get; set; }
         void SetInit(Transform initTransform,Vector3 position);
 
         void SetVibration(bool isVibrate);

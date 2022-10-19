@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AI;
 using AI.EnemyAI;
 using AI.States;
+using Controllers;
 using Data.UnityObjects;
 using Data.ValueObjects;
 using Data.ValueObjects.AiData;
@@ -24,7 +25,6 @@ namespace AIBrains.EnemyBrain
         public Transform TurretTarget;
         public int Health;
         public Transform MineTarget;
-        public bool AmIDead=false;
         public Transform PlayerTarget;
         public PoolObjectType EnemyType;
         public Transform SpawnPosition;
@@ -35,6 +35,9 @@ namespace AIBrains.EnemyBrain
 
         [SerializeField]
         private Animator animator;
+
+        [SerializeField] private SkinnedMeshRenderer skinnedMeshRenderer;
+        [SerializeField] private EnemyDamager enemyDamager;
         
 
         #endregion
@@ -64,6 +67,7 @@ namespace AIBrains.EnemyBrain
             EnemyAIData=GetEnemyAIData();
             EnemyTypeData = GetEnemyType();
             TurretTarget = GetCurrentTurret();
+            SendDataToControllers();
             
         }
 
@@ -73,6 +77,10 @@ namespace AIBrains.EnemyBrain
             GetStatesReferences();
         }
 
+        private void SendDataToControllers()
+        {
+            enemyDamager.SetEnemyData(GetEnemyType());
+        }
         private Transform GetCurrentTurret()
         {
             return EnemyAIData.TargetList[Random.Range(0, EnemyAIData.TargetList.Count)];
@@ -100,7 +108,7 @@ namespace AIBrains.EnemyBrain
             var search = new SearchState(this,navmeshAgent,SpawnPosition);
             var attack = new AttackState(navmeshAgent, animator,this,attackRange);
             var move = new EnemyMoveState(this,navmeshAgent, animator,moveSpeed);
-            var death = new DeathState(this,navmeshAgent, animator);
+            var death = new DeathState(this,navmeshAgent, animator,skinnedMeshRenderer);
             var chase = new ChaseState(navmeshAgent, animator,this,attackRange,chaseSpeed);
             var moveToBomb = new MoveToBombState(navmeshAgent, animator,this,attackRange,chaseSpeed);
 
@@ -120,7 +128,7 @@ namespace AIBrains.EnemyBrain
             Func<bool> HasTarget() => () => PlayerTarget != null;
             Func<bool> HasTurretTarget() => () => TurretTarget != null;
             Func<bool> HasTargetNull() => () => PlayerTarget is null;
-            Func<bool> AmIDead() => () => this.AmIDead;
+            Func<bool> AmIDead() => () => Health<=0;
             Func<bool> AmIAttackPlayer() => () => PlayerTarget != null && chase.isPlayerInRange();
             Func<bool> IsBombInRange() => () => MineTarget != null;
         }

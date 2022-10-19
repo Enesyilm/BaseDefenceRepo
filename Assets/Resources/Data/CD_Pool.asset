@@ -33,11 +33,11 @@ MonoBehaviour:
     - ObjectType: {fileID: 7950720491344877854, guid: 483c974de3615874ba63959dc80c3fcd, type: 3}
       initalAmount: 20
       isDynamic: 0
-    - ObjectType: {fileID: 0}
-      initalAmount: 0
-      isDynamic: 0
-    - ObjectType: {fileID: 9004025123679645240, guid: 0742269e27659a647932f8f57fbb39f2, type: 3}
+    - ObjectType: {fileID: 862312575517477984, guid: 2fac699c0375e6d46bcb2af1935510da, type: 3}
       initalAmount: 200
+      isDynamic: 1
+    - ObjectType: {fileID: 9004025123679645240, guid: 0742269e27659a647932f8f57fbb39f2, type: 3}
+      initalAmount: 300
       isDynamic: 0
     - ObjectType: {fileID: 373294581055109571, guid: 8a6675d16b2141446ad920144073a0de, type: 3}
       initalAmount: 50

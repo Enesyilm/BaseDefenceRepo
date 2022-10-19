@@ -8,6 +8,7 @@ using Data.UnityObjects;
 using Data.ValueObjects;
 using Enum;
 using Interfaces;
+using Signals;
 using UnityEngine;
 
 namespace Managers
@@ -21,9 +22,8 @@ namespace Managers
     #region Public Variables
 
     public bool IsPayedTotalAmount=false;
-    public int GemAmount=9; //Sinyalle Cekilecek Score Manager Uzerinden
     public int LureTime = 5;
-    [SerializeField] private int explosionDamage = 999;
+    
 
     #endregion
 
@@ -31,6 +31,7 @@ namespace Managers
 
     [SerializeField] private MinePhysicsController minePhysicsController;
     [SerializeField] private int explosionRange = 10;
+    [SerializeField] private int explosionDamage = 999;
 
     [SerializeField]
     private ParticleSystem ExplosionParticle;
@@ -39,20 +40,12 @@ namespace Managers
 
     #region Private Variables
     public List<EnemyAIBrain>  _enemyAIBrains;
-    private BombData Data;
-    private BuyableZoneDataList _buyableZoneList;
+    private BuyableZoneDataList _buyableZoneList=new BuyableZoneDataList(0,10);
     
     #endregion
 
     #endregion
-    private void Awake()
-    {
-        Data= GetMineData();
-        _buyableZoneList=Data.BuyableZoneDataList;
-    }
 
-    private BombData GetMineData()=>Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0].FrontyardData.Bomb[0];
-  
     public void OpenLureRange(bool _state)
     {
         minePhysicsController.gameObject.SetActive(_state);
@@ -60,12 +53,19 @@ namespace Managers
     public void ClearExplosionList()
     {
         ExplosionParticle.Play();
-        Debug.Log("patladı");
 
+        for (int index = 0; index < _enemyAIBrains.Count; index++)
+        {
+            if (InExplosionRange(_enemyAIBrains[index]))
+            {
+                _enemyAIBrains[index].Health=0;
+            }
+            _enemyAIBrains[index].MineTarget = null;
+        }
         foreach (var enemyAIBrain in _enemyAIBrains)
         {
-            enemyAIBrain.AmIDead = InExplosionRange(enemyAIBrain);
-            enemyAIBrain.MineTarget = null;
+            //enemyAIBrain.AmIDead = InExplosionRange(enemyAIBrain);
+            
         }
         _enemyAIBrains.Clear();
     }
@@ -94,18 +94,17 @@ namespace Managers
     }
     public bool MakePayment()
     {
-        Debug.Log("Payment"+ GemAmount);
-        if (GemAmount > 0)
+        int _gemAmount=ScoreSignals.Instance.onGetScore.Invoke(ScoreVariableType.TotalGem);
+        if ( _gemAmount> 0)
         {
-        GemAmount--;
-        return true;
+            ScoreSignals.Instance.onUpdateGemScore?.Invoke(ScoreTypes.DecScore);
+            return true;
+                
         }
         else
         {
             return false;
         }
-        return (GemAmount < 0) ? false : true;
-        //Payed Amount have to increase in here
     }
     #endregion
 

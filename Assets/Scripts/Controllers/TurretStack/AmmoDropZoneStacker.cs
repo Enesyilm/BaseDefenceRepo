@@ -39,7 +39,7 @@ namespace Controllers
         }
         public override void GetStack(GameObject stackableObj, Transform otherTransform)
         {
-            if (PositionList.Count <= StackList.Count)
+            if (PositionList.Count-5 <= StackList.Count)
             {
                 Debug.Log("Doldu");
                 AmmoDropZoneManager.IsFull = true;

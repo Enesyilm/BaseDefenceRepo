@@ -31,6 +31,11 @@ public class EnemyPhysicsController : MonoBehaviour,IDamageable
            
             _enemyAIBrain.PlayerTarget = other.transform.parent.transform;
         }
+        if(other.TryGetComponent( out IDamager iDamager))
+        {
+            Debug.Log("IDamager");
+            TakeDamage(iDamager.GetDamage());
+        }
         
     }
     private void OnTriggerExit(Collider other)
@@ -48,7 +53,8 @@ public class EnemyPhysicsController : MonoBehaviour,IDamageable
         
         if (_enemyAIBrain.Health > 0)
         {
-            _enemyAIBrain.Health =  _enemyAIBrain.Health - damage;
+            _enemyAIBrain.Health -= damage;
+           
             if (_enemyAIBrain.Health == 0)
             {
                 IsDead = true;

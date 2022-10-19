@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using Abstracts;
 using DG.Tweening;
+using Enum;
 using Interfaces;
+using Signals;
 using UnityEngine;
 
 namespace Controllers.Player
@@ -100,7 +102,7 @@ namespace Controllers.Player
             GetStackSequence.Join(removedStack.transform.DOLocalRotate(randomRemovedStackRotation, .2f)).OnComplete(() =>
             {
                 removedStack.transform.rotation = Quaternion.LookRotation(transform.forward);
-
+                ScoreSignals.Instance.onUpdateMoneyScore.Invoke(ScoreTypes.IncScore);
                 StackList.Remove(removedStack);
                 removedStack.transform.DOLocalMove(transform.localPosition, .1f).OnComplete(() =>
                 {

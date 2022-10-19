@@ -42,7 +42,7 @@ MonoBehaviour:
       EnemyType: 0
       SpawnPosition: {fileID: 4762336438926297630, guid: a6025f074f5f6fb45aaf164791c380da, type: 3}
     - Health: 100
-      Damage: 10
+      Damage: 25
       AttackRange: 3
       AttackSpeed: 5
       Speed: 2
@@ -50,7 +50,7 @@ MonoBehaviour:
       EnemyType: 1
       SpawnPosition: {fileID: 4768927736750387647, guid: 267708e3a495132468b5452f608514d9, type: 3}
     - Health: 100
-      Damage: 10
+      Damage: 5
       AttackRange: 2.5
       AttackSpeed: 5
       Speed: 4

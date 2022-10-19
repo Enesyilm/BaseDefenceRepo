@@ -170,11 +170,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPayedTotalAmount: 0
-  GemAmount: 9
-  LureTime: 5
-  explosionDamage: 999
+  LureTime: 10
   minePhysicsController: {fileID: 3017674081782103553}
   explosionRange: 10
+  explosionDamage: 999
   ExplosionParticle: {fileID: 3017674081596184745}
   _enemyAIBrains: []
 --- !u!1001 &3017674081578206735
@@ -242,6 +241,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 404992, guid: a7c694f0877ea874fa57e033221095c3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19831026, guid: a7c694f0877ea874fa57e033221095c3, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19835964, guid: a7c694f0877ea874fa57e033221095c3, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19848870, guid: a7c694f0877ea874fa57e033221095c3, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19867500, guid: a7c694f0877ea874fa57e033221095c3, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19893748, guid: a7c694f0877ea874fa57e033221095c3, type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -319,6 +338,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8139203222880850779, guid: 67c23072137bfde46ba04e285ef960fd, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8ab8c3daa662ff24f86a9340066fbdd9, type: 2}
     - target: {fileID: 8192998583436046659, guid: 67c23072137bfde46ba04e285ef960fd, type: 3}
       propertyPath: m_Name
       value: Mine01_stylizedToonyShader
@@ -395,7 +418,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4925318037922924703, guid: 1c3b307bb69ad3843b50d51ffe4df4a7, type: 3}
       propertyPath: coolDownTime
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4925318037922924703, guid: 1c3b307bb69ad3843b50d51ffe4df4a7, type: 3}
       propertyPath: waitInputForInteraction

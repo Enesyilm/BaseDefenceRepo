@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Abstracts;
 using Controllers.Player;
+using Controllers.TurretControllers;
 using Enum;
 using Interfaces;
 using Managers;
@@ -39,12 +40,13 @@ namespace Controllers
                  var playerIsGoingToFrontYard = other.transform.position.z > transform.position.z;
                  gameObject.layer = LayerMask.NameToLayer("Base");
                  gameObject.transform.parent.gameObject.layer = LayerMask.NameToLayer("Base");
+                 playerManager.CheckAreaStatus( AreaType.BaseDefense);
+                 StartCoroutine(playerManager.StartHealing());
                  playerManager.EnemyTarget = null;
                  // for (int index = 0; index < enemy; index++)
                  // {
                  //     playerManager.EnemyList[index].IsTaken=false;
                  // }
-                 playerManager.CheckAreaStatus( AreaType.BaseDefense);
              }
              if (other.CompareTag("MineEntrance"))
              {
@@ -63,14 +65,22 @@ namespace Controllers
                  playerManager.HasEnemyTarget = false;
                  playerManager.EnemyList.Clear();
              }
+             if (other.TryGetComponent(out EnemyDamager enemyDamager))
+             {
+                 playerManager.OnUpdateHealth(ScoreTypes.DecScore,enemyDamager.GetDamage());
+             }
+             if (other.TryGetComponent(out TurretPhysicsController turretPhysicsController))
+             {
+                 playerManager.SetTurretAnimation(true);
+             }
         }
-        // private void OnTriggerExit(Collider other)
-        // {
-        //     if (other.TryGetComponent(out GatePhysicsController physicsController))
-        //     {
-        //         GateExit(other);
-        //     }
-        // }
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.TryGetComponent(out TurretPhysicsController turretPhysicsController))
+            {
+                playerManager.SetTurretAnimation(false);
+            }
+        }
        
     }
 }

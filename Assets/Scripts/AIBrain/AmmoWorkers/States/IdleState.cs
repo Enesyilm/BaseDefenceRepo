@@ -21,7 +21,6 @@ namespace States
 
         public void Tick()
         {
-            Debug.Log("Idle");
         }
 
         public void OnEnter()

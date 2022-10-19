@@ -17,6 +17,7 @@ namespace Controllers
         private BuyableZoneDataList _buyableZoneDataList=new BuyableZoneDataList();
         [SerializeField] private GameObject extendablePart;
         [SerializeField] private GameObject closeablePart;
+        [SerializeField] private GameObject buyableZone;
         public BaseRoomTypes BaseRoomType;
         
 
@@ -83,16 +84,33 @@ namespace Controllers
             await Task.Delay(1000);
         }
 
+        public  void AlreadyBuyed()
+        {
+            extendablePart.SetActive(true);
+            closeablePart.SetActive(false);
+            buyableZone.SetActive(false);
+        }
         public void TriggerBuyingEvent()
         {
+            _baseRoomData.Rooms[(int)BaseRoomType].IsOpened=true;
+            InitializeDataSignals.Instance.onSaveBaseRoomData?.Invoke(_baseRoomData);
             extendablePart.SetActive(true);
             closeablePart.SetActive(false);
         }
 
         public bool MakePayment()
         {
-            InitializeDataSignals.Instance.onLoadBaseRoomData.Invoke(_baseRoomData);
-            return true;
+            int _gemAmount=ScoreSignals.Instance.onGetScore.Invoke(ScoreVariableType.TotalGem);
+            if ( _gemAmount> 0)
+            {
+                ScoreSignals.Instance.onUpdateGemScore?.Invoke(ScoreTypes.DecScore);
+                return true;
+                
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

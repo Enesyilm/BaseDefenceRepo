@@ -121,7 +121,7 @@ namespace Controllers
                     : PlayerAnimationStates.Idle);
             }
         }
-        private void ChangeAnimations(PlayerAnimationStates animationStates)
+        public void ChangeAnimations(PlayerAnimationStates animationStates)
         {
             if (animationStates == _currentAnimationState) return;
              animator.Play(animationStates.ToString());

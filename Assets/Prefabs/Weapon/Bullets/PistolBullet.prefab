@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add0c609789a40119d5090ec60be397a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 0
+  weaponType: 1
   physicsController: {fileID: 5228305069856320675}
 --- !u!114 &8316817149833392104
 MonoBehaviour:

@@ -17,7 +17,8 @@ MonoBehaviour:
     - WorkerType: 0
       CapacityOrDamage: 3
       Speed: 1
-      StartTarget: {fileID: 0}
+      MaxWorkerLimit: 5
+      MaxSpeed: 0
       SoldierAIData:
         SoldierPrefab: {fileID: 0}
         Damage: 0
@@ -29,7 +30,8 @@ MonoBehaviour:
     - WorkerType: 1
       CapacityOrDamage: 3
       Speed: 1
-      StartTarget: {fileID: 4234470132773979830, guid: ba351a166e2985d4ba1d454a25881671, type: 3}
+      MaxWorkerLimit: 5
+      MaxSpeed: 2.294292
       SoldierAIData:
         SoldierPrefab: {fileID: 0}
         Damage: 0
@@ -41,7 +43,8 @@ MonoBehaviour:
     - WorkerType: 2
       CapacityOrDamage: 3
       Speed: 1
-      StartTarget: {fileID: 0}
+      MaxWorkerLimit: 5
+      MaxSpeed: 0
       SoldierAIData:
         SoldierPrefab: {fileID: 0}
         Damage: 0
@@ -53,7 +56,8 @@ MonoBehaviour:
     - WorkerType: 3
       CapacityOrDamage: 0
       Speed: 0
-      StartTarget: {fileID: 0}
+      MaxWorkerLimit: 5
+      MaxSpeed: 0
       SoldierAIData:
         SoldierPrefab: {fileID: 0}
         Damage: 0

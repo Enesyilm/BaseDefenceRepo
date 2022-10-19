@@ -1,10 +1,11 @@
 using Data.ValueObjects.WeaponData;
+using Interfaces;
 using Managers;
 using UnityEngine;
 
 namespace Controllers
 {
-    public class BulletPhysicController : MonoBehaviour
+    public class BulletPhysicController : MonoBehaviour,IDamager
     {
         #region Self Variables
 
@@ -29,7 +30,7 @@ namespace Controllers
 
         public void GetData(WeaponData data)
         {
-            _damage = data.Damage;
+            _damage = data.Damage;//Damage Enemye yansıyor şimdi health sıfır olunca para düşmesi yapıllacak
         }
         public int Damage()
         {
@@ -41,6 +42,11 @@ namespace Controllers
             {
                 bulletManager.SetBulletToPool();
             }
+        }
+
+        public int GetDamage()
+        {
+            return _damage;
         }
     }
 }

@@ -1,20 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AIBrains.SoldierBrain;
-using Data.UnityObjects;
-using Data.ValueObjects;
 using Data.ValueObjects;
 using Data.ValueObjects.AiData;
 using Enum;
-using Enums;
-using Interfaces;
 using Signals;
 using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace Managers
 {
@@ -158,7 +152,7 @@ namespace Managers
             UpdateSoldierAmount();
         }
         [Button]
-        private async void UpdateSoldierAmount()
+        public async void UpdateSoldierAmount()
         {
             if(!_isTentAvaliable) return;
             if (_data.CurrentSoldierAmount < _data.TentCapacity)
@@ -166,7 +160,7 @@ namespace Managers
                 GetSoldier();
                 _data.CurrentSoldierAmount += 1;
                 await Task.Delay(100);
-                UpdateSoldierAmount();
+                //UpdateSoldierAmount();
             }
             else
             {

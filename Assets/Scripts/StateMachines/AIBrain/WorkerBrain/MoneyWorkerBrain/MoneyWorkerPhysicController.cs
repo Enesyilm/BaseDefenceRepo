@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Controllers.Player;
+using Controllers.StackableControllers;
 using UnityEngine;
 using StateMachines.AIBrain.Workers;
 using Signals;
@@ -16,20 +17,19 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.TryGetComponent<IStackable>(out IStackable stackable))
+            if(other.TryGetComponent<StackableMoney>(out StackableMoney stackable))
             {
                 if (moneyWorkerBrain.IsAvailable())
                 {
-                    MoneyWorkerSignals.Instance.onThisMoneyTaken?.Invoke(other.transform);
+                    stackable.IsCollected = true;
+                    MoneyWorkerSignals.Instance.onThisMoneyTaken?.Invoke();
                     moneyStackerController.SetStackHolder(stackable.SendToStack().transform);
                     moneyStackerController.GetStack(other.gameObject);
                     moneyWorkerBrain.SetCurrentStock();
-                    //other'a layer de�i�tirme yap�labilir
                 }
             }
             if (other.CompareTag("Gate"))
             {
-                Debug.Log("Zort Gate");
                 moneyStackerController.OnRemoveAllStack();
                 moneyWorkerBrain.RemoveAllStock();
             }

@@ -28,7 +28,6 @@ namespace Controllers
              {
                  //_ammoManager.WhenEnterTurretStack(transform.parent.GetComponent<AmmoWorkerBrain>());
                  //tüm zoneları kontrol edecek amma manager base fonksiyonu olsun ve 
-                 Debug.Log("AmmoDropZonePhysicsController");
                  Brain.IsAmmoWorkerReachedDropzone = true;
                  if (ammoDropZonePhysicsController.ammoDropZoneManager.CheckIfDropzoneFull())
                  {

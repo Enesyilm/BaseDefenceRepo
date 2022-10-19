@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using Controllers;
+using Controllers.Player;
 using Data.UnityObjects;
 using Data.ValueObjects.PlayerData;
 using Data.ValueObjects.WeaponData;
@@ -41,6 +43,8 @@ namespace Managers
         private PlayerShootingController shootingController;
         [SerializeField]
         private PlayerMovementController movementController;
+        [SerializeField]
+        private PlayerHealthController healthController;
         #endregion
 
         #region Private Variables
@@ -58,6 +62,7 @@ namespace Managers
             _data = GetPlayerData();
             _movementData=GetPlayerMovementData();
             _weaponData = GetWeaponData();
+          
             Init();
         }
         private PlayerData GetPlayerData() => Resources.Load<CD_Player>("Data/CD_Player").PlayerData;
@@ -69,6 +74,7 @@ namespace Managers
             movementController.SetMovementData(_movementData);
             weaponController.SetWeaponData(_weaponData);
             meshController.SetWeaponData(_weaponData);
+            healthController.SetHealthData(_data);
         }
         #region Event Subscription
         private void OnEnable()
@@ -105,7 +111,30 @@ namespace Managers
         private void AimEnemy() => movementController.LookAtTarget(!HasEnemyTarget ? null : EnemyList[0]?.GetTransform());
         public void CheckAreaStatus(AreaType areaType) => meshController.ChangeAreaStatus(CurrentAreaType = areaType);
         private void OnDisableMovement(InputHandlers inputHandler) => movementController.DisableMovement(inputHandler);
-        public void SetTurretAnim(bool onTurret) => animationController.PlayTurretAnimation(onTurret);
+        public void SetTurretAnimation(bool onTurret) => animationController.PlayTurretAnimation(onTurret);
+        public void OnUpdateHealth(ScoreTypes scoreType,int amount) => healthController.UpdateHealth(scoreType,amount);
+
+        public void PlayerDeath()
+        {
+            animationController.ChangeAnimations(PlayerAnimationStates.Death);
+            movementController.DisableMovement(InputHandlers.Turret);
+            movementController.PlayerDeath();
+            HasEnemyTarget = false;
+            EnemyList.Clear();
+            //CurrentAreaType = AreaType.BaseDefense;
+            meshController.ChangeAreaStatus(AreaType.BaseDefense );
+            
+        }
+
+        public IEnumerator StartHealing()
+        {
+            Debug.Log("StartHealting");
+            
+            yield return new WaitForSeconds(_data.PlayerHealingOffset);
+            if (healthController.Health >=100&&LayerMask.NameToLayer("Frontyard")==gameObject.layer) yield break;
+            StartCoroutine(StartHealing());
+            OnUpdateHealth(ScoreTypes.IncScore,_data.PlayerHealingRate);
+        }
         public void SendHostageToMineBase(Vector3 centerOfGatePo)
         {
             HostageSignals.Instance.onSendHostageToMineBase.Invoke(centerOfGatePo);
@@ -114,5 +143,7 @@ namespace Managers
          {
              HostageSignals.Instance.onSendHostageStackToMilitaryBase?.Invoke();
          }
+
+        
     }
 }

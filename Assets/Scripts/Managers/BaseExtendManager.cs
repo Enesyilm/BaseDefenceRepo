@@ -38,38 +38,23 @@ namespace Managers
 
         private void UnSubscribeEvents()
         {
-            throw new NotImplementedException();
+             InitializeDataSignals.Instance.onLoadBaseRoomData-=OnLoadBaseRoom;
         }
-
-
-        private bool CheckRoomStatus()
-        {
-            BuyableZoneData _currentBuyableZoneData=_buyableZoneDataList.BuyableZoneStages[_buyableZoneDataList.BuyableLevel];
-            if (_currentBuyableZoneData.PayedAmount>=_currentBuyableZoneData.RequiredAmount)
-            {
-                return true;
-            }
-
-            return false;
-        }
-        
-        
 
         #endregion
         private void OnLoadBaseRoom(BaseRoomData baseRoomData)
-               {
-                   // _baseRoomData = baseRoomData;
-                   // for (int index = 0; index < baseParts.Count; index++)
-                   // {
-                   //     Debug.Log("_baseRoomData"+baseRoomData.Rooms[(int)baseParts[index].BaseRoomType].IsOpened);
-                   //     if (baseRoomData.Rooms[(int)baseParts[index].BaseRoomType].IsOpened)
-                   //     {
-                   //         baseParts[index].TriggerBuyingEvent();
-                   //     }
-                   //    
-                   // }
-                   
-               }
+        {
+            _baseRoomData = baseRoomData;
+            for (int index = 0; index < baseParts.Count; index++)
+            {
+             if (baseRoomData.Rooms[(int)baseParts[index].BaseRoomType].IsOpened)
+             {
+                 baseParts[index].AlreadyBuyed();
+             }
+            
+            }
+            
+        }
 
         
     }

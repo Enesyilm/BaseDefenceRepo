@@ -15,6 +15,7 @@ namespace Signals
         public UnityAction <Transform> onPlayerEnterAmmoWorkerCreaterArea = delegate { };
         public UnityAction <AmmoDropZoneManager> onOpenNewAmmoDropZone = delegate { };
         public UnityAction onDropzoneFull = delegate { };
+        public Func<bool> onGetDropZoneStates= delegate { return true;};
 
     }
 }

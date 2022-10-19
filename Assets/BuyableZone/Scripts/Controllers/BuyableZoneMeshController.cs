@@ -29,7 +29,7 @@ namespace Buyablezone
         [SerializeField]
         private GameObject RequiredItemIcon;
 
-
+        private bool _canStart=true;
         #endregion
         
 
@@ -80,12 +80,19 @@ namespace Buyablezone
 
       public void StartPaymentFailedAnimation()
       {
+          
           var _initialColor=buyableZoneText.color;
-          buyableZoneText.color=Color.red;
-          transform.DOPunchPosition(new Vector3(.2f,0,0), 0.1f, 1, 1).OnComplete(() =>
+          if (_canStart)
           {
-              buyableZoneText.color=_initialColor;
-          } );
+              _canStart = false;
+              buyableZoneText.color=Color.red;
+              transform.DOPunchPosition(new Vector3(.2f,0,0), 0.1f, 1, 1).OnComplete(() =>
+              {
+                  DOVirtual.DelayedCall(0.5f, () => { _canStart = true;});
+                  buyableZoneText.color=_initialColor;
+              } );
+          }
+          
 
       }
     }

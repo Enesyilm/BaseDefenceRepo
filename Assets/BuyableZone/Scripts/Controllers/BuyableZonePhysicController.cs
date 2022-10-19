@@ -12,6 +12,7 @@ namespace Buyablezone
         {
             if (other.CompareTag("Player"))
             {
+                Debug.Log("19");
                 buyableZoneManager.TextBounceEffectActive(true);
             }
         }
@@ -28,9 +29,15 @@ namespace Buyablezone
 
         private void OnTriggerExit(Collider other)
         {
-            buyableZoneManager.Purchase.InitialTimer = 0;
-            buyableZoneManager.TextBounceEffectActive(false);
-            buyableZoneManager.StartRadialProgress( buyableZoneManager.Purchase.InitialTimeOffset, buyableZoneManager.Purchase.InitialTimeOffset);
+            if (other.CompareTag("Player"))
+            {
+                
+                buyableZoneManager.Purchase.InitialTimer = 0;
+                buyableZoneManager.TextBounceEffectActive(false);
+                buyableZoneManager.StartRadialProgress( buyableZoneManager.Purchase.InitialTimeOffset, buyableZoneManager.Purchase.InitialTimeOffset);
+                
+            }
+           
             
         }
     }
