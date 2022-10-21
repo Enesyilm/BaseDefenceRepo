@@ -59,6 +59,7 @@ namespace Managers
             if (InExplosionRange(_enemyAIBrains[index]))
             {
                 _enemyAIBrains[index].Health=0;
+                _enemyAIBrains[index].enemyPhysicsController.IsDead = true;
             }
             _enemyAIBrains[index].MineTarget = null;
         }

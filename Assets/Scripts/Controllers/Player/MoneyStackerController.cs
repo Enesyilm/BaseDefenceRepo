@@ -52,7 +52,6 @@ namespace Controllers.Player
                 stackableObj.transform.rotation = Quaternion.LookRotation(transform.forward);
             
                 StackList.Add(stackableObj);
-                Debug.Log("gittiği pozisyon");
                 stackableObj.transform.DOLocalMove(positionList[StackList.Count - 1], 0.3f);
             });
             //GetStackSequence.Play().OnComplete()
@@ -111,10 +110,18 @@ namespace Controllers.Player
                 });
             });
         }
-        public override void ResetStack(IStackable stackable)
-        {
-           
-        } 
+       public async void ResetStack()
+               {
+                   if (StackList.Count == 0)
+                   {
+                       return;
+                   }
+                   StackList[0].transform.SetParent(null);
+                   StackList.Remove(StackList[0]);
+                   StackList.TrimExcess();
+                   await Task.Delay(10);
+                   ResetStack();
+               }
         public void GetStackPositions(List<Vector3> stackPositions)
         {
             positionList = stackPositions;

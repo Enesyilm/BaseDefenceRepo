@@ -42,6 +42,7 @@ namespace Managers
             CoreGameSignals.Instance.onLevelInitialize += OnInitializeLevel;
             CoreGameSignals.Instance.onClearActiveLevel += OnClearActiveLevel;
             CoreGameSignals.Instance.onNextLevel += OnNextLevel;
+            CoreGameSignals.Instance.onReset += OnReset;
         }
 
         private void UnsubscribeEvents()
@@ -50,6 +51,8 @@ namespace Managers
             CoreGameSignals.Instance.onLevelInitialize -= OnInitializeLevel;
             CoreGameSignals.Instance.onClearActiveLevel -= OnClearActiveLevel;
             CoreGameSignals.Instance.onNextLevel -= OnNextLevel;
+            CoreGameSignals.Instance.onReset -= OnReset;
+
         }
 
         private void OnDisable()
@@ -62,11 +65,19 @@ namespace Managers
         private void OnNextLevel()
         {
             _levelID++;
+            Debug.Log("Level ID"+_levelID);
             SaveLevelID(_levelID);
             //UISignals
-            CoreGameSignals.Instance.onReset?.Invoke();
+            //CoreGameSignals.Instance.onReset?.Invoke();
+            OnReset();
+            
         }
 
+        private void OnReset()
+        {
+            OnClearActiveLevel();
+            OnInitializeLevel();
+        }
         private void SaveLevelID(int levelID)
         {
             InitializeDataSignals.Instance.onSaveLevelID?.Invoke(levelID);
@@ -76,7 +87,6 @@ namespace Managers
         {
             _levelID = levelID;
         }
-
         private void OnInitializeLevel()
         {
             int newlevelData = _levelID % Resources.Load<CD_Level>("Data/CD_Level").LevelDatas.Count;

@@ -20,7 +20,7 @@ namespace Managers
         private void OnEnable()
         {
             _frontyardData=InitializeDataSignals.Instance.onGetFrontyardData.Invoke();
-            Debug.Log(_frontyardData);
+            
             OnLoadFrontyardData(_frontyardData);
             SubscribeEvents();
         }
@@ -48,7 +48,6 @@ namespace Managers
             {
                 wallList[index].FrontyardData = _frontyardData;
                 wallList[index].CurrentStageID = index;
-                Debug.Log("index"+_frontyardData.Stages.Count);
                 if (_frontyardData.Stages[index].IsOpened)
                 {
                  

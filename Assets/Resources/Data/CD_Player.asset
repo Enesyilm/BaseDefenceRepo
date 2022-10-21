@@ -16,10 +16,10 @@ MonoBehaviour:
     PlayerHealth: 100
     PlayerHealingRate: 5
     PlayerHealingOffset: 3
-    PlayerSpeed: 7
+    PlayerSpeed: 12
     AttackRange: 8
   PlayerMovementData:
-    Speed: 7
+    Speed: 12
     ExitClampLeftSide: -0.3
     ExitClampRightSide: 0.3
     ExitClampBackSide: -0.6

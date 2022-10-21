@@ -57,7 +57,18 @@ MonoBehaviour:
       ChaseSpeed: 8
       EnemyType: 2
       SpawnPosition: {fileID: 4768927736750387647, guid: 267708e3a495132468b5452f608514d9, type: 3}
+    - Health: 500
+      Damage: 10
+      AttackRange: 10
+      AttackSpeed: 10
+      Speed: 10
+      ChaseSpeed: 0
+      EnemyType: 3
+      SpawnPosition: {fileID: 0}
     TargetList:
-    - {fileID: 7345516627487928577, guid: f8d33263765be0c409bcbfd4f307495d, type: 3}
-    - {fileID: 7279456142255817891, guid: 9271ec92e675d0d46b061a6dbdb25d82, type: 3}
-    - {fileID: 7448601507341985173, guid: 1c6109465eb3b7741830d8e35f3b9544, type: 3}
+    - {fileID: 6481752173376727883, guid: b7f36503221090c44ad3cf9f7c1d59dd, type: 3}
+    - {fileID: 1916656857060561452, guid: a276e45165e1adb41b2115abb413a39b, type: 3}
+    - {fileID: 4256267255426669594, guid: a07ce44daef7a204c9539f8f8bee6647, type: 3}
+    - {fileID: 942961802105848337, guid: ba831a1029289724489ce70387e3563c, type: 3}
+    - {fileID: 1057533661857933239, guid: e7a1f6f3e7a20f140a5adfe450aab152, type: 3}
+    - {fileID: 7345516627487928577, guid: 36e00a5bb1756fe469320f930574eebc, type: 3}

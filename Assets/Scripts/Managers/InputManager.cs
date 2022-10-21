@@ -73,12 +73,18 @@ namespace Managers.CoreGameManagers
 
         private void Update()
         {   
-            if (!isReadyForTouch) return;
+            //if (!isReadyForTouch) return;
             if (Input.GetMouseButton(0) && !_hasTouched)
             {
                 _hasTouched = true;
+                InputSignals.Instance.onInputTakenActive?.Invoke(true);
             }
-            if (!_hasTouched) return;
+
+            if (!_hasTouched)
+            {
+                InputSignals.Instance.onInputTakenActive?.Invoke(false);
+                return;
+            }
             
             HandleJoystickInput();
 
@@ -93,6 +99,7 @@ namespace Managers.CoreGameManagers
                 case InputHandlers.Character:
                     InputSignals.Instance.onInputTaken?.Invoke(new XZInputParams()
                     {
+                        
                         XValue = joystick.Horizontal,
                         ZValue = joystick.Vertical
                         //InputValues = new Vector2(joystick.Horizontal, joystick.Vertical)

@@ -30,6 +30,7 @@ Transform:
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 8216222761367498292}
+  - {fileID: 1581394907188419711}
   - {fileID: 2782242406826683267}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -55,6 +56,7 @@ MonoBehaviour:
   animator: {fileID: 2658759601854624846}
   skinnedMeshRenderer: {fileID: 2086374747169386144}
   enemyDamager: {fileID: 2830200717717418947}
+  enemyPhysicsController: {fileID: 3340600895340611891}
 --- !u!195 &2782242405751033009
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -86,11 +88,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2782242406826683267}
-  - component: {fileID: 2782242406826683265}
   - component: {fileID: 2782242406826683264}
   - component: {fileID: 1000318326012869523}
+  - component: {fileID: 2404827198730602965}
   m_Layer: 11
-  m_Name: Physics
+  m_Name: Detection
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,23 +108,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1581394907188419711}
+  m_Children: []
   m_Father: {fileID: 2782242405751033011}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2782242406826683265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2782242406826683266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 467c506da16e40b2aa60aabe8ee2cf97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &2782242406826683264
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -152,6 +141,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2404827198730602965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2782242406826683266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9511f62d8c14755ac3b6d89d8ef4265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyAIBrain: {fileID: 2782242405751033006}
 --- !u!1 &3828001095373608127
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +166,7 @@ GameObject:
   - component: {fileID: 6310368956136611904}
   - component: {fileID: 3340600895340611891}
   m_Layer: 10
-  m_Name: GameObject
+  m_Name: Physics
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,12 +179,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3828001095373608127}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2782242406826683267}
-  m_RootOrder: 0
+  m_Father: {fileID: 2782242405751033011}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &6310368956136611904
 CapsuleCollider:

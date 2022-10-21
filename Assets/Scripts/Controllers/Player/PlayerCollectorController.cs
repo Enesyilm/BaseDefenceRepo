@@ -8,6 +8,8 @@ namespace Controllers.Player
 {
     public class PlayerCollectorController : MonoBehaviour
     {
+        [SerializeField]
+        public Collider collider;
         [SerializeField] private MoneyStackerController moneyStackerController;
         private void OnTriggerEnter(Collider other)
         {

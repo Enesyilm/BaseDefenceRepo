@@ -26,25 +26,33 @@ public class EnemyPhysicsController : MonoBehaviour,IDamageable
             _detectedMine = other.transform;
             _enemyAIBrain.MineTarget = _detectedMine;
         }
-        if (other.CompareTag("Player"))
-        {
-           
-            _enemyAIBrain.PlayerTarget = other.transform.parent.transform;
-        }
+        // if (other.CompareTag("Player"))
+        // {
+        //    
+        //     _enemyAIBrain.PlayerTarget = other.transform.parent.transform;
+        // }
         if(other.TryGetComponent( out IDamager iDamager))
         {
-            Debug.Log("IDamager");
-            TakeDamage(iDamager.GetDamage());
+           
+            if (_enemyAIBrain.Health <= 0) return;
+            var damage = iDamager.GetDamage();
+            _enemyAIBrain.Health -= damage;
+            if (_enemyAIBrain.Health == 0)
+            {
+                IsDead = true;
+                Debug.Log("IsDead = "+IsDead);
+            }
+            //TakeDamage(damage);
         }
         
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            this.gameObject.GetComponentInParent<EnemyAIBrain>().PlayerTarget = null;
-        }
-    }
+    // private void OnTriggerExit(Collider other)
+    // {
+    //     if (other.CompareTag("Player"))
+    //     {
+    //         this.gameObject.GetComponentInParent<EnemyAIBrain>().PlayerTarget = null;
+    //     }
+    // }
 
     public bool IsTaken { get; set; }
     public bool IsDead { get; set; }

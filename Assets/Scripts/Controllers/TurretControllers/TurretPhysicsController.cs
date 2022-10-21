@@ -14,8 +14,7 @@ namespace Controllers.TurretControllers
         private void OnTriggerEnter(Collider other)
         {
             if (!other.TryGetComponent(typeof(PlayerManager), out var playerManager)) return;
-
-            Debug.Log("Playermanger"+playerManager.gameObject);
+            
             CoreGameSignals.Instance.onSetCurrentTurret?.Invoke(turretLocationType,playerManager.gameObject);
             InputSignals.Instance.onInputHandlerChange?.Invoke(InputHandlers.Turret);
             turretShootController.readyToAttack = true;

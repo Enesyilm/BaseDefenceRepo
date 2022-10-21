@@ -25,9 +25,7 @@ namespace Controllers.TurretControllers
         
         private void Rotate()
         {
-            
             rotateDirection = new Vector2(_horizontalInput, _verticalInput).normalized;
-            Debug.Log("rotateDirection"+rotateDirection);
             if (rotateDirection.sqrMagnitude == 0)
                 return;
             
@@ -35,7 +33,7 @@ namespace Controllers.TurretControllers
             
             if (!(angle < 60) || !(angle > -60)) return;
             transform.rotation = Quaternion.Euler(new Vector3(0,angle,0));
-            
+
         }
     }
 }

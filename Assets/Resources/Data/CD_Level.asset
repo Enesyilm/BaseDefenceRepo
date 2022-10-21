@@ -80,7 +80,7 @@ MonoBehaviour:
         MaxStackCount: 0
       MineBaseData:
         MaxWorkerAmount: 6
-        CurrentWorkerAmount: 2
+        CurrentWorkerAmount: 0
         GemCollectionOffset: 5
         InstantiationPosition: {fileID: 7517074386760968417, guid: d0bfa4b2d0110534aa2354d718b48457, type: 3}
         GemHolderPosition: {fileID: 6513966693028638736, guid: 51f1283c08a478a4c805f2b4ded5c10e, type: 3}

@@ -12,7 +12,6 @@ namespace Buyablezone
         {
             if (other.CompareTag("Player"))
             {
-                Debug.Log("19");
                 buyableZoneManager.TextBounceEffectActive(true);
             }
         }

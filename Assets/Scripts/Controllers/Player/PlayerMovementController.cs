@@ -1,4 +1,5 @@
-﻿using Data.ValueObject;
+﻿using System;
+using Data.ValueObject;
 using Datas.ValueObject;
 using Enum;
 using Keys;
@@ -16,7 +17,7 @@ namespace Controllers
                #endregion
        
                #region Serialized Variables
-       
+
                [SerializeField]
                private new Rigidbody rigidbody;
                [SerializeField]
@@ -31,7 +32,7 @@ namespace Controllers
                private Vector2 _inputVector;
        
                private bool _isReadyToMove;
-               private bool _isPlayerDeath;
+               
                
                #endregion
        
@@ -46,12 +47,21 @@ namespace Controllers
                    EnableMovement(_inputVector.sqrMagnitude > 0);
                }
        
+        
                public void LookAtTarget(Transform enemyTarget)
                {
                    if(enemyTarget == null) return;
-                   transform.LookAt(enemyTarget, Vector3.up*3f);
+                   transform.LookAt(new Vector3(enemyTarget.position.x, 0, enemyTarget.position.z), Vector3.up * 3f);
+                       
                }
-               
+
+               private void LateUpdate()
+               {
+                   if (manager.EnemyTarget == null) 
+                       return; 
+                   LookAtTarget(manager.EnemyList[0].GetTransform());
+               }
+
                private void EnableMovement(bool movementStatus)
                {
                    _isReadyToMove = movementStatus;
@@ -62,12 +72,12 @@ namespace Controllers
                }
                private void PlayerMove()
                {
-                   if (_isReadyToMove&&!_isPlayerDeath)
+                   if (_isReadyToMove&&!manager.IsPlayerDeath)
                    {
                        var velocity = rigidbody.velocity; 
                        velocity = new Vector3(-_inputVector.x,velocity.y, -_inputVector.y)*_data.Speed;
                        rigidbody.velocity = velocity;
-                       if (!manager.HasEnemyTarget)
+                       if (!manager.EnemyTarget)
                        {
                            RotatePlayer();
                        }
@@ -86,15 +96,18 @@ namespace Controllers
                }
                public void DisableMovement(InputHandlers inputHandlers)
                {
-                   //if(inputHandlers != InputHandlers.Turret) return;
-                  
+                   if (inputHandlers != InputHandlers.Turret)
+                   {
+                       manager.SetTurretAnimation(true);
+                       return;
+                   }
                    rigidbody.velocity = Vector3.zero;
-                   transform.rotation = new Quaternion(0, 0, 0, 0);
+                   transform.rotation = new Quaternion(0, .5f, 0, 0);
                }
 
                public void PlayerDeath()
                {
-                    _isPlayerDeath = true;
+                   manager.IsPlayerDeath = true;
                }
     }
 }

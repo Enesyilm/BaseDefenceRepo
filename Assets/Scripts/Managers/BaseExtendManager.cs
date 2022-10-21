@@ -20,8 +20,7 @@ namespace Managers
         #region EventSubscription
         private void OnEnable()
         {
-            _baseRoomData=InitializeDataSignals.Instance.onGetBaseRoomData.Invoke();
-            Debug.Log(_baseRoomData);
+            _baseRoomData = InitializeDataSignals.Instance.onGetBaseRoomData.Invoke();
             OnLoadBaseRoom(_baseRoomData);
             SubscribeEvents();
         }

@@ -2,6 +2,7 @@ using System;
 using Data.ValueObjects.PlayerData;
 using Enum;
 using Managers;
+using Signals;
 using TMPro;
 using UnityEngine;
 using Image = UnityEngine.UI.Image;
@@ -17,6 +18,12 @@ namespace Controllers.Player
         private Image healthBarImage;
         [SerializeField]
         private TextMeshProUGUI playerHealthText;
+
+        [SerializeField]
+        GameObject frame;
+        [SerializeField] private PlayerManager playerManager;
+
+        private Camera _camera;
         private int _health;
         private float _defaultWidth;
         private PlayerData _playerData;
@@ -31,42 +38,76 @@ namespace Controllers.Player
                 {
                     playerManager.PlayerDeath();
                 }
+                if (_health >= 100&&playerManager.gameObject.layer==LayerMask.NameToLayer("Base"))
+                {
+                    OnHealthBarVisibility(false);
+                }
+                else{OnHealthBarVisibility(true);}
+               
             } }
 
         private void Awake()
         {
             
             _defaultWidth=healthBarTransform.localScale.x;
+            _camera=Camera.main;
               
         }
 
+        #region Event Subscription
+
+        private void OnEnable()
+        {
+            SubscribeEvent();
+        }
+
+        private void SubscribeEvent()
+        {
+            UISignals.Instance.onHealthBarVisibility += OnHealthBarVisibility;
+        }
+
+        private void OnHealthBarVisibility(bool arg0)
+        {
+            frame.SetActive((arg0));
+        }
+
+        private void OnDisable()
+        {
+            UnSubscribeEvent();
+        }
+
+        private void UnSubscribeEvent()
+        {
+            UISignals.Instance.onHealthBarVisibility -= OnHealthBarVisibility;
+        }
+        #endregion
         private void Start()
         {
             UpdateHealthBar();
         }
 
-        [SerializeField] private PlayerManager playerManager;
+        
 
         public void SetHealthData(PlayerData playerData)
         {
             _playerData = playerData;
             _health=playerData.PlayerHealth;
         }
-        public void UpdateHealth(ScoreTypes scoreType,int damageAmount)
+        public void UpdateHealthAmount(ScoreTypes scoreType,int damageAmount)
         {
             if (scoreType == ScoreTypes.DecScore)
             {
                 Health-=damageAmount;
-                
             }
             else
             {
                 Health += damageAmount;
-                
             }
-
             UpdateHealthBar();
         }
+
+        private void Update()=>transform.LookAt(transform.position+_camera.transform.rotation*Vector3.forward,_camera.transform.rotation*Vector3.up);
+        
 
         private void UpdateHealthBar()
         {

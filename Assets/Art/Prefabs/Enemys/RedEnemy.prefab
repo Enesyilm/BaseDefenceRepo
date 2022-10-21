@@ -533,7 +533,7 @@ GameObject:
   - component: {fileID: 1573250952756732400}
   - component: {fileID: 9057973821635879012}
   m_Layer: 10
-  m_Name: GameObject
+  m_Name: Physic
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -546,12 +546,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3934972508138538472}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4650253336478288965}
-  m_RootOrder: 0
+  m_Father: {fileID: 4650253335404882805}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &1573250952756732400
 CapsuleCollider:
@@ -817,6 +817,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4650253334852045377}
+  - {fileID: 8745955553924321950}
   - {fileID: 4650253336478288965}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -842,6 +843,7 @@ MonoBehaviour:
   animator: {fileID: 4650253334852045376}
   skinnedMeshRenderer: {fileID: 5831095842300342489}
   enemyDamager: {fileID: 3084763091521785386}
+  enemyPhysicsController: {fileID: 9057973821635879012}
 --- !u!195 &4650253335404882807
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -873,11 +875,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4650253336478288965}
-  - component: {fileID: 4650253336478288967}
   - component: {fileID: 4650253336478288966}
   - component: {fileID: 7026974250102672732}
+  - component: {fileID: 8352847531695776392}
   m_Layer: 11
-  m_Name: Physics
+  m_Name: Detector
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -893,23 +895,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 8745955553924321950}
+  m_Children: []
   m_Father: {fileID: 4650253335404882805}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4650253336478288967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4650253336478288964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 467c506da16e40b2aa60aabe8ee2cf97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &4650253336478288966
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -939,6 +928,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8352847531695776392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4650253336478288964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9511f62d8c14755ac3b6d89d8ef4265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyAIBrain: {fileID: 4650253335404882792}
 --- !u!1 &4734260521118071223
 GameObject:
   m_ObjectHideFlags: 0

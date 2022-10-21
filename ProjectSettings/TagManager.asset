@@ -18,6 +18,7 @@ TagManager:
   - MineEntrance
   - Turret
   - MilitaryEntrance
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - UI
   - Base
   - Frontyard
-  - 
+  - Ground
   - LandMine
   - EnemyAi
   - EnemyAiChase
@@ -39,7 +40,7 @@ TagManager:
   - Player/PlayerBody
   - Ammo/AmmoOnDynamicStack
   - Ammo/AmmoOnStaticStack
-  - 
+  - Player/PlayerDetector
   - 
   - 
   - 

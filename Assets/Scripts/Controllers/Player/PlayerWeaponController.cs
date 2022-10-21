@@ -24,7 +24,7 @@ namespace Managers
          private int _weaponLevel;
          #endregion
          #endregion
-
+         
          public void SetWeaponData(WeaponData weaponData)
          {
              _weaponData = weaponData;

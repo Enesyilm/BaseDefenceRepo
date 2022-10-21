@@ -123,11 +123,12 @@ namespace Managers
         }
         [Button("Add Money Worker")]
         
-        public void CreateMoneyWorker()
+        public void CreateMoneyWorker(Transform spawnPos)
         {
             if (OnGetWorkerAIData(WorkerType.MoneyWorkerAI).MaxWorkerLimit <= _currentWorkerAmount)
                 return;
             var obj = GetObjectType(PoolObjectType.MoneyWorkerAI);
+            obj.transform.position = spawnPos.position;
             _currentWorkerAmount++;
             var objComp = obj.GetComponent<MoneyWorkerAIBrain>();
             _workerList.Add(objComp);

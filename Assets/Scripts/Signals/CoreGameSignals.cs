@@ -19,8 +19,9 @@ namespace Signals
         public UnityAction onRestartLevel = delegate { };
         public UnityAction onPlay = delegate { };
         public UnityAction onReset = delegate { };
+        public UnityAction onResetPlayerStack = delegate { };
         public UnityAction onEnterTurret = delegate { };
-        public UnityAction onLevel = delegate { };
+        public UnityAction<CameraStates> onChangeCameraState = delegate { };
         public UnityAction<TurretLocationType,GameObject> onSetCurrentTurret = delegate(TurretLocationType arg0, GameObject o) {  };
 
         public UnityAction onSetCameraTarget = delegate { };

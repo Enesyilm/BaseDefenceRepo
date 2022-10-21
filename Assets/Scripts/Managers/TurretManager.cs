@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Controllers;
 using Controllers.TurretControllers;
+using DG.Tweening;
 using Enum;
 using Keys;
 using Signals;
@@ -85,20 +86,24 @@ namespace Managers
             var controllerTransform = _currentMovementController.transform;
             CoreGameSignals.Instance.onEnterTurret?.Invoke();
             Vector3 turretPos = controllerTransform.position;
-            player.transform.position = new Vector3(turretPos.x, transform.position.y, turretPos.z - 2f);
+            player.transform.position = new Vector3(turretPos.x, transform.position.y, turretPos.z + 2f);
             player.transform.parent = controllerTransform;
+            player.transform.eulerAngles = new Vector3(0,60,0);
         }
         private void OnCharacterRelease()
         {
             player.transform.SetParent(null);
-            CoreGameSignals.Instance.onLevel?.Invoke();
-            _currentMovementController.transform.rotation = new Quaternion(0, 0, 0, 0);
+            CoreGameSignals.Instance.onChangeCameraState?.Invoke(CameraStates.GamePlay);
+            _currentMovementController.transform.rotation = new Quaternion(0, 0, 0, 1);
+            UISignals.Instance.onHealthBarVisibility?.Invoke(true);
         }
 
         private void OnGetCurrentTurretMovementController(TurretLocationType type,GameObject _player)
         {
             player = _player;
             _currentMovementController = turretMovementControllers[(int)type];
+            CoreGameSignals.Instance.onChangeCameraState?.Invoke(CameraStates.Turret);
+            UISignals.Instance.onHealthBarVisibility?.Invoke(false);
             CharacterParentChange();
         }
 

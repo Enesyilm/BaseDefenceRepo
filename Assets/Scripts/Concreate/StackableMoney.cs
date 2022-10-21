@@ -10,8 +10,8 @@ namespace Controllers.StackableControllers
     {
         [SerializeField] private Rigidbody rigidbody;
         [SerializeField] private BoxCollider collider;
-        public override bool IsCollected { get; set; }
-        public override bool IsSelected { get; set; }
+        public bool IsCollected { get; set; }
+        public bool IsSelected { get; set; }
 
         public override GameObject SendToStack(Transform transform1)
         {
@@ -54,17 +54,18 @@ namespace Controllers.StackableControllers
 
         public GameObject SendToStack()
         {
-            //transform.localRotation = new Quaternion(0, 0, 0, 1);
             rigidbody.useGravity = false;
             rigidbody.isKinematic = true;
             collider.enabled = false;
             return transform.gameObject;
         }
 
-        private void EditPhysics()
+        public void EditPhysics()
         {
-            rigidbody.useGravity = false;
-            rigidbody.isKinematic = true;
+            collider.enabled = true;
+            rigidbody.isKinematic = false;
+            rigidbody.useGravity = true;
         }
+      
     }
 }

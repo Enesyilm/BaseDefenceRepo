@@ -53,7 +53,7 @@ namespace AIBrains.EnemyBrain
         private bool IsBombCantFind=>MineTarget!=null;
         private EnemyAIData EnemyAIData;
         private EnemyTypeData EnemyTypeData;
-        private EnemyPhysicsController enemyPhysicsController;
+        public EnemyPhysicsController enemyPhysicsController;
 
         #endregion
 

@@ -8,34 +8,60 @@ namespace Controllers.Player
     {
         [SerializeField] private PlayerManager manager;
 
+        // private void OnTriggerEnter(Collider other)
+        // {
+        //     if (manager.CurrentAreaType == AreaType.BaseDefense) return;
+        //     if (other.TryGetComponent(out IDamageable damagable))
+        //     {
+        //         if (damagable.IsTaken) return;
+        //         manager.EnemyList.Add(damagable);
+        //         damagable.IsTaken = true;
+        //         if (manager.EnemyTarget == null)
+        //         {
+        //             manager.SetEnemyTarget();
+        //         }
+        //     }
+        // }
+        //
+        // private void OnTriggerExit(Collider other)
+        // {
+        //     if (other.TryGetComponent(out IDamageable damagable))
+        //     {
+        //         damagable.IsTaken = false;
+        //         manager.EnemyList.Remove(damagable);
+        //         manager.EnemyList.TrimExcess();
+        //         if (manager.EnemyList.Count == 0)
+        //         {
+        //             manager.EnemyTarget = null;
+        //             manager.HasEnemyTarget = false;
+        //         }
+        //     }
+        // }
         private void OnTriggerEnter(Collider other)
-        {
-            if (manager.CurrentAreaType == AreaType.BaseDefense) return;
-            if (other.TryGetComponent(out IDamageable damagable))
-            {
-                if (damagable.IsTaken) return;
-                manager.EnemyList.Add(damagable);
-                damagable.IsTaken = true;
-                if (manager.EnemyTarget == null)
                 {
-                    manager.SetEnemyTarget();
+                    if (manager.CurrentAreaType == AreaType.BaseDefense) return;
+                    if (other.TryGetComponent(out IDamageable damagable))
+                    {
+                        if(damagable.IsDead || damagable.IsTaken) return;
+                        manager.EnemyList.Add(damagable);
+                        if ( manager.EnemyTarget == null)
+                        {
+                            manager.SetEnemyTarget();
+                        }
+                    }
                 }
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.TryGetComponent(out IDamageable damagable))
-            {
-                damagable.IsTaken = false;
-                manager.EnemyList.Remove(damagable);
-                manager.EnemyList.TrimExcess();
-                if (manager.EnemyList.Count == 0)
+                private void OnTriggerExit(Collider other)
                 {
-                    manager.EnemyTarget = null;
-                    manager.HasEnemyTarget = false;
+                    if (other.TryGetComponent(out IDamageable damagable))
+                    {
+                        damagable.IsTaken = false;
+                        manager.EnemyList.Remove(damagable);
+                        manager.EnemyList.TrimExcess();
+                        if (manager.EnemyList.Count == 0)
+                        {
+                            manager.EnemyTarget = null;
+                        }
+                    }
                 }
-            }
-        }
     }
 }

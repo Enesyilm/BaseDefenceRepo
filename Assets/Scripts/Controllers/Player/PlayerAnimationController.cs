@@ -60,7 +60,8 @@ namespace Controllers
 
         public void PlayTurretAnimation(bool onTurretHold)
         {
-            animator.SetLayerWeight(2,onTurretHold ? 1 : 0);
+            //animator.SetLayerWeight(2,onTurretHold ? 1 : 0);
+            animator.SetTrigger("TurretHold");
         }
         
         public void PlayAnimation(XZInputParams inputParams)
@@ -126,6 +127,10 @@ namespace Controllers
             if (animationStates == _currentAnimationState) return;
              animator.Play(animationStates.ToString());
             _currentAnimationState = animationStates;
+            if (playerManager.CurrentAreaType != AreaType.BaseDefense) return;
+            animator.SetBool("Aimed",false);
+            animator.SetLayerWeight(1,0);
+            animator.SetBool("IsBattleOn",false);
         } 
         public void AimTarget(bool hasTarget)
         {

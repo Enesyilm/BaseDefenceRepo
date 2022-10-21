@@ -18,5 +18,6 @@ namespace Enum
          AmmoWorkerAI,
          Hostage,
          Boss,
+         Bomb
     }
 }
