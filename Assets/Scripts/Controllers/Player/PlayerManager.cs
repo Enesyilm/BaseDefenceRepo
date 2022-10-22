@@ -158,8 +158,13 @@ namespace Managers
                 animationController.ChangeAnimations(PlayerAnimationStates.Idle);
                 
             });
-            CoreGameSignals.Instance.onReset?.Invoke();
+            //CoreGameSignals.Instance.onReset?.Invoke();
             
+        }
+
+        public void ChangeAnimation(PlayerAnimationStates playerAnimationStates)
+        {
+            animationController.ChangeAnimations(playerAnimationStates);
         }
         
 

@@ -59,7 +59,7 @@ namespace Controllers
                     if (other.CompareTag("Player"))
                     {
                        
-                        enemyAIBrain.PlayerTarget = other.transform.parent.transform;
+                        enemyAIBrain.PlayerTarget = null;
                     }
                 }
                 // private void PickOneTarget(Collider other)

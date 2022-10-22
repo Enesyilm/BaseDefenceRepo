@@ -60,8 +60,8 @@ namespace Controllers
 
         public void PlayTurretAnimation(bool onTurretHold)
         {
-            //animator.SetLayerWeight(2,onTurretHold ? 1 : 0);
-            animator.SetTrigger("TurretHold");
+            animator.SetLayerWeight(2,onTurretHold ? 1 : 0);
+            //animator.SetTrigger("TurretHold");
         }
         
         public void PlayAnimation(XZInputParams inputParams)

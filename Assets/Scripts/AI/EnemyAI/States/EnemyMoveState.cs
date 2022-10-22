@@ -10,8 +10,9 @@ namespace AIBrains.EnemyBrain
         private readonly EnemyAIBrain _enemyAIBrain;
         private readonly NavMeshAgent _navMeshAgent;
         private readonly Animator _animator;
-        
+        private bool _attackedToBase=false;
         private readonly float _moveSpeed;
+        public bool IsTurretInRange() => _attackedToBase;
         private static readonly int Speed = Animator.StringToHash("Speed");
         public EnemyMoveState(EnemyAIBrain enemyAIBrain,NavMeshAgent agent, Animator animator,float moveSpeed)
         {
@@ -24,6 +25,7 @@ namespace AIBrains.EnemyBrain
         public void Tick()
         {
             _animator.SetFloat(Speed, _navMeshAgent.velocity.magnitude);
+            CheckAttackDistance();
         }
 
         public void OnEnter()
@@ -39,6 +41,23 @@ namespace AIBrains.EnemyBrain
         public void OnExit()
         {
            // _navMeshAgent.enabled = false;
+        }
+        private void CheckAttackDistance()
+        {
+            if (_navMeshAgent.remainingDistance<=5)
+            {
+                Debug.Log("if");
+                _attackedToBase = true;
+                _animator.Play("Attack");
+                //_enemyAIBrain.transform.rotation = new Quaternion(0, -1f,0,0);
+                _navMeshAgent.updateRotation=false;
+                // _enemyAIBrain.transform.Rotate(new Vector3(0,180,0));
+            }
+            else
+            {
+                _navMeshAgent.updateRotation=true;
+            }
+            
         }
     }
 }

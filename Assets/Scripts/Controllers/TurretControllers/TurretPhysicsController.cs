@@ -25,6 +25,7 @@ namespace Controllers.TurretControllers
             
             if (!other.TryGetComponent(typeof(PlayerManager), out Component playerManager)) return;
             turretShootController.readyToAttack = false;
+            
             turretShootController.DeSizeDetectionRadius();
         }
         private void SetCollider(bool isActive)
