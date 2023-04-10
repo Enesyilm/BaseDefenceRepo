@@ -33,8 +33,18 @@ MonoBehaviour:
     - Assembly-CSharp-firstpass
     - Cinemachine
     - Sirenix.OdinInspector.CompatibilityLayer
+    - PhotonUnityNetworking.Demos
+    - PhotonUnityNetworking.Utilities
+    - PhotonChat
+    - PhotonUnityNetworking
+    - PhotonRealtime
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
     - Sirenix.OdinInspector.Modules.UnityMathematics
+    - PhotonUnityNetworking.Editor
+    - PunDemos.DemoSlotcarEditor
+    - PhotonUnityNetworking.Utilities.PhotonPlayer.Editor
+    - PhotonUnityNetworking.Utilities.Culling.Editor
+    - PunDemos.DemoHubEditor
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1
