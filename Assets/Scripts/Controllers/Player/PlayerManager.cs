@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Controllers;
@@ -12,6 +13,7 @@ using Keys;
 using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Photon.Pun;
 
 namespace Managers
 {
@@ -60,6 +62,7 @@ namespace Managers
         private PlayerMovementData _movementData;
 
         private WeaponData _weaponData;
+        private PhotonView pw;
         
         #endregion
         
@@ -72,6 +75,12 @@ namespace Managers
           
             Init();
         }
+
+        private void Start()
+        {
+            pw = GetComponent<PhotonView>();
+        }
+
         private PlayerData GetPlayerData() => Resources.Load<CD_Player>("Data/CD_Player").PlayerData;
         private PlayerMovementData GetPlayerMovementData() => Resources.Load<CD_Player>("Data/CD_Player").PlayerMovementData;
         private WeaponData GetWeaponData() => Resources.Load<CD_Weapon>("Data/CD_Weapon").WeaponData[(int)WeaponType];

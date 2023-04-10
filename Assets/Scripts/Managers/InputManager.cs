@@ -4,6 +4,7 @@ using Data.ValueObjects;
 using Enum;
 using Enums;
 using Keys;
+using Photon.Pun;
 using Signals;
 using UnityEngine;
 
@@ -34,7 +35,8 @@ namespace Managers.CoreGameManagers
         private bool _isTouching;
 
         private bool _hasTouched;
-        
+        private PhotonView pw;
+
 
         #endregion Private Variables
 
@@ -46,6 +48,11 @@ namespace Managers.CoreGameManagers
         private void OnEnable()
         {
             SubscribeEvents();
+        }
+
+        private void Start()
+        {
+            pw = GetComponent<PhotonView>();
         }
 
         private void SubscribeEvents()
