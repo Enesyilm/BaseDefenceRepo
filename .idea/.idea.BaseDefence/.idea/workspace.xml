@@ -4,6 +4,7 @@
     <list default="true" id="9808161b-38c0-43a7-a4b3-f967c88fa96d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/Assets/Art/Animations/ModelAnimation/enemywalk.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Animations/ModelAnimation/enemywalk.fbx.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Art/Animations/ModelAnimation/enemywalk1.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Animations/ModelAnimation/enemywalk1.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Prefab/DenemePrefabs/StackableMoney.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Prefab/DenemePrefabs/StackableMoney.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/GUI PRO Kit - Casual Game/PSD/PSD.unitypackage.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/GUI PRO Kit - Casual Game/ResourcesData/Sprite/Component/Icon_ItemIcons(x2)/ItemIcons(x2).unitypackage.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/GUI PRO Kit - Casual Game/ResourcesData/Sprite/Component/Icon_PictoIcons(x2)/PictoIcons(x2).unitypackage.meta" beforeDir="false" />
@@ -112,7 +113,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1681118448122</updated>
-      <workItem from="1681118450912" duration="972000" />
+      <workItem from="1681118450912" duration="1718000" />
     </task>
     <servers />
   </component>
