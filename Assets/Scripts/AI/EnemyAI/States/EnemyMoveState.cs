@@ -46,7 +46,6 @@ namespace AIBrains.EnemyBrain
         {
             if (_navMeshAgent.remainingDistance<=5)
             {
-                Debug.Log("if");
                 _attackedToBase = true;
                 _animator.Play("Attack");
                 //_enemyAIBrain.transform.rotation = new Quaternion(0, -1f,0,0);

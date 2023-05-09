@@ -10,6 +10,7 @@ using Datas.ValueObject;
 using DG.Tweening;
 using Enum;
 using Keys;
+using Managers.CoreGameManagers;
 using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -36,7 +37,8 @@ namespace Managers
         #endregion
 
         #region Serialized Variables
-
+        [SerializeField]
+        private PlayerType playerType;
         [SerializeField] 
         private PlayerMeshController meshController;
         [SerializeField] 
@@ -100,10 +102,12 @@ namespace Managers
         private void SubscribeEvents()
         {
             InputSignals.Instance.onInputTaken += OnGetInputValues;
+            InputSignals.Instance.onInputTakenWasd += OnWASDInputValues;
             InputSignals.Instance.onInputHandlerChange += OnDisableMovement;
             UISignals.Instance.onChangeWeapon+=OnChangeWeapon;
         }
 
+        
         [Button]
         private void OnChangeWeapon(WeaponTypes arg0)
         {
@@ -115,6 +119,7 @@ namespace Managers
 
         private void UnsubscribeEvents()
         {
+            InputSignals.Instance.onInputTakenWasd -= OnWASDInputValues;
             InputSignals.Instance.onInputTaken -= OnGetInputValues;
             InputSignals.Instance.onInputHandlerChange -= OnDisableMovement;
         }
@@ -125,9 +130,24 @@ namespace Managers
         #endregion
         private void OnGetInputValues(XZInputParams inputParams)
         {
-            movementController.UpdateInputValues(inputParams);
-            animationController.PlayAnimation(inputParams);
+            if (playerType == PlayerType.joyStick)
+            {
+                Debug.Log("joy");
+                movementController.UpdateInputValues(inputParams);
+                animationController.PlayAnimation(inputParams);
+            }
             //AimEnemy();
+        }
+        private void OnWASDInputValues(XZInputParams inputParams)
+        {
+            if (playerType == PlayerType.wasd)
+            {
+                Debug.Log("was");
+                Debug.Log("was"+inputParams.XValue);
+                movementController.UpdateInputValues(inputParams);
+                animationController.PlayAnimation(inputParams);
+            }
+            
         }
         public void SetEnemyTarget()
         {

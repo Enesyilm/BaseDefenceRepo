@@ -11,6 +11,7 @@ namespace Signals
         // public UnityAction onDisableInput = delegate {  };
         public UnityAction onFirstTimeTouchTaken = delegate { };
         public UnityAction<XZInputParams>  onInputTaken = delegate { };
+        public UnityAction<XZInputParams>  onInputTakenWasd = delegate { };
         public UnityAction  onCharacterInputRelease = delegate { };
         public UnityAction<XZInputParams>  onJoystickInputDraggedforTurret = delegate { };
         public UnityAction<bool> onInputTakenActive = delegate { };

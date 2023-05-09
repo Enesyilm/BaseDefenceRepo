@@ -10,6 +10,11 @@ using UnityEngine;
 
 namespace Managers.CoreGameManagers
 {
+    enum PlayerType
+    {
+        wasd,
+        joyStick
+    }
     public class InputManager : MonoBehaviour
     {
         #region Self Variables
@@ -24,6 +29,7 @@ namespace Managers.CoreGameManagers
 
         [SerializeField] private FloatingJoystick joystick;
 
+        
         [SerializeField] private bool isReadyForTouch=true;//OnPlayde True olacak
         private InputHandlers _inputHandlers = InputHandlers.Character;
 
@@ -81,6 +87,7 @@ namespace Managers.CoreGameManagers
         private void Update()
         {   
             //if (!isReadyForTouch) return;
+            HandleWasd();
             if (Input.GetMouseButton(0) && !_hasTouched)
             {
                 _hasTouched = true;
@@ -92,11 +99,27 @@ namespace Managers.CoreGameManagers
                 InputSignals.Instance.onInputTakenActive?.Invoke(false);
                 return;
             }
-            
-            HandleJoystickInput();
+            Debug.Log("ıupup");
 
-            _hasTouched = joystick.Direction.sqrMagnitude > 0;                         
+                HandleJoystickInput();
+
+                _hasTouched = joystick.Direction.sqrMagnitude > 0;                         
             
+        }
+
+        private void HandleWasd()
+        {
+            
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+
+            InputSignals.Instance.onInputTakenWasd?.Invoke(new XZInputParams()
+            {
+                        
+                XValue = horizontal,
+                ZValue = vertical
+                //InputValues = new Vector2(joystick.Horizontal, joystick.Vertical)
+            });
         }
 
         private void HandleJoystickInput()
@@ -112,6 +135,7 @@ namespace Managers.CoreGameManagers
                         //InputValues = new Vector2(joystick.Horizontal, joystick.Vertical)
                     });
                     break;
+                
                 
                 case InputHandlers.Turret when joystick.Vertical <= -0.6f:                                      
                     _inputHandlers = InputHandlers.Character;                                                 
