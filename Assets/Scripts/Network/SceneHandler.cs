@@ -37,7 +37,7 @@ public class SceneHandler : MonoBehaviourPunCallbacks
     {
         Debug.Log("Odaya Girildi.");
         player = PhotonNetwork.Instantiate("PlayerManager", Vector3.zero, Quaternion.identity);
-        player.GetComponent<PlayerManager>().playerType = Managers.CoreGameManagers.PlayerType.joyStick;
+        player.GetComponent<PlayerManager>().playerType = Managers.CoreGameManagers.PlayerType.wasd;
     }
     public override void OnLeftLobby()
     {
