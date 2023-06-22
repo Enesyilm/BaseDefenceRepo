@@ -10,7 +10,8 @@ namespace Managers
         GameObject lobby;
         [SerializeField]
         Sprite openImg;
-
+        [SerializeField]
+        public SceneHandler sceneHandler;
         private int state = 0;
         [SerializeField]
         Sprite closeImg;
@@ -18,6 +19,11 @@ namespace Managers
         Image img;
 
        
+        public void ChangeColor()
+        {
+            Debug.Log("ewew");
+            SceneHandler.player.GetComponentInChildren<Material>().color = Color.gray;
+        }
         public void CloseLobby()
         {
             Destroy(lobby);

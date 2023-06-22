@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Managers.CoreGameManagers
 {
-    enum PlayerType
+   public enum PlayerType
     {
         wasd,
         joyStick

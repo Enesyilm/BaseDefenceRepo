@@ -37,8 +37,7 @@ namespace Managers
         #endregion
 
         #region Serialized Variables
-        [SerializeField]
-        private PlayerType playerType;
+        public PlayerType playerType;
         [SerializeField] 
         private PlayerMeshController meshController;
         [SerializeField] 

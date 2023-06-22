@@ -4,10 +4,12 @@ using UnityEngine;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+using Managers;
 
 public class SceneHandler : MonoBehaviourPunCallbacks
 {
     public TextMeshProUGUI logText;
+    public static GameObject player;
     void Start()
     {        
         PhotonNetwork.ConnectUsingSettings();
@@ -34,14 +36,15 @@ public class SceneHandler : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("Odaya Girildi.");
-        PhotonNetwork.Instantiate("PlayerManager", Vector3.zero, Quaternion.identity);
-
+        player = PhotonNetwork.Instantiate("PlayerManager", Vector3.zero, Quaternion.identity);
+        player.GetComponent<PlayerManager>().playerType = Managers.CoreGameManagers.PlayerType.joyStick;
     }
     public override void OnLeftLobby()
     {
         Debug.Log("Lobiden Çıkıldı.");
 
     }
+
     public override void OnLeftRoom()
     {
         Debug.Log("Odadan Çıkıldı.");      
@@ -52,11 +55,13 @@ public class SceneHandler : MonoBehaviourPunCallbacks
         Debug.Log("Odaya girilemedi." + message + " - " + returnCode);   
     
     }
+
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("Random Odaya girilemedi." + message + " - " + returnCode);
 
     }
+
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         Debug.Log("Oda oluşturulamadı." + message + " - " + returnCode);
